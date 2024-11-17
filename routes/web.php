@@ -4,6 +4,18 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PropertyController;
+
+Route::get('/assets', [PropertyController::class, 'index'])->name('assets');
+
+// Route to show the 'Add Asset' form
+Route::get('/asset/create', [PropertyController::class, 'create'])->name('asset.create');
+
+// Route to handle the form submission (store)
+Route::post('/asset', [PropertyController::class, 'store'])->name('asset.store');
+
+Route::get('/asset/create', [PropertyController::class, 'create'])->name('asset.create');
+Route::post('/asset', [PropertyController::class, 'store'])->name('asset.store');
+
 Route::get('/assets', [PropertyController::class, 'index'])->name('assets');
 
 Route::patch('/asset/{id}', [PropertyController::class, 'update'])->name('asset.update');

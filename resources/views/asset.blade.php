@@ -13,9 +13,12 @@
                     <div class="flex items-center justify-between mb-4">
                         <h1 class="text-xl font-semibold">Assets List</h1>
                         <!-- Button aligned to the right of the heading -->
-                        <x-primary-button>
-                            {{ __('Add Asset') }}
-                        </x-primary-button>
+                        <a href="{{ route('asset.create') }}">
+                            <x-primary-button>
+                                {{ __('Add Asset') }}
+                            </x-primary-button>
+                        </a>
+
                     </div>
 
                     <!-- Make table scrollable on small screens -->
