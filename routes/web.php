@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Testcontroller;
 
 Route::get('/', function () {
     return view('welcome');
@@ -10,6 +12,11 @@ Route::get('/', function () {
 Route::get('/asset', function () {
     return view('asset');
 })->middleware(['auth', 'verified'])->name('asset');
+
+
+// Define the route for asset view
+Route::get('/asset', [AdminController::class, 'index'])->name('asset'); // Adding the 'asset' route name
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
