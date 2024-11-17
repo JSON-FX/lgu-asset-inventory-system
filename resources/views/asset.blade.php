@@ -8,25 +8,41 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white white:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-            <table border="1">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
+            <h1>Asset Management</h1>
 
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($users as $user)
+            <!-- Table to display asset details -->
+            <table border="1" cellpadding="10">
+                <thead>
                     <tr>
-                        <td>{{ $user->id }}</td>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
+                        <th>ID</th>
+                        <th>Asset Code</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Location</th>
+                        <th>Condition</th>
+                        <th>Status</th>
+                        <th>Purchase Date</th>
+                        <th>Purchase Price</th>
+                        <th>Serial Number</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($assets as $asset)
+                        <tr>
+                            <td>{{ $asset->id }}</td>
+                            <td>{{ $asset->asset_code }}</td>
+                            <td>{{ $asset->name }}</td>
+                            <td>{{ $asset->category->name ?? 'N/A' }}</td>  <!-- Category name, default to 'N/A' if not available -->
+                            <td>{{ $asset->location->name ?? 'N/A' }}</td>  <!-- Location name, default to 'N/A' if not available -->
+                            <td>{{ ucfirst($asset->condition) }}</td>  <!-- Display condition (capitalize first letter) -->
+                            <td>{{ ucfirst($asset->status) }}</td>  <!-- Display status (capitalize first letter) -->
+                            <td>{{ $asset->purchase_date }}</td>
+                            <td>${{ number_format($asset->purchase_price, 2) }}</td>  <!-- Format price with 2 decimal places -->
+                            <td>{{ $asset->serial_number }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </x-app-layout>

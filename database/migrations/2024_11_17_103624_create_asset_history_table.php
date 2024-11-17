@@ -14,7 +14,7 @@ class CreateAssetHistoryTable extends Migration
             $table->id();  // Auto-increment ID
             $table->foreignId('asset_id')->constrained('assets');  // Foreign key to assets table
             $table->foreignId('user_id')->constrained('users');  // Foreign key to users table
-            $table->enum('action', ['assigned', 'returned', 'repair', 'retired']);  // Action performed on the asset
+           // $table->enum('action', ['assigned', 'returned', 'repair', 'retired']);  // Action performed on the asset
             $table->text('comment')->nullable();  // Optional comment
             $table->timestamp('action_date')->useCurrent();  // Date of the action
             $table->timestamps();  // Created at, updated at
@@ -26,3 +26,4 @@ class CreateAssetHistoryTable extends Migration
         Schema::dropIfExists('asset_history');
     }
 }
+
