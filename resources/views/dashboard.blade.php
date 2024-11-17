@@ -12,6 +12,26 @@
                     {{ __("You're logged in!") }}
                 </div>
             </div>
+            <form method="POST" action="{{ route('register') }}">
+                @csrf
+
+                <!-- Existing fields... -->
+
+                <!-- Asset Details -->
+                <div class="mt-4">
+                    <x-input-label for="asset_name" :value="__('Asset Name')" />
+                    <x-text-input id="asset_name" class="block mt-1 w-full" type="text" name="asset_name" :value="old('asset_name')" required autofocus autocomplete="asset_name" />
+                    <x-input-error :messages="$errors->get('asset_name')" class="mt-2" />
+                </div>
+
+                <!-- Submit Button -->
+                <div class="flex items-center justify-end mt-4">
+                    <x-primary-button class="ms-4">
+                        {{ __('Register') }}
+                    </x-primary-button>
+                </div>
+            </form>
         </div>
     </div>
+    
 </x-app-layout>

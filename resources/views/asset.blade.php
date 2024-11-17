@@ -7,42 +7,65 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white white:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-            <h1>Asset Management</h1>
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <!-- Flex container to align the heading and button side by side -->
+                    <div class="flex items-center justify-between mb-4">
+                        <h1 class="text-xl font-semibold">Assets List</h1>
+                        <!-- Button aligned to the right of the heading -->
+                        <x-primary-button>
+                            {{ __('Add Asset') }}
+                        </x-primary-button>
+                    </div>
 
-            <!-- Table to display asset details -->
-            <table border="1" cellpadding="10">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Asset Code</th>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Location</th>
-                        <th>Condition</th>
-                        <th>Status</th>
-                        <th>Purchase Date</th>
-                        <th>Purchase Price</th>
-                        <th>Serial Number</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($assets as $asset)
-                        <tr>
-                            <td>{{ $asset->id }}</td>
-                            <td>{{ $asset->asset_code }}</td>
-                            <td>{{ $asset->name }}</td>
-                            <td>{{ $asset->category->name ?? 'N/A' }}</td>  <!-- Category name, default to 'N/A' if not available -->
-                            <td>{{ $asset->location->name ?? 'N/A' }}</td>  <!-- Location name, default to 'N/A' if not available -->
-                            <td>{{ ucfirst($asset->condition) }}</td>  <!-- Display condition (capitalize first letter) -->
-                            <td>{{ ucfirst($asset->status) }}</td>  <!-- Display status (capitalize first letter) -->
-                            <td>{{ $asset->purchase_date }}</td>
-                            <td>${{ number_format($asset->purchase_price, 2) }}</td>  <!-- Format price with 2 decimal places -->
-                            <td>{{ $asset->serial_number }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    <!-- Make table scrollable on small screens -->
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full table-auto">
+                            <thead>
+                                <tr>
+                                    <th class="px-4 py-2 text-left">ID</th>
+                                    <th class="px-4 py-2 text-left">Property No.</th>
+                                    <th class="px-4 py-2 text-left">Description</th>
+                                    <th class="px-4 py-2 text-left">Serial No.</th>
+                                    <th class="px-4 py-2 text-left">Office</th>
+                                    <th class="px-4 py-2 text-left">Date of Purchase</th>
+                                    <th class="px-4 py-2 text-left">Accountable Person</th>
+                                    <th class="px-4 py-2 text-left">Acquisition Cost</th>
+                                    <th class="px-4 py-2 text-left">Status</th>
+                                    <th class="px-4 py-2 text-left">Inventory Remarks</th>
+                                    <th class="px-4 py-2 text-left">Actions</th> <!-- Add Actions column -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($properties as $property)
+                                    <tr>
+                                        <td class="px-4 py-2 ">{{ $property->id }}</td>
+                                        <td class="px-4 py-2">{{ $property->property_number }}</td>
+                                        <td class="px-4 py-2">{{ $property->description }}</td>
+                                        <td class="px-4 py-2">{{ $property->serial_number }}</td>
+                                        <td class="px-4 py-2">{{ $property->office }}</td>
+                                        <td class="px-4 py-2">{{ $property->date_purchase }}</td>
+                                        <td class="px-4 py-2">{{ $property->accountable_person }}</td>
+                                        <td class="px-4 py-2">{{ number_format($property->acquisition_cost, 2) }}</td>
+                                        <td class="px-4 py-2">{{ $property->status }}</td>
+                                        <td class="px-4 py-2">{{ $property->inventory_remarks }}</td>
+                                        <td class="px-4 py-2">
+                                            <!-- Edit button inside each row -->
+                                            <a href="{{ route('asset.edit', $property->id) }}" class="text-blue-500 hover:text-blue-700">
+                                                Edit
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="11" class="px-4 py-2 text-center">No assets found.</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>    
+                </div>
+            </div>
         </div>
     </div>
 </x-app-layout>

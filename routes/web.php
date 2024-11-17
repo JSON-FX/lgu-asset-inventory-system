@@ -3,20 +3,20 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Testcontroller;
+use App\Http\Controllers\PropertyController;
+Route::get('/assets', [PropertyController::class, 'index'])->name('assets');
+
+Route::patch('/asset/{id}', [PropertyController::class, 'update'])->name('asset.update');
+
+Route::get('/asset/{id}/edit', [PropertyController::class, 'edit'])->name('asset.edit');
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/asset', function () {
-    return view('asset');
-})->middleware(['auth', 'verified'])->name('asset');
-
-
-// Define the route for asset view
-Route::get('/asset', [AdminController::class, 'index'])->name('asset'); // Adding the 'asset' route name
-
+Route::get('/asset', [PropertyController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('asset');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -28,4 +28,5 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Import the authentication routes
 require __DIR__.'/auth.php';
