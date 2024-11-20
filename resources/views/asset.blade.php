@@ -18,41 +18,45 @@
                                 {{ __('Add Asset') }}
                             </x-primary-button>
                         </a>
-
                     </div>
 
                     <!-- Make table scrollable on small screens -->
                     <div class="overflow-x-auto">
-                        <table  class="min-w-full table-auto">
-                            <thead>
-                                <tr> 
-                                    <th class="px-4 py-2 text-left">ID</th>
-                                    <th class="px-4 py-2 text-left">Property No.</th>
-                                    <th class="px-4 py-2 text-left">Description</th>
-                                    <th class="px-4 py-2 text-left">Serial No.</th>
-                                    <th class="px-4 py-2 text-left">Office</th>
-                                    <th class="px-4 py-2 text-left">Date of Purchase</th>
-                                    <th class="px-4 py-2 text-left">Accountable Person</th>
-                                    <th class="px-4 py-2 text-left">Acquisition Cost</th>
-                                    <th class="px-4 py-2 text-left">Status</th>
-                                    <th class="px-4 py-2 text-left">Inventory Remarks</th>
-                                    <th class="px-4 py-2 text-left">Actions</th> <!-- Add Actions column -->
+                        <table class="min-w-full table-auto border-collapse">
+                            <thead class="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+                                <tr>
+                                    <th class="px-4 py-2 text-left border-b border-gray-300 dark:border-gray-600">ID</th>
+                                    <th class="px-4 py-2 text-left border-b border-gray-300 dark:border-gray-600">Property No.</th>
+                                    <th class="px-4 py-2 text-left border-b border-gray-300 dark:border-gray-600">Description</th>
+                                    <th class="px-4 py-2 text-left border-b border-gray-300 dark:border-gray-600">Serial No.</th>
+                                    <th class="px-4 py-2 text-left border-b border-gray-300 dark:border-gray-600">Office</th>
+                                    <th class="px-4 py-2 text-left border-b border-gray-300 dark:border-gray-600">Date of Purchase</th>
+                                    <th class="px-4 py-2 text-left border-b border-gray-300 dark:border-gray-600">Accountable Person</th>
+                                    <th class="px-4 py-2 text-left border-b border-gray-300 dark:border-gray-600">Acquisition Cost</th>
+                                    <th class="px-4 py-2 text-left border-b border-gray-300 dark:border-gray-600">Status</th>
+                                    <th class="px-4 py-2 text-left border-b border-gray-300 dark:border-gray-600">Inventory Remarks</th>
+                                    <th class="px-4 py-2 text-left border-b border-gray-300 dark:border-gray-600 w-32">Actions</th> <!-- Added fixed width for Actions column -->
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="text-gray-600 dark:text-gray-300">
                                 @forelse ($properties as $property)
                                     <tr class="hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-800 dark:hover:text-gray-200">
-                                        <td class="px-4 py-2 ">{{ $property->id }}</td>
-                                        <td class="px-4 py-2">{{ $property->property_number }}</td>
-                                        <td class="px-4 py-2">{{ $property->description }}</td>
-                                        <td class="px-4 py-2">{{ $property->serial_number }}</td>
-                                        <td class="px-4 py-2">{{ $property->office }}</td>
-                                        <td class="px-4 py-2">{{ $property->date_purchase }}</td>
-                                        <td class="px-4 py-2">{{ $property->accountable_person }}</td>
-                                        <td class="px-4 py-2">{{ number_format($property->acquisition_cost, 2) }}</td>
-                                        <td class="px-4 py-2">{{ $property->status }}</td>
-                                        <td class="px-4 py-2">{{ $property->inventory_remarks }}</td>
-                                        <td class="px-4 py-2">
+                                        <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->id }}</td>
+                                        <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->property_number }}</td>
+                                        <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->description }}</td>
+                                        <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->serial_number }}</td>
+                                        <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->office }}</td>
+                                        <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->date_purchase }}</td>
+                                        <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->accountable_person }}</td>
+                                        <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">₱{{ number_format($property->acquisition_cost, 2) }}</td>
+                                        <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">
+                                            <!-- Conditional color based on Status -->
+                                            <span class="{{ $property->status === 'Active' ? 'text-green-500' : 'text-red-500' }}">
+                                                {{ $property->status }}
+                                            </span>
+                                        </td>
+                                        <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->inventory_remarks }}</td>
+                                        <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600 text-center">
                                             <!-- Edit button inside each row -->
                                             <a href="{{ route('asset.edit', $property->id) }}" class="text-blue-500 hover:text-blue-700">
                                                 Edit

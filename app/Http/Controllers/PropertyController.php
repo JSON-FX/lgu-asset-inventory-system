@@ -2,33 +2,45 @@
 
 namespace App\Http\Controllers;
 
+namespace App\Http\Controllers;
+
 use App\Models\Property;
 use Illuminate\Http\Request;
 
 class PropertyController extends Controller
 {
+    /**
+     * Display a listing of the properties.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
-        // Retrieve all properties
         $properties = Property::all();
-
-        // Pass data to the 'asset.blade.php' view
         return view('asset', compact('properties'));
-    
     }
 
+    /**
+     * Show the form for editing the specified property.
+     *
+     * @param  int  $id
+     * @return \Illuminate\View\View
+     */
     public function edit($id)
     {
-        // Find the property by ID
-        $properties = Property::findOrFail($id);
-
-        // Return the edit view with the property data
-        return view('edit', compact('properties'));
+        $property = Property::findOrFail($id);  // Renamed to $property
+        return view('edit', compact('property'));  // Pass $property to view
     }
 
+    /**
+     * Update the specified property in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, $id)
     {
-        // Validate incoming data
         $request->validate([
             'description' => 'required|string|max:255',
             'property_number' => 'nullable|string|max:255|unique:properties,property_number,' . $id,
@@ -41,36 +53,32 @@ class PropertyController extends Controller
             'inventory_remarks' => 'nullable|string|max:1000',
         ]);
 
-        // Find the property by ID
-        $properties = Property::findOrFail($id);
+        $property = Property::findOrFail($id);  // Renamed to $property
+        $property->update($request->all());
 
-        // Update the property details with validated data
-        $properties->update([
-            'description' => $request->description,
-            'property_number' => $request->property_number,
-            'serial_number' => $request->serial_number,
-            'office' => $request->office,
-            'date_purchase' => $request->date_purchase,
-            'accountable_person' => $request->accountable_person,
-            'acquisition_cost' => $request->acquisition_cost,
-            'status' => $request->status,
-            'inventory_remarks' => $request->inventory_remarks,
-        ]);
-
-        // Redirect back to the asset list with a success message
-        return redirect()->route('assets')->with('success', 'Asset updated successfully!');
+        return redirect()->route('assets.index')->with('success', 'Asset updated successfully!');
     }
+
+    /**
+     * Show the form for creating a new property.
+     *
+     * @return \Illuminate\View\View
+     */
     public function create()
     {
-        return view('add');  // Return the 'create' view for adding a new asset
+        return view('add');
     }
 
-    // Store a new asset
+    /**
+     * Store a newly created property in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request)
     {
-        // Validate the incoming request data
         $request->validate([
-            'property_number' => 'required|string|max:255',
+            'property_number' => 'required|string|max:255|unique:properties',
             'description' => 'required|string|max:255',
             'serial_number' => 'nullable|string|max:255',
             'office' => 'required|string|max:255',
@@ -81,21 +89,8 @@ class PropertyController extends Controller
             'inventory_remarks' => 'nullable|string',
         ]);
 
-        // Create a new asset
-        Property::create([
-            'property_number' => $request->property_number,
-            'description' => $request->description,
-            'serial_number' => $request->serial_number,
-            'office' => $request->office,
-            'date_purchase' => $request->date_purchase,
-            'accountable_person' => $request->accountable_person,
-            'acquisition_cost' => $request->acquisition_cost,
-            'status' => $request->status,
-            'inventory_remarks' => $request->inventory_remarks,
-        ]);
+        Property::create($request->all());
 
-        // Redirect to the assets list page with a success message
-        return redirect()->route('assets')->with('success', 'Asset added successfully!');
+        return redirect()->route('assets.index')->with('success', 'Asset added successfully!');
     }
 }
-

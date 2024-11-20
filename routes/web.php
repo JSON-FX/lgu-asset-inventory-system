@@ -9,23 +9,25 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PropertyController;
 
-Route::get('/assets', [PropertyController::class, 'index'])->name('assets');
+// Index of all assets
+Route::get('/assets', [PropertyController::class, 'index'])->name('assets.index');
 
-// Route to show the 'Add Asset' form
+// Show form to create a new asset
 Route::get('/asset/create', [PropertyController::class, 'create'])->name('asset.create');
 
-// Route to handle the form submission (store)
+// Store a newly created asset in storage
 Route::post('/asset', [PropertyController::class, 'store'])->name('asset.store');
 
-Route::get('/asset/create', [PropertyController::class, 'create'])->name('asset.create');
-Route::post('/asset', [PropertyController::class, 'store'])->name('asset.store');
-
-Route::get('/assets', [PropertyController::class, 'index'])->name('assets');
-
-Route::patch('/asset/{id}', [PropertyController::class, 'update'])->name('asset.update');
-
+// Show the form to edit the specified asset
 Route::get('/asset/{id}/edit', [PropertyController::class, 'edit'])->name('asset.edit');
 
+// Update the specified asset in storage
+Route::put('/asset/{asset}', [PropertyController::class, 'update'])->name('asset.update');
+
+// If you need a route to show a single asset, you might want to add:
+// Route::get('/asset/{id}', [PropertyController::class, 'show'])->name('asset.show');
+
+// Home route
 Route::get('/', function () {
     return view('welcome');
 });
