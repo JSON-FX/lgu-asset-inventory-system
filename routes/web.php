@@ -34,7 +34,7 @@ Route::get('/', function () {
 
 Route::post('/category', [CategoryController::class, 'store'])->name('category.store');
 Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');
-Route::patch('/category/{id}/', [CategoryController::class, 'update'])->name('category.update');
+Route::put('/category/{category}/', [CategoryController::class, 'update'])->name('category.update');
 Route::get('/category/{id}/editcategory', [CategoryController::class, 'edit'])->name('category.editcategory');
 // Route to show the 'Navigation pages' 
 Route::get('/category', [CategoryController::class, 'index'])->middleware('auth')->name('category.index');
