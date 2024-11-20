@@ -22,7 +22,7 @@
 
                     <!-- Edit form -->
                     @if($category->count() > 0)
-                        <form action="{{ route('category.update', $category->first()->id) }}" method="POST" class="bg-gray-900 p-6 rounded-lg">
+                        <form action="{{ route('category.update', $category->id) }}" method="POST" class="bg-gray-900 p-6 rounded-lg">
                             @csrf
                             @method('PATCH') <!-- Correct method for update -->
 
