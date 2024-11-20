@@ -14,6 +14,7 @@ class PropertyController extends Controller
 
         // Pass data to the 'asset.blade.php' view
         return view('asset', compact('properties'));
+    
     }
 
     public function edit($id)

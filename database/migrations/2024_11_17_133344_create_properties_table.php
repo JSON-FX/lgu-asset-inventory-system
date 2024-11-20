@@ -27,6 +27,23 @@ return new class extends Migration
             $table->text('inventory_remarks')->nullable();
             $table->timestamps();
         });
+        Schema::create('categories', function (Blueprint $table) {
+            $table->id();
+            $table->string('category_name')->nullable()->unique();
+            $table->timestamps();
+        });
+        Schema::create('offices', function (Blueprint $table) {
+            $table->id();
+            $table->string('office_name')->nullable()->unique();
+            $table->timestamps();
+        });
+        Schema::create('statuses', function (Blueprint $table) {
+            $table->id();
+            $table->string('status_name')->nullable()->unique();
+            $table->timestamps();
+        });
+    
+        
         
     }
 

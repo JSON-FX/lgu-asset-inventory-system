@@ -23,9 +23,9 @@
 
                     <!-- Make table scrollable on small screens -->
                     <div class="overflow-x-auto">
-                        <table class="min-w-full table-auto">
+                        <table  class="min-w-full table-auto">
                             <thead>
-                                <tr>
+                                <tr> 
                                     <th class="px-4 py-2 text-left">ID</th>
                                     <th class="px-4 py-2 text-left">Property No.</th>
                                     <th class="px-4 py-2 text-left">Description</th>
@@ -41,7 +41,7 @@
                             </thead>
                             <tbody>
                                 @forelse ($properties as $property)
-                                    <tr>
+                                    <tr class="hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-800 dark:hover:text-gray-200">
                                         <td class="px-4 py-2 ">{{ $property->id }}</td>
                                         <td class="px-4 py-2">{{ $property->property_number }}</td>
                                         <td class="px-4 py-2">{{ $property->description }}</td>

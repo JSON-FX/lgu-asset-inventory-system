@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\StatusController;
+use App\Http\Controllers\OfficeController;
+use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PropertyController;
@@ -26,9 +30,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('/category', [CategoryController::class, 'store'])->name('category.store');
+Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');
+Route::patch('/category/{id}/', [CategoryController::class, 'update'])->name('category.update');
+Route::get('/category/{id}/editcategory', [CategoryController::class, 'edit'])->name('category.editcategory');
+// Route to show the 'Navigation pages' 
+Route::get('/category', [CategoryController::class, 'index'])->middleware('auth')->name('category.index');
+Route::get('/office', [OfficeController::class, 'index'])->middleware('auth')->name('office.index');
+Route::get('/status', [StatusController::class, 'index'])->middleware('auth')->name('status.index');
+Route::get('/users', [UsersController::class, 'index'])->middleware('auth')->name('users.index');
+
 Route::get('/asset', [PropertyController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('asset');
+    ->middleware(['auth',   'verified'])->name('asset');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
