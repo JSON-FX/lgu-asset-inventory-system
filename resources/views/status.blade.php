@@ -13,7 +13,7 @@
                     <div class="flex items-center justify-between mb-4">
                         <h1 class="text-xl font-semibold">Status List</h1>
                         <!-- Button aligned to the right of the heading -->
-                        <a href="{{ route('asset.create') }}">
+                        <a href="{{ route('status.create') }}">
                             <x-primary-button>
                                 {{ __('Add Status') }}
                             </x-primary-button>
@@ -34,6 +34,12 @@
                                     <tr class="hover:bg-opacity-50 hover:bg-gray-200 transition-colors duration-300">
                                         <td class="px-4 py-2">{{ $status->id }}</td>
                                         <td class="px-4 py-2">{{ $status->status_name }}</td>
+                                        <td class="px-4 py-2">
+                                            <!-- Edit button inside each row -->
+                                            <a href="{{ route('status.editstatus', $status->id) }}" class="text-blue-500">
+                                                Edit
+                                            </a>
+                                        </td>   
                                     </tr>
                                 @empty
                                     <tr>

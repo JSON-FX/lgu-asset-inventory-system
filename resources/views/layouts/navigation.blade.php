@@ -98,22 +98,22 @@
             </x-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('asset')">
+            <x-responsive-nav-link :href="route('asset')" :active="request()->routeIs('asset')">
                 {{ __('Asset') }}
             </x-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('category')">
+            <x-responsive-nav-link :href="route('asset')" :active="request()->routeIs('asset')">
                 {{ __('Category') }}
             </x-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('office')">
+            <x-responsive-nav-link :href="route('asset')" :active="request()->routeIs('asset')">
                 {{ __('Office') }}
             </x-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('Status')">
+            <x-responsive-nav-link :href="route('asset')" :active="request()->routeIs('asset')">
                 {{ __('Status') }}
             </x-responsive-nav-link>
         </div>

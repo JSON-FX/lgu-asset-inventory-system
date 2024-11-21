@@ -29,7 +29,7 @@ class PropertyController extends Controller
     public function edit($id)
     {
         $property = Property::findOrFail($id);  // Renamed to $property
-        return view('edit', compact('property'));  // Pass $property to view
+        return view('action_asset.edit', compact('property'));  // Pass $property to view
     }
 
     /**
@@ -66,7 +66,7 @@ class PropertyController extends Controller
      */
     public function create()
     {
-        return view('add');
+        return view('action_asset.add');
     }
 
     /**

@@ -13,7 +13,7 @@
                     <div class="flex items-center justify-between mb-4">
                         <h1 class="text-xl font-semibold">Users List</h1>
                         <!-- Button aligned to the right of the heading -->
-                        <a href="{{ route('asset.create') }}">
+                        <a href="{{ route('users.create') }}">
                             <x-primary-button>
                                 {{ __('Add User') }}
                             </x-primary-button>
@@ -30,10 +30,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($users as $users)
+                                @forelse ($employee as $employee)
                                     <tr class="hover:bg-opacity-50 hover:bg-gray-200 transition-colors duration-300">
-                                        <td class="px-4 py-2">{{ $users->id }}</td>
-                                        <td class="px-4 py-2">{{ $users->name }}</td>
+                                        <td class="px-4 py-2">{{ $employee->id }}</td>
+                                        <td class="px-4 py-2">{{ $employee->employee_name }}</td>
+                                        <td class="px-4 py-2">
+                                            <!-- Edit button inside each row -->
+                                            <a href="{{ route('users.editusers', $employee->id) }}" class="text-blue-500">
+                                                Edit
+                                            </a>
+                                        </td>   
                                     </tr>
                                 @empty
                                     <tr>

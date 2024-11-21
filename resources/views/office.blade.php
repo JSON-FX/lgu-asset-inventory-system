@@ -13,7 +13,7 @@
                     <div class="flex items-center justify-between mb-4">
                         <h1 class="text-xl font-semibold">Office List</h1>
                         <!-- Button aligned to the right of the heading -->
-                        <a href="{{ route('asset.create') }}">
+                        <a href="{{ route('office.create') }}">
                             <x-primary-button>
                                 {{ __('Add Office') }}
                             </x-primary-button>
@@ -34,7 +34,14 @@
                                     <tr class="hover:bg-opacity-50 hover:bg-gray-200 transition-colors duration-300">
                                         <td class="px-4 py-2">{{ $office->id }}</td>
                                         <td class="px-4 py-2">{{ $office->office_name }}</td>
+                                        <td class="px-4 py-2">
+                                            <!-- Edit button inside each row -->
+                                            <a href="{{ route('office.editoffice', $office->id) }}" class="text-blue-500">
+                                                Edit
+                                            </a>
+                                        </td>   
                                     </tr>
+                                       
                                 @empty
                                     <tr>
                                         <td colspan="2" class="px-4 py-2 text-center">No office found.</td>

@@ -21,7 +21,7 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
 
         // Return the edit view with the category data
-        return view('editcategory', compact('category'));
+        return view('action_category.editcategory', compact('category'));
     }
 
     public function update(Request $request, $id)
@@ -44,7 +44,7 @@ class CategoryController extends Controller
     }
     public function create()
     {
-        return view('addcategory');  // Return the 'create' view for adding a new asset
+        return view('action_category.addcategory');  // Return the 'create' view for adding a new asset
     }
 
     // Store a new asset

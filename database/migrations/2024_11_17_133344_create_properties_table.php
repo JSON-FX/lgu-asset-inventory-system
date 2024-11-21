@@ -42,6 +42,11 @@ return new class extends Migration
             $table->string('status_name')->nullable()->unique();
             $table->timestamps();
         });
+        Schema::create('employees', function (Blueprint $table) {
+            $table->id();
+            $table->string('employee_name')->nullable()->unique();
+            $table->timestamps();
+        });
     
         
         
