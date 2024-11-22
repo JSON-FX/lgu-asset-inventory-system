@@ -8,6 +8,9 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\DashboardController;
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 // Index of all assets
 Route::get('/assets', [PropertyController::class, 'index'])->name('assets.index');
@@ -64,9 +67,7 @@ Route::get('/users', [EmployeeController::class, 'index'])->middleware('auth')->
 Route::get('/asset', [PropertyController::class, 'index'])
     ->middleware(['auth',   'verified'])->name('asset');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -1,37 +1,40 @@
+<!-- resources/views/dashboard.blade.php -->
+
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+    <div class="container mx-auto p-6 space-y-8">
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("You're logged in!") }}
-                </div>
+        <!-- Dashboard Title -->
+        <h1 class="text-3xl font-semibold text-gray-800">Dashboard</h1>
+        
+        <!-- Main Grid Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- Total Properties -->
+            <div class="bg-white p-6 border border-gray-200 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                <h2 class="text-lg font-semibold text-gray-700 mb-4">Total Assets</h2>
+                <p class="text-3xl font-bold text-blue-600">{{ $totalProperties }}</p>
             </div>
-            <form method="POST" action="{{ route('register') }}">
-                @csrf
 
-                <!-- Existing fields... -->
+            <!-- Properties by Category -->
+            <div class="bg-white p-6 border border-gray-200 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                <h2 class="text-lg font-semibold text-gray-700 mb-4">Assets by Category</h2>
+                <ul class="space-y-2">
+                    @foreach($propertiesByCategory as $categoryId => $total)
+                        <li class="flex justify-between items-center">
+                            <span class="text-gray-600">Category ID: {{ $categoryId }}</span>
+                            <span class="text-gray-800 font-semibold">{{ $total }} Assets</span>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
 
-                <!-- Asset Details -->
-                <div class="mt-4">
-                    <x-input-label for="asset_name" :value="__('Asset Name')" />
-                    <x-text-input id="asset_name" class="block mt-1 w-full" type="text" name="asset_name" :value="old('asset_name')" required autofocus autocomplete="asset_name" />
-                    <x-input-error :messages="$errors->get('asset_name')" class="mt-2" />
-                </div>
-
-                <!-- Submit Button -->
-                <div class="flex items-center justify-end mt-4">
-                    <x-primary-button class="ms-4">
-                        {{ __('Register') }}
-                    </x-primary-button>
-                </div>
-            </form>
+            <!-- Additional Stats (Optional) -->
+            <div class="bg-white p-6 border border-gray-200 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                <h2 class="text-lg font-semibold text-gray-700 mb-4">Additional Stats</h2>
+                <!-- Add any additional stats here -->
+                <p class="text-xl text-gray-600">Coming soon!</p>
+            </div>
         </div>
+
     </div>
-    
 </x-app-layout>

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-namespace App\Http\Controllers;
-
 use App\Models\Property;
+use App\Models\Category;
+use App\Models\Office;
+use App\Models\Status;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 
 class PropertyController extends Controller
@@ -14,49 +16,11 @@ class PropertyController extends Controller
      *
      * @return \Illuminate\View\View
      */
+    
     public function index()
     {
-        $properties = Property::all();
+        $properties = Property::with(['category', 'office', 'status', 'employee'])->get();
         return view('asset', compact('properties'));
-    }
-
-    /**
-     * Show the form for editing the specified property.
-     *
-     * @param  int  $id
-     * @return \Illuminate\View\View
-     */
-    public function edit($id)
-    {
-        $property = Property::findOrFail($id);  // Renamed to $property
-        return view('action_asset.edit', compact('property'));  // Pass $property to view
-    }
-
-    /**
-     * Update the specified property in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'description' => 'required|string|max:255',
-            'property_number' => 'nullable|string|max:255|unique:properties,property_number,' . $id,
-            'serial_number' => 'nullable|string|max:255',
-            'office' => 'required|string|max:255',
-            'date_purchase' => 'nullable|date',
-            'accountable_person' => 'nullable|string|max:255',
-            'acquisition_cost' => 'nullable|numeric',
-            'status' => 'nullable|string|max:255',
-            'inventory_remarks' => 'nullable|string|max:1000',
-        ]);
-
-        $property = Property::findOrFail($id);  // Renamed to $property
-        $property->update($request->all());
-
-        return redirect()->route('assets.index')->with('success', 'Asset updated successfully!');
     }
 
     /**
@@ -66,7 +30,12 @@ class PropertyController extends Controller
      */
     public function create()
     {
-        return view('action_asset.add');
+        $categories = Category::all();
+        $offices = Office::all();
+        $statuses = Status::all();
+        $employees = Employee::all();
+
+        return view('action_asset.add', compact('categories', 'offices', 'statuses', 'employees'));
     }
 
     /**
@@ -80,17 +49,76 @@ class PropertyController extends Controller
         $request->validate([
             'property_number' => 'required|string|max:255|unique:properties',
             'description' => 'required|string|max:255',
-            'serial_number' => 'nullable|string|max:255',
-            'office' => 'required|string|max:255',
-            'date_purchase' => 'required|date',
-            'accountable_person' => 'required|string|max:255',
-            'acquisition_cost' => 'required|numeric',
-            'status' => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id',
+            'office_id' => 'required|exists:offices,id',
+            'status_id' => 'required|exists:statuses,id',
+            'employee_id' => 'required|exists:employees,id',
+            'date_purchase' => 'nullable|date',
+            'acquisition_cost' => 'nullable|numeric',
             'inventory_remarks' => 'nullable|string',
         ]);
 
         Property::create($request->all());
 
-        return redirect()->route('assets.index')->with('success', 'Asset added successfully!');
+        return redirect()->route('asset')->with('success', 'Asset added successfully!');
+    }
+
+    /**
+     * Show the form for editing the specified property.
+     *
+     * @param  int  $id
+     * @return \Illuminate\View\View
+     */
+    public function edit($id)
+    {
+        $property = Property::findOrFail($id);
+        $categories = Category::all();
+        $offices = Office::all();
+        $statuses = Status::all();
+        $employees = Employee::all();
+
+        return view('action_asset.edit', compact('property', 'categories', 'offices', 'statuses', 'employees'));
+    }
+
+    /**
+     * Update the specified property in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request, $id)
+    {
+        $property = Property::findOrFail($id);
+
+        $request->validate([
+            'property_number' => 'required|string|max:255|unique:properties,property_number,' . $property->id,
+            'description' => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id',
+            'office_id' => 'required|exists:offices,id',
+            'status_id' => 'required|exists:statuses,id',
+            'employee_id' => 'required|exists:employees,id',
+            'date_purchase' => 'nullable|date',
+            'acquisition_cost' => 'nullable|numeric',
+            'inventory_remarks' => 'nullable|string',
+        ]);
+
+        $property->update($request->all());
+
+        return redirect()->route('asset')->with('success', 'Asset updated successfully!');
+    }
+
+    /**
+     * Remove the specified property from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy($id)
+    {
+        $property = Property::findOrFail($id);
+        $property->delete();
+
+        return redirect()->route('asset')->with('success', 'Asset deleted successfully!');
     }
 }

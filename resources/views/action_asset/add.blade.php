@@ -33,6 +33,15 @@
                             @enderror
                         </div>
 
+                        <!-- Date Purchase -->
+                        <div class="mb-4">
+                            <label for="date_purchase" class="block text-sm font-medium text-white">Date of Purchase</label>
+                            <input type="date" id="date_purchase" name="date_purchase" value="{{ old('date_purchase') }}" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md" required>
+                            @error('date_purchase')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+
                         <!-- Serial Number -->
                         <div class="mb-4">
                             <label for="serial_number" class="block text-sm font-medium text-white">Serial Number</label>
@@ -42,29 +51,66 @@
                             @enderror
                         </div>
 
-                        <!-- Office -->
+                        <!-- Office Dropdown -->
                         <div class="mb-4">
-                            <label for="office" class="block text-sm font-medium text-white">Office</label>
-                            <input type="text" id="office" name="office" value="{{ old('office') }}" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md" required>
-                            @error('office')
+                            <label for="office_id" class="block text-sm font-medium text-white">Office</label>
+                            <select id="office_id" name="office_id" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md" required>
+                                <option value="" disabled selected>Select an Office</option>
+                                @foreach($offices as $office)
+                                    <option value="{{ $office->id }}" {{ old('office_id') == $office->id ? 'selected' : '' }}>
+                                        {{ $office->office_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('office_id')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
                         </div>
 
-                        <!-- Date of Purchase -->
+                        <!-- Status Dropdown -->
                         <div class="mb-4">
-                            <label for="date_purchase" class="block text-sm font-medium text-white">Date of Purchase</label>
-                            <input type="date" id="date_purchase" name="date_purchase" value="{{ old('date_purchase') }}" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md">
-                            @error('date_purchase')
+                            <label for="status_id" class="block text-sm font-medium text-white">Status</label>
+                            <select id="status_id" name="status_id" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md" required>
+                                <option value="" disabled selected>Select a Status</option>
+                                @foreach($statuses as $status)
+                                    <option value="{{ $status->id }}" {{ old('status_id') == $status->id ? 'selected' : '' }}>
+                                        {{ $status->status_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('status_id')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
                         </div>
 
-                        <!-- Accountable Person -->
+                        <!-- Category Dropdown -->
                         <div class="mb-4">
-                            <label for="accountable_person" class="block text-sm font-medium text-white">Accountable Person</label>
-                            <input type="text" id="accountable_person" name="accountable_person" value="{{ old('accountable_person') }}" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md">
-                            @error('accountable_person')
+                            <label for="category_id" class="block text-sm font-medium text-white">Category</label>
+                            <select id="category_id" name="category_id" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md" required>
+                                <option value="" disabled selected>Select a Category</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                        {{ $category->category_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('category_id')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <!-- Accountable Person Dropdown -->
+                        <div class="mb-4">
+                            <label for="employee_id" class="block text-sm font-medium text-white">Accountable Person</label>
+                            <select id="employee_id" name="employee_id" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md">
+                                <option value="" disabled selected>Select an Employee</option>
+                                @foreach($employees as $employee)
+                                    <option value="{{ $employee->id }}" {{ old('employee_id') == $employee->id ? 'selected' : '' }}>
+                                        {{ $employee->employee_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('employee_id')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
                         </div>
@@ -74,15 +120,6 @@
                             <label for="acquisition_cost" class="block text-sm font-medium text-white">Acquisition Cost</label>
                             <input type="number" step="0.01" id="acquisition_cost" name="acquisition_cost" value="{{ old('acquisition_cost') }}" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md">
                             @error('acquisition_cost')
-                                <span class="text-red-500 text-sm">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <!-- Status -->
-                        <div class="mb-4">
-                            <label for="status" class="block text-sm font-medium text-white">Status</label>
-                            <input type="text" id="status" name="status" value="{{ old('status') }}" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md">
-                            @error('status')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
                         </div>

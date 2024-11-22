@@ -11,45 +11,51 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Create categories table
+        Schema::create('categories', function (Blueprint $table) {
+            $table->id();
+            $table->string('category_name')->unique()->nullable();
+            $table->timestamps();
+        });
+
+        // Create offices table
+        Schema::create('offices', function (Blueprint $table) {
+            $table->id();
+            $table->string('office_name')->unique()->nullable();
+            $table->timestamps();
+        });
+
+        // Create statuses table
+        Schema::create('statuses', function (Blueprint $table) {
+            $table->id();
+            $table->string('status_name')->unique()->nullable();
+            $table->timestamps();
+        });
+
+        // Create employees table
+        Schema::create('employees', function (Blueprint $table) {
+            $table->id();
+            $table->string('employee_name')->unique()->nullable();
+            $table->timestamps();
+        });
+
+        // Create properties table
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
-            $table->string('property_number')->nullable()->unique();
+            $table->string('property_number')->unique()->nullable();
             $table->string('description');
             $table->string('serial_number')->nullable();
             $table->string('engine_number')->nullable();
             $table->string('elc_number')->nullable();
-            $table->string('office');
+            $table->foreignId('office_id')->constrained('offices')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
+            $table->foreignId('status_id')->constrained('statuses')->onDelete('cascade');
+            $table->foreignId('employee_id')->constrained('employees')->onDelete('cascade');
             $table->date('date_purchase')->nullable();
-            $table->string('accountable_person')->nullable();
             $table->decimal('acquisition_cost', 15, 2)->nullable();
-            $table->string('user')->nullable();
-            $table->string('status')->nullable();
             $table->text('inventory_remarks')->nullable();
             $table->timestamps();
         });
-        Schema::create('categories', function (Blueprint $table) {
-            $table->id();
-            $table->string('category_name')->nullable()->unique();
-            $table->timestamps();
-        });
-        Schema::create('offices', function (Blueprint $table) {
-            $table->id();
-            $table->string('office_name')->nullable()->unique();
-            $table->timestamps();
-        });
-        Schema::create('statuses', function (Blueprint $table) {
-            $table->id();
-            $table->string('status_name')->nullable()->unique();
-            $table->timestamps();
-        });
-        Schema::create('employees', function (Blueprint $table) {
-            $table->id();
-            $table->string('employee_name')->nullable()->unique();
-            $table->timestamps();
-        });
-    
-        
-        
     }
 
     /**
@@ -58,5 +64,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('properties');
+        Schema::dropIfExists('employees');
+        Schema::dropIfExists('statuses');
+        Schema::dropIfExists('offices');
+        Schema::dropIfExists('categories');
     }
 };

@@ -9,102 +9,132 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-
-                    <!-- Page Title -->
+                    <!-- Edit Asset Form -->
                     <h1 class="text-xl font-semibold mb-4">Edit Asset</h1>
 
-                    <!-- Success message after update -->
-                    @if (session('success'))
-                        <div class="mb-4 text-green-600">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-
-                    <!-- Edit form -->
                     <form action="{{ route('asset.update', $property->id) }}" method="POST" class="bg-gray-900 p-6 rounded-lg">
                         @csrf
-                        @method('PUT') <!-- Correct method for update -->
+                        @method('PUT')
 
-                        <!-- Property Number & Description -->
-                        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                            <div>
-                                <label for="property_number" class="block text-sm font-medium text-white">Property Number</label>
-                                <input type="text" id="property_number" name="property_number" value="{{ old('property_number', $property->property_number) }}" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md" required>
-                                @error('property_number')
-                                    <span class="text-red-500 text-sm">{{ $message }}</span>
-                                @enderror
-                            </div>
+                        <!-- Property Number -->
+                        <div class="mb-4">
+                            <label for="property_number" class="block text-sm font-medium text-white">Property Number</label>
+                            <input type="text" id="property_number" name="property_number" value="{{ old('property_number', $property->property_number) }}" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md" required>
+                            @error('property_number')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-                            <div>
-                                <label for="description" class="block text-sm font-medium text-white">Description</label>
-                                <input type="text" id="description" name="description" value="{{ old('description', $property->description) }}" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md" required>
-                                @error('description')
-                                    <span class="text-red-500 text-sm">{{ $message }}</span>
-                                @enderror
-                            </div>
+                        <!-- Description -->
+                        <div class="mb-4">
+                            <label for="description" class="block text-sm font-medium text-white">Description</label>
+                            <input type="text" id="description" name="description" value="{{ old('description', $property->description) }}" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md" required>
+                            @error('description')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-                            <!-- Additional fields like Serial Number, Office, Date of Purchase, etc. -->
-                            <div>
-                                <label for="serial_number" class="block text-sm font-medium text-white">Serial Number</label>
-                                <input type="text" id="serial_number" name="serial_number" value="{{ old('serial_number', $property->serial_number) }}" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md">
-                                @error('serial_number')
-                                    <span class="text-red-500 text-sm">{{ $message }}</span>
-                                @enderror
-                            </div>
+                        <!-- Serial Number -->
+                        <div class="mb-4">
+                            <label for="serial_number" class="block text-sm font-medium text-white">Serial Number</label>
+                            <input type="text" id="serial_number" name="serial_number" value="{{ old('serial_number', $property->serial_number) }}" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md">
+                            @error('serial_number')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-                            <div>
-                                <label for="office" class="block text-sm font-medium text-white">Office</label>
-                                <input type="text" id="office" name="office" value="{{ old('office', $property->office) }}" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md" required>
-                                @error('office')
-                                    <span class="text-red-500 text-sm">{{ $message }}</span>
-                                @enderror
-                            </div>
+                        <!-- Date of Purchase -->
+                        <div class="mb-4">
+                            <label for="date_of_purchase" class="block text-sm font-medium text-white">Date of Purchase</label>
+                            <input type="date" id="date_of_purchase" name="date_of_purchase" value="{{ old('date_of_purchase', $property->date_of_purchase) }}" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md" required>
+                            @error('date_of_purchase')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-                            <div>
-                                <label for="date_purchase" class="block text-sm font-medium text-white">Date of Purchase</label>
-                                <input type="date" id="date_purchase" name="date_purchase" value="{{ old('date_purchase', $property->date_purchase) }}" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md">
-                                @error('date_purchase')
-                                    <span class="text-red-500 text-sm">{{ $message }}</span>
-                                @enderror
-                            </div>
+                        <!-- Office Dropdown -->
+                        <div class="mb-4">
+                            <label for="office_id" class="block text-sm font-medium text-white">Office</label>
+                            <select id="office_id" name="office_id" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md" required>
+                                @foreach($offices as $office)
+                                    <option value="{{ $office->id }}" {{ old('office_id', $property->office_id) == $office->id ? 'selected' : '' }}>
+                                        {{ $office->office_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('office_id')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-                            <div>
-                                <label for="accountable_person" class="block text-sm font-medium text-white">Accountable Person</label>
-                                <input type="text" id="accountable_person" name="accountable_person" value="{{ old('accountable_person', $property->accountable_person) }}" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md">
-                                @error('accountable_person')
-                                    <span class="text-red-500 text-sm">{{ $message }}</span>
-                                @enderror
-                            </div>
+                        <!-- Status Dropdown -->
+                        <div class="mb-4">
+                            <label for="status_id" class="block text-sm font-medium text-white">Status</label>
+                            <select id="status_id" name="status_id" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md" required>
+                                @foreach($statuses as $status)
+                                    <option value="{{ $status->id }}" {{ old('status_id', $property->status_id) == $status->id ? 'selected' : '' }}>
+                                        {{ $status->status_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('status_id')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-                            <div>
-                                <label for="acquisition_cost" class="block text-sm font-medium text-white">Acquisition Cost</label>
-                                <input type="number" step="0.01" id="acquisition_cost" name="acquisition_cost" value="{{ old('acquisition_cost', $property->acquisition_cost) }}" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md">
-                                @error('acquisition_cost')
-                                    <span class="text-red-500 text-sm">{{ $message }}</span>
-                                @enderror
-                            </div>
+                        <!-- Category Dropdown -->
+                        <div class="mb-4">
+                            <label for="category_id" class="block text-sm font-medium text-white">Category</label>
+                            <select id="category_id" name="category_id" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md" required>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}" {{ old('category_id', $property->category_id) == $category->id ? 'selected' : '' }}>
+                                        {{ $category->category_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('category_id')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-                            <div>
-                                <label for="status" class="block text-sm font-medium text-white">Status</label>
-                                <input type="text" id="status" name="status" value="{{ old('status', $property->status) }}" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md">
-                                @error('status')
-                                    <span class="text-red-500 text-sm">{{ $message }}</span>
-                                @enderror
-                            </div>
+                        <!-- Accountable Person Dropdown -->
+                        <div class="mb-4">
+                            <label for="employee_id" class="block text-sm font-medium text-white">Accountable Person</label>
+                            <select id="employee_id" name="employee_id" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md">
+                                @foreach($employees as $employee)
+                                    <option value="{{ $employee->id }}" {{ old('employee_id', $property->employee_id) == $employee->id ? 'selected' : '' }}>
+                                        {{ $employee->employee_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('employee_id')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-                            <div class="col-span-2">
-                                <label for="inventory_remarks" class="block text-sm font-medium text-white">Inventory Remarks</label>
-                                <textarea id="inventory_remarks" name="inventory_remarks" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md">{{ old('inventory_remarks', $property->inventory_remarks) }}</textarea>
-                                @error('inventory_remarks')
-                                    <span class="text-red-500 text-sm">{{ $message }}</span>
-                                @enderror
-                            </div>
+                        <!-- Acquisition Cost -->
+                        <div class="mb-4">
+                            <label for="acquisition_cost" class="block text-sm font-medium text-white">Acquisition Cost</label>
+                            <input type="number" step="0.01" id="acquisition_cost" name="acquisition_cost" value="{{ old('acquisition_cost', $property->acquisition_cost) }}" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md">
+                            @error('acquisition_cost')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-                            <div class="col-span-2 flex justify-end mt-6">
-                                <x-primary-button type="submit">Update Asset</x-primary-button>
-                            </div>
-                        </form>
-                    </div>
+                        <!-- Inventory Remarks -->
+                        <div class="mb-4">
+                            <label for="inventory_remarks" class="block text-sm font-medium text-white">Inventory Remarks</label>
+                            <textarea id="inventory_remarks" name="inventory_remarks" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md">{{ old('inventory_remarks', $property->inventory_remarks) }}</textarea>
+                            @error('inventory_remarks')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="mt-6 flex justify-end">
+                            <x-primary-button type="submit">Update property</x-primary-button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
