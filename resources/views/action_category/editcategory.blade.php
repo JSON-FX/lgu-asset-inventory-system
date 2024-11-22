@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Edit Asset') }}
+            {{ __('Edit Category') }}
         </h2>
     </x-slot>
 
@@ -11,7 +11,7 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
 
                     <!-- Page Title -->
-                    <h1 class="text-xl font-semibold mb-4">Edit Asset</h1>
+                    <h1 class="text-xl font-semibold mb-4">Edit Category</h1>
 
                     <!-- Success message after update -->
                     @if (session('success'))
