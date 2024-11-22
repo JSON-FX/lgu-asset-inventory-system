@@ -1,3 +1,5 @@
+<!-- resources/views/dashboard.blade.php -->
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -9,15 +11,27 @@
         <div class="max-w-full mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <!-- Flex container to align the heading and button side by side -->
+                    <!-- Flex container to align the heading and buttons side by side -->
                     <div class="flex items-center justify-between mb-4">
                         <h1 class="text-xl font-semibold">Assets List</h1>
-                        <!-- Button aligned to the right of the heading -->
-                        <a href="{{ route('asset.create') }}">
-                            <x-primary-button>
-                                {{ __('Add Asset') }}
-                            </x-primary-button>
-                        </a>
+                        <!-- Buttons aligned to the right of the heading -->
+                        <div>
+                            <a href="{{ route('asset.export') }}">
+                                <x-secondary-button>
+                                    {{ __('Export to Excel') }}
+                                </x-secondary-button>
+                            </a>
+                        </div>
+                        
+                        <!-- Add Asset button in its own div -->
+                        <div>
+                            <a href="{{ route('asset.create') }}">
+                                <x-primary-button>
+                                    {{ __('Add Asset') }}
+                                </x-primary-button>
+                            </a>
+                        </div>
+
                     </div>
 
                     <!-- Make table scrollable on small screens -->

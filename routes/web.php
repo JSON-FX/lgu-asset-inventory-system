@@ -9,6 +9,12 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\DashboardController;
+use App\Exports\PropertiesExport;
+use Maatwebsite\Excel\Facades\Excel;
+
+Route::get('/properties/export', function () {
+    return Excel::download(new PropertiesExport, 'properties.xlsx');
+})->name('asset.export');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
