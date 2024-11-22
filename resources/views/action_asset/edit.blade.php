@@ -34,20 +34,21 @@
                             @enderror
                         </div>
 
+                        
+
+                        <!-- Date of Purchase -->
+                        <div class="mb-4">
+                            <label for="date_purchase" class="block text-sm font-medium text-white">Date of Purchase</label>
+                            <input type="date" id="date_purchase" name="date_purchase" value="{{ old('date_purchase') }}" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md" required>
+                            @error('date_purchase')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
                         <!-- Serial Number -->
                         <div class="mb-4">
                             <label for="serial_number" class="block text-sm font-medium text-white">Serial Number</label>
                             <input type="text" id="serial_number" name="serial_number" value="{{ old('serial_number', $property->serial_number) }}" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md">
                             @error('serial_number')
-                                <span class="text-red-500 text-sm">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <!-- Date of Purchase -->
-                        <div class="mb-4">
-                            <label for="date_of_purchase" class="block text-sm font-medium text-white">Date of Purchase</label>
-                            <input type="date" id="date_of_purchase" name="date_of_purchase" value="{{ old('date_of_purchase', $property->date_of_purchase) }}" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md" required>
-                            @error('date_of_purchase')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
                         </div>
