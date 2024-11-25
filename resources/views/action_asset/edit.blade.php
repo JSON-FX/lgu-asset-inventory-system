@@ -9,9 +9,36 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <!-- Edit Asset Form -->
-                    <h1 class="text-xl font-semibold mb-4">Edit Asset</h1>
+                    <!-- Asset Preview -->
+                    <h1 class="text-xl font-semibold mb-4">Asset Preview</h1>
+                    <div class="bg-gray-800 p-6 rounded-lg text-white">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <strong>QR Code:</strong>
+                                <div class="mt-2">
+                                    {!! QrCode::size(200)->generate($property->property_number) !!}
+                                </div>
+                            </div>
+                            <!-- Original Property Number Display -->
+                            <div><strong>Property Number:</strong> {{ $property->property_number }}</div>
 
+                            <!-- QR Code Display -->
+                            
+
+                            <div><strong>Description:</strong> {{ $property->description }}</div>
+                            <div><strong>Date of Purchase:</strong> {{ $property->date_purchase }}</div>
+                            <div><strong>Serial Number:</strong> {{ $property->serial_number }}</div>
+                            <div><strong>Office:</strong> {{ $offices->find($property->office_id)?->office_name }}</div>
+                            <div><strong>Status:</strong> {{ $statuses->find($property->status_id)?->status_name }}</div>
+                            <div><strong>Category:</strong> {{ $categories->find($property->category_id)?->category_name }}</div>
+                            <div><strong>Accountable Person:</strong> {{ $employees->find($property->employee_id)?->employee_name }}</div>
+                            <div><strong>Acquisition Cost:</strong> {{ number_format($property->acquisition_cost, 2) }}</div>
+                            <div><strong>Inventory Remarks:</strong> {{ $property->inventory_remarks }}</div>
+                        </div>
+                    </div>
+
+                    <!-- Edit Asset Form -->
+                    <h1 class="text-xl font-semibold mt-8 mb-4">Edit Asset</h1>
                     <form action="{{ route('asset.update', $property->id) }}" method="POST" class="bg-gray-900 p-6 rounded-lg">
                         @csrf
                         @method('PUT')
@@ -34,16 +61,15 @@
                             @enderror
                         </div>
 
-                        
-
                         <!-- Date of Purchase -->
                         <div class="mb-4">
                             <label for="date_purchase" class="block text-sm font-medium text-white">Date of Purchase</label>
-                            <input type="date" id="date_purchase" name="date_purchase" value="{{ old('date_purchase') }}" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md" required>
+                            <input type="date" id="date_purchase" name="date_purchase" value="{{ old('date_purchase', $property->date_purchase) }}" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md" required>
                             @error('date_purchase')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
                         </div>
+
                         <!-- Serial Number -->
                         <div class="mb-4">
                             <label for="serial_number" class="block text-sm font-medium text-white">Serial Number</label>
@@ -133,7 +159,7 @@
 
                         <!-- Submit Button -->
                         <div class="mt-6 flex justify-end">
-                            <x-primary-button type="submit">Update property</x-primary-button>
+                            <x-primary-button type="submit">Update Asset</x-primary-button>
                         </div>
                     </form>
                 </div>
