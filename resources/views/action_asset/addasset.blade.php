@@ -30,15 +30,14 @@
                             <div class="col-sm-6">
                                 <div class="mb-3">
                                     <label for="property_number">Property Number</label>
-                                    <input id="property_number" name="property_number" type="text" class="form-control" placeholder="Property Number" value="{{ old('property_number') }}">
+                                    <input id="property_number" name="property_number" type="text" class="form-control" placeholder="Property Number" value="{{ old('property_number', $asset->property_number ?? '') }}">
                                     @error('property_number')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
-                                
                                 <div class="mb-3">
                                     <label for="description">Description</label>
-                                    <textarea class="form-control" id="description" name="description" rows="1" placeholder="Asset Description">{{ old('description') }}</textarea>
+                                    <textarea class="form-control" id="description" name="description" rows="1" placeholder="Asset Description">{{ old('description', $asset->description ?? '') }}</textarea>
                                     @error('description')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -48,7 +47,7 @@
                                     <select class="form-control select2" name="category_id">
                                         <option value="">Select</option>
                                         @foreach($categories as $category)
-                                            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                            <option value="{{ $category->id }}" {{ old('category_id', $asset->category_id ?? '') == $category->id ? 'selected' : '' }}>
                                                 {{ $category->category_name }}
                                             </option>
                                         @endforeach
@@ -62,7 +61,7 @@
                                     <select class="form-control select2" name="office_id">
                                         <option value="">Select</option>
                                         @foreach($offices as $office)
-                                            <option value="{{ $office->id }}" {{ old('office_id') == $office->id ? 'selected' : '' }}>
+                                            <option value="{{ $office->id }}" {{ old('office_id', $asset->office_id ?? '') == $office->id ? 'selected' : '' }}>
                                                 {{ $office->office_name }}
                                             </option>
                                         @endforeach
@@ -76,7 +75,7 @@
                                     <select class="form-control select2" name="status_id">
                                         <option value="">Select</option>
                                         @foreach($statuses as $status)
-                                            <option value="{{ $status->id }}" {{ old('status_id') == $status->id ? 'selected' : '' }}>
+                                            <option value="{{ $status->id }}" {{ old('status_id', $asset->status_id ?? '') == $status->id ? 'selected' : '' }}>
                                                 {{ $status->status_name }}
                                             </option>
                                         @endforeach
@@ -90,7 +89,7 @@
                                     <select class="form-control select2" name="user_id">
                                         <option value="">Select</option>
                                         @foreach($employees as $employee)
-                                            <option value="{{ $employee->id }}" {{ old('user_id') == $employee->id ? 'selected' : '' }}>
+                                            <option value="{{ $employee->id }}" {{ old('user_id', $asset->user_id ?? '') == $employee->id ? 'selected' : '' }}>
                                                 {{ $employee->employee_name }}
                                             </option>
                                         @endforeach
@@ -101,29 +100,31 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="purchase_date">Date Purchased</label>
-                                    <input id="purchase_date" name="purchase_date" type="date" class="form-control" value="{{ old('purchase_date') }}">
+                                    <input id="purchase_date" name="purchase_date" type="date" class="form-control" value="{{ old('purchase_date', $asset->purchase_date ?? '') }}">
                                     @error('purchase_date')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
                                     <label for="serial_number">Serial Number</label>
-                                    <input id="serial_number" name="serial_number" type="text" class="form-control" placeholder="Serial Number" value="{{ old('serial_number') }}">
+                                    <input id="serial_number" name="serial_number" type="text" class="form-control" placeholder="Serial Number" value="{{ old('serial_number', $asset->serial_number ?? '') }}">
                                     @error('serial_number')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
                                     <label for="acquisition_cost">Acquisition Cost</label>
-                                    <input id="acquisition_cost" name="acquisition_cost" type="number" class="form-control" value="{{ old('acquisition_cost') }}">
+                                    <input id="acquisition_cost" name="acquisition_cost" type="number" class="form-control" value="{{ old('acquisition_cost', $asset->acquisition_cost ?? '') }}">
                                     @error('acquisition_cost')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
-
+                            </div>
+                            
+                            <div class="col-sm-6">
                                 <div class="mb-3">
                                     <label for="inventory_remarks">Inventory Remarks</label>
-                                    <textarea class="form-control" id="inventory_remarks" name="inventory_remarks" rows="5" placeholder="Remarks">{{ old('inventory_remarks') }}</textarea>
+                                    <textarea class="form-control" id="inventory_remarks" name="inventory_remarks" rows="5" placeholder="Remarks">{{ old('inventory_remarks', $asset->inventory_remarks ?? '') }}</textarea>
                                     @error('inventory_remarks')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -132,8 +133,9 @@
                         </div>
 
                         <!-- Submit and Reset Buttons -->
-                        <div>
-                           <x-primary-button type="submit">Add Asset</x-primary-button>
+                        <div class="d-flex flex-wrap gap-2">
+                            <button type="submit" class="btn btn-primary">Save Asset</button>
+                            <button type="reset" class="btn btn-secondary waves-effect waves-light">Cancel</button>
                         </div>
                     </form>
                     <!-- End of Form -->
