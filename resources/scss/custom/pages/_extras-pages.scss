@@ -1,0 +1,111 @@
+// 
+// Extras pages.scss
+//
+
+
+/*********************
+    Maintenance
+**********************/ 
+
+.maintenance-cog-icon{
+    .cog-icon{
+        position: relative;
+        bottom: 24px;
+        right: 14px;    
+    }
+}
+
+
+// pricing
+
+
+.pricing-badge {
+    position: absolute;
+    top: 0;
+    z-index: 9;
+    right: 0;
+    width: 100%;
+    display: block;
+    font-size: 15px;
+    padding: 0;
+    overflow: hidden;
+    height: 100px;
+    .badge {
+      float: right;
+      transform: rotate(45deg);
+      right: -67px;
+      top: 17px;
+      position: relative;
+      text-align: center;
+      width: 200px;
+      font-size: 13px;
+      margin: 0;
+      padding: 7px 10px;
+      font-weight: 500;
+      color: $primary;
+      background: $white;
+    }
+}
+
+
+
+// PRICING TAB
+
+.pricing-tab-box{
+  .nav-link{
+    padding: 16px 20px;
+    border: 1px solid $gray-200;
+    background: $card-bg;
+    &.active{
+      border: 1px solid $primary;
+      padding: 16px 20px;
+      background: $card-bg;
+      i{
+        color: $primary;
+        &:before{
+          content: "\e9a8";
+        }
+      }
+      h1{
+        color: $primary;
+      }
+    }
+   
+  }
+}
+
+.pricing-table-bg{
+  background: $card-bg;
+}
+
+body[data-layout-mode=dark]{
+  .pricing-tab-box {
+    .nav-link{
+      border-color: $gray-dark-300;
+      background: $gray-dark-200;
+
+
+      &.active{
+        border-color: $primary;
+        background: $gray-dark-200;
+      }
+    }
+  }
+
+  .pricing-table-bg{
+    background: $gray-dark-200;
+  }
+}
+
+
+// Error PAge
+
+.error-title{
+  text-transform: uppercase;
+  background: repeating-linear-gradient(45deg, $primary, $primary 20px, $success 40px, $success 10px);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 12rem;
+  line-height: .8;
+  position: relative;
+}

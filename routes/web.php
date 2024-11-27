@@ -22,7 +22,8 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 Route::get('/assets', [PropertyController::class, 'index'])->name('assets.index');
 
 // Show form to create a new asset
-Route::get('/asset/create', [PropertyController::class, 'create'])->name('asset.create');
+Route::get('/create', [PropertyController::class, 'create'])->name('asset.create');
+
 
 // Store a newly created asset in storage
 Route::post('/asset', [PropertyController::class, 'store'])->name('asset.store');
@@ -35,11 +36,29 @@ Route::put('/asset/{asset}', [PropertyController::class, 'update'])->name('asset
 
 // If you need a route to show a single asset, you might want to add:
 // Route::get('/asset/{id}', [PropertyController::class, 'show'])->name('asset.show');
-
+Route::get('/calendar', function () {
+    return view('apps-calendar');}); 
 // Home route
 Route::get('/', function () {
     return view('welcome');
 }); 
+Route::get('/ecommerce-orders', function () {
+    return view('ecommerce-orders');
+}); 
+Route::get('/form-elements', function () {
+    return view('form-elements');
+}); 
+Route::get('/ecommerce-customers', function () {
+    return view('ecommerce-customers');
+}); 
+Route::get('/ecommerce-add-product', function () {
+    return view('ecommerce-add-product');
+}); 
+Route::get('/tables-datatable', function () {
+    return view('tables-datatable');
+}); 
+Route::get('/form-elements', [PropertyController::class, 'create'])->name('asset.create');
+Route::get('/form-elements', [PropertyController::class, 'store'])->name('asset.store');
 // Route to show the 'Users Actions' 
 Route::post('/users', [EmployeeController::class, 'store'])->name('users.store');
 Route::get('/users/create', [EmployeeController::class, 'create'])->name('users.create');

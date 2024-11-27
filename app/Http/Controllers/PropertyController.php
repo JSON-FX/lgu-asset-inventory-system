@@ -20,7 +20,7 @@ class PropertyController extends Controller
     public function index()
     {
         $properties = Property::with(['category', 'office', 'status', 'employee'])->get();
-        return view('asset', compact('properties'));
+        return view('tables-datatable', compact('properties'));
     }
 
     /**
@@ -35,7 +35,7 @@ class PropertyController extends Controller
         $statuses = Status::all();
         $employees = Employee::all();
 
-        return view('action_asset.add', compact('categories', 'offices', 'statuses', 'employees'));
+        return view('ecommerce-add-product', compact('categories', 'offices', 'statuses', 'employees'));
     }
 
     /**

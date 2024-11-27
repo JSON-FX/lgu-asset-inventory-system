@@ -1,0 +1,20 @@
+// 
+// _carousel.scss
+// 
+
+
+.carousel-indicators-rounded {
+    button{
+        width: 10px !important;
+        height: 10px !important;
+        border-radius: 50% !important;
+    }
+}
+
+.carousel-indicators.auth-carousel{
+    button{
+        width: 3rem !important;
+        height: 3rem !important;
+        margin: 0px 8px;
+    }
+}
