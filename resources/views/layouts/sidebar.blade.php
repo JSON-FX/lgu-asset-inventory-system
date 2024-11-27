@@ -23,8 +23,8 @@
                         <span data-key="t-forms">@lang('Assets')</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="assetlist" key="t-starter-page">@lang('Assets List')</a></li>
-                        <li><a href="create" key="t-maintenance">@lang('Add Asset')</a></li>
+                        <li><a href="{{ route('asset') }}" key="t-starter-page">@lang('Assets List')</a></li>
+                        <li><a href="{{ route('asset.create') }}" key="t-maintenance">@lang('Add Asset')</a></li>
                     </ul>
                     
                 </li>

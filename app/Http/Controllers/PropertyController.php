@@ -20,7 +20,7 @@ class PropertyController extends Controller
     public function index()
     {
         $properties = Property::with(['category', 'office', 'status', 'employee'])->get();
-        return view('assetlist', compact('properties'));
+        return view('asset', compact('properties'));
     }
 
     /**
@@ -35,7 +35,7 @@ class PropertyController extends Controller
         $statuses = Status::all();
         $employees = Employee::all();
 
-        return view('ecommerce-add-product', compact('categories', 'offices', 'statuses', 'employees'));
+        return view('action_asset.add', compact('categories', 'offices', 'statuses', 'employees'));
     }
 
     /**
@@ -56,11 +56,13 @@ class PropertyController extends Controller
             'date_purchase' => 'nullable|date',
             'acquisition_cost' => 'nullable|numeric',
             'inventory_remarks' => 'nullable|string',
+            
         ]);
+        
 
         Property::create($request->all());
 
-        return redirect()->route('asset')->with('success', 'Asset added successfully!');
+        return redirect()->route('users.index')->with('success', 'Asset added successfully!');
     }
 
     /**
