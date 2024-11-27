@@ -23,16 +23,15 @@
                     <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Position</th>
+                        <th>Description</th>
+                        <th>Serial No.</th>
                         <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
-                        <th>Salary</th>
-                        <th>Salary</th>
-                        <th>Salary</th>
-                        <th>Salary</th>
-                    </tr>
+                        <th>Purchase date</th>
+                        <th>User</th>
+                        <th>Acquisition cost</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                      
                     </thead>
 
 
@@ -43,7 +42,6 @@
                             <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->description }}</td>
                             <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->serial_number }}</td>
                             <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->office->office_name }}</td>
-                            <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->category->category_name }}</td>
                             <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->date_purchase }}</td>
                             <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->employee->employee_name }}</td>
                             <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">₱{{ number_format($property->acquisition_cost, 2) }}</td>
