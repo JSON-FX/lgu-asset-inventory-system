@@ -26,7 +26,7 @@ Route::get('/create', [PropertyController::class, 'create'])->name('asset.create
 
 
 // Store a newly created asset in storage
-Route::post('/asset', [PropertyController::class, 'store'])->name('asset.store');
+Route::post('/form-elements', [PropertyController::class, 'store'])->name('asset.store');
 
 // Show the form to edit the specified asset
 Route::get('/asset/{id}/edit', [PropertyController::class, 'edit'])->name('asset.edit');
@@ -45,9 +45,7 @@ Route::get('/', function () {
 Route::get('/ecommerce-orders', function () {
     return view('ecommerce-orders');
 }); 
-Route::get('/form-elements', function () {
-    return view('form-elements');
-}); 
+
 Route::get('/ecommerce-customers', function () {
     return view('ecommerce-customers');
 }); 
