@@ -47,7 +47,7 @@
                             <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">₱{{ number_format($property->acquisition_cost, 2) }}</td>
                             <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->status->status_name }} </td>
                             <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600 text-center">
-                                <a href="{{ route('asset.edit', $property->id) }}" class="text-blue-500 hover:text-blue-700 font-semibold">
+                                <a href="{{ route('assetlist.editassetlist', $property->id) }}" class="text-blue-500 hover:text-blue-700 font-semibold">
                                     Edit
                                 </a>
                             </td>
