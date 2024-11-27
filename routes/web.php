@@ -18,24 +18,13 @@ Route::get('/properties/export', function () {
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-// Index of all assets
-//Route::get('/assetlist', [PropertyController::class, 'index'])->name('assets.index');
+Route::post('/assetlist', [PropertyController::class, 'store'])->name('asset.store');
+Route::get('/assetlist/create', [PropertyController::class, 'create'])->name('assetlist.create');
+Route::put('/assetlist/{assetlist}/', [PropertyController::class, 'update'])->name('assetlist.update');
+Route::get('/assetlist/{id}/editassetlist', [PropertyController::class, 'edit'])->name('assetlist.editassetlist');
 
-// Show form to create a new asset
-Route::get('/create', [PropertyController::class, 'create'])->name('asset.create');
-
-
-// Store a newly created asset in storage
-Route::post('/asset', [PropertyController::class, 'store'])->name('asset.store');
-
-// Show the form to edit the specified asset
-Route::get('/asset/{id}/edit', [PropertyController::class, 'edit'])->name('asset.edit');
-
-// Update the specified asset in storage
-Route::put('/asset/{asset}', [PropertyController::class, 'update'])->name('asset.update');
-
-// If you need a route to show a single asset, you might want to add:
-// Route::get('/asset/{id}', [PropertyController::class, 'show'])->name('asset.show');
+// Route to show the 'Navigation pages' 
+Route::get('/category', [CategoryController::class, 'index'])->middleware('auth')->name('category.index');
 
 // Home route
 Route::get('/', function () {

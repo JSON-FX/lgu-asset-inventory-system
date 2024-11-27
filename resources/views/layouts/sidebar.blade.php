@@ -24,7 +24,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('asset') }}" key="t-starter-page">@lang('Assets List')</a></li>
-                        <li><a href="{{ route('asset.create') }}" key="t-maintenance">@lang('Add Asset')</a></li>
+                        <li><a href="{{ route('assetlist.create') }}" key="t-maintenance">@lang('Add Asset')</a></li>
                     </ul>
                     
                 </li>

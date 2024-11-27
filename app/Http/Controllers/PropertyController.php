@@ -35,7 +35,7 @@ class PropertyController extends Controller
         $statuses = Status::all();
         $employees = Employee::all();
 
-        return view('action_asset.add', compact('categories', 'offices', 'statuses', 'employees'));
+        return view('action_asset.addasset', compact('categories', 'offices', 'statuses', 'employees'));
     }
 
     /**
@@ -62,7 +62,7 @@ class PropertyController extends Controller
 
         Property::create($request->all());
 
-        return redirect()->route('users.index')->with('success', 'Asset added successfully!');
+        return redirect()->route('asset')->with('success', 'Asset added successfully!');
     }
 
     /**
