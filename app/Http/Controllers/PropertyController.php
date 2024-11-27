@@ -20,7 +20,7 @@ class PropertyController extends Controller
     public function index()
     {
         $properties = Property::with(['category', 'office', 'status', 'employee'])->get();
-        return view('tables-datatable', compact('properties'));
+        return view('assetlist', compact('properties'));
     }
 
     /**

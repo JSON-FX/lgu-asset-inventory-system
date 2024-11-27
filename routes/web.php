@@ -19,7 +19,7 @@ Route::get('/properties/export', function () {
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 // Index of all assets
-Route::get('/assets', [PropertyController::class, 'index'])->name('assets.index');
+Route::get('/assetlist', [PropertyController::class, 'index'])->name('assets.index');
 
 // Show form to create a new asset
 Route::get('/create', [PropertyController::class, 'create'])->name('asset.create');

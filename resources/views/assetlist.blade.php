@@ -28,6 +28,10 @@
                         <th>Age</th>
                         <th>Start date</th>
                         <th>Salary</th>
+                        <th>Salary</th>
+                        <th>Salary</th>
+                        <th>Salary</th>
+                        <th>Salary</th>
                     </tr>
                     </thead>
 
@@ -35,7 +39,6 @@
                     <tbody>
                         @forelse ($properties as $property)
                         <tr class="hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-800 dark:hover:text-gray-200">
-                            <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->id }}</td>
                             <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->property_number }}</td>
                             <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->description }}</td>
                             <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->serial_number }}</td>
@@ -45,7 +48,6 @@
                             <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->employee->employee_name }}</td>
                             <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">₱{{ number_format($property->acquisition_cost, 2) }}</td>
                             <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->status->status_name }} </td>
-                            <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->inventory_remarks }}</td>
                             <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600 text-center">
                                 <a href="{{ route('asset.edit', $property->id) }}" class="text-blue-500 hover:text-blue-700 font-semibold">
                                     Edit
