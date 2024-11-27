@@ -8,7 +8,7 @@
 @endsection
 @section('content')
 @component('components.breadcrumb')
-@slot('li_1') Asset @endslot
+@slot('li_1') Assets @endslot
 @slot('title') Assets List @endslot
 @endcomponent
 
