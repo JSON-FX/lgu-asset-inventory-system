@@ -39,7 +39,7 @@
 
                     <!-- Edit Asset Form -->
                     <h1 class="text-xl font-semibold mt-8 mb-4">Edit Asset</h1>
-                    <form action="{{ route('asset.update', $property->id) }}" method="POST" class="bg-gray-900 p-6 rounded-lg">
+                    <form action="{{ route('assetlist.update', $property->id) }}" method="POST" class="bg-gray-900 p-6 rounded-lg">
                         @csrf
                         @method('PUT')
 
