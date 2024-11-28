@@ -22,7 +22,7 @@
                 <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>Prop No.</th>
                         <th>Description</th>
                         <th>Serial No.</th>
                         <th>Office</th>
@@ -46,10 +46,12 @@
                             <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->employee->employee_name }}</td>
                             <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">₱{{ number_format($property->acquisition_cost, 2) }}</td>
                             <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->status->status_name }} </td>
-                            <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600 text-center">
-                                <a href="{{ route('assetlist.editassetlist', $property->id) }}" class="text-blue-500 hover:text-blue-700 font-semibold">
-                                    Edit
-                                </a>
+
+                            <td>
+                                <div class="d-flex gap-3">
+                                    <a href="{{ route('assetlist.editassetlist', $property->id) }}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
+                                    <a href="javascript:void(0);" class="text-danger"><i class="mdi mdi-delete font-size-18"></i></a> 
+                                </div>
                             </td>
                         </tr>
                         @empty

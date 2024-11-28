@@ -18,10 +18,10 @@ Route::get('/properties/export', function () {
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::post('/assetlist', [PropertyController::class, 'store'])->name('asset.store');
-Route::get('/assetlist/create', [PropertyController::class, 'create'])->name('assetlist.create');
-Route::put('/assetlist/{assetlist}/', [PropertyController::class, 'update'])->name('assetlist.update');
-Route::get('/assetlist/{id}/editassetlist', [PropertyController::class, 'edit'])->name('assetlist.editassetlist');
+Route::post('/create', [PropertyController::class, 'store'])->name('asset.store');
+Route::get('/create', [PropertyController::class, 'create'])->name('assetlist.create');
+Route::put('/create/{assetlist}/', [PropertyController::class, 'update'])->name('assetlist.update');
+Route::get('/create/{id}/editassetlist', [PropertyController::class, 'edit'])->name('assetlist.editassetlist');
 
 // Route to show the 'Navigation pages' 
 Route::get('/category', [CategoryController::class, 'index'])->middleware('auth')->name('category.index');

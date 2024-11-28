@@ -37,17 +37,17 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="description">Description</label>
-                                    <textarea class="form-control" id="description" name="description" rows="1" placeholder="Asset Description">{{ old('description', $asset->description ?? '') }}</textarea>
+                                    <textarea class="form-control" id="description" name="description" rows="1" placeholder="Asset Description">{{ old('description') }}</textarea>
                                     @error('description')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
                                     <label class="control-label">Category</label>
-                                    <select class="form-control select2" name="category_id">
+                                    <select class="form-control" name="category_id">
                                         <option value="">Select</option>
                                         @foreach($categories as $category)
-                                            <option value="{{ $category->id }}" {{ old('category_id', $asset->category_id ?? '') == $category->id ? 'selected' : '' }}>
+                                            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
                                                 {{ $category->category_name }}
                                             </option>
                                         @endforeach
@@ -58,10 +58,10 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="control-label">Office</label>
-                                    <select class="form-control select2" name="office_id">
+                                    <select class="form-control" name="office_id">
                                         <option value="">Select</option>
                                         @foreach($offices as $office)
-                                            <option value="{{ $office->id }}" {{ old('office_id', $asset->office_id ?? '') == $office->id ? 'selected' : '' }}>
+                                            <option value="{{ $office->id }}" {{ old('office_id') == $office->id ? 'selected' : '' }}>
                                                 {{ $office->office_name }}
                                             </option>
                                         @endforeach
@@ -72,10 +72,10 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="control-label">Status</label>
-                                    <select class="form-control select2" name="status_id">
+                                    <select class="form-control" name="status_id">
                                         <option value="">Select</option>
                                         @foreach($statuses as $status)
-                                            <option value="{{ $status->id }}" {{ old('status_id', $asset->status_id ?? '') == $status->id ? 'selected' : '' }}>
+                                            <option value="{{ $status->id }}" {{ old('status_id') == $status->id ? 'selected' : '' }}>
                                                 {{ $status->status_name }}
                                             </option>
                                         @endforeach
@@ -86,35 +86,35 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="control-label">User</label>
-                                    <select class="form-control select2" name="user_id">
+                                    <select class="form-control" name="employee_id">
                                         <option value="">Select</option>
                                         @foreach($employees as $employee)
-                                            <option value="{{ $employee->id }}" {{ old('user_id', $asset->user_id ?? '') == $employee->id ? 'selected' : '' }}>
+                                            <option value="{{ $employee->id }}" {{ old('employee_id') == $employee->id ? 'selected' : '' }}>
                                                 {{ $employee->employee_name }}
                                             </option>
                                         @endforeach
                                     </select>
-                                    @error('user_id')
+                                    @error('employee_id')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="purchase_date">Date Purchased</label>
-                                    <input id="purchase_date" name="purchase_date" type="date" class="form-control" value="{{ old('purchase_date', $asset->purchase_date ?? '') }}">
-                                    @error('purchase_date')
+                                    <label for="date_purchase">Date Purchased</label>
+                                    <input id="date_purchase" name="date_purchase" type="date" class="form-control" value="{{ old('date_purchase') }}">
+                                    @error('date_purchase')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
                                     <label for="serial_number">Serial Number</label>
-                                    <input id="serial_number" name="serial_number" type="text" class="form-control" placeholder="Serial Number" value="{{ old('serial_number', $asset->serial_number ?? '') }}">
+                                    <input id="serial_number" name="serial_number" type="text" class="form-control" placeholder="Serial Number" value="{{ old('serial_number') }}">
                                     @error('serial_number')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
                                     <label for="acquisition_cost">Acquisition Cost</label>
-                                    <input id="acquisition_cost" name="acquisition_cost" type="number" class="form-control" value="{{ old('acquisition_cost', $asset->acquisition_cost ?? '') }}">
+                                    <input id="acquisition_cost" name="acquisition_cost" type="number" class="form-control" value="{{ old('acquisition_cost') }}">
                                     @error('acquisition_cost')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -133,7 +133,7 @@
                         </div>
 
                         <!-- Submit and Reset Buttons -->
-                        <div class="d-flex flex-wrap gap-2">
+                        <div>
                             <button type="submit" class="btn btn-primary">Save Asset</button>
                             <button type="reset" class="btn btn-secondary waves-effect waves-light">Cancel</button>
                         </div>

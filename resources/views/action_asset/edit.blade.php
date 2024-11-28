@@ -81,7 +81,7 @@
 
                         <!-- Office Dropdown -->
                         <div class="mb-4">
-                            <label for="office_id" class="block text-sm font-medium text-white">Office</label>
+                            <label for="employee_id" class="block text-sm font-medium text-white">Office</label>
                             <select id="office_id" name="office_id" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md" required>
                                 @foreach($offices as $office)
                                     <option value="{{ $office->id }}" {{ old('office_id', $property->office_id) == $office->id ? 'selected' : '' }}>
