@@ -22,6 +22,7 @@ Route::post('/create', [PropertyController::class, 'store'])->name('asset.store'
 Route::get('/create', [PropertyController::class, 'create'])->name('assetlist.create');
 Route::put('/create/{assetlist}/', [PropertyController::class, 'update'])->name('assetlist.update');
 Route::get('/create/{id}/editassetlist', [PropertyController::class, 'edit'])->name('assetlist.editassetlist');
+Route::get('/asset/{id}/view', [PropertyController::class, 'view'])->name('assetlist.view');
 
 // Route to show the 'Navigation pages' 
 Route::get('/category', [CategoryController::class, 'index'])->middleware('auth')->name('category.index');

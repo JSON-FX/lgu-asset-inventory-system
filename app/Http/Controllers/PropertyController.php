@@ -81,6 +81,16 @@ class PropertyController extends Controller
 
         return view('action_asset.edit', compact('property', 'categories', 'offices', 'statuses', 'employees'));
     }
+    public function view($id)
+    {
+        $property = Property::findOrFail($id);
+        $categories = Category::all();
+        $offices = Office::all();
+        $statuses = Status::all();
+        $employees = Employee::all();
+
+        return view('action_asset.view', compact('property', 'categories', 'offices', 'statuses', 'employees'));
+    }
 
     /**
      * Update the specified property in storage.

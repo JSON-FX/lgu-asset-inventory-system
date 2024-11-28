@@ -24,7 +24,8 @@
                     <tr>
                         <th>Prop No.</th>
                         <th>Description</th>
-                        <th>Serial No.</th>
+                        <th>Category</th>
+                        {{-- <th>Serial No.</th> --}}
                         <th>Office</th>
                         <th>Purchase date</th>
                         <th>User</th>
@@ -40,15 +41,17 @@
                         <tr class="hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-800 dark:hover:text-gray-200">
                             <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->property_number }}</td>
                             <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->description }}</td>
-                            <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->serial_number }}</td>
+                            <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->category->category_name }}</td>
+                            {{-- <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->serial_number }}</td> --}}
                             <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->office->office_name }}</td>
                             <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->date_purchase }}</td>
                             <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->employee->employee_name }}</td>
                             <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">₱{{ number_format($property->acquisition_cost, 2) }}</td>
-                            <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->status->status_name }} </td>
-
+                            <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->status->status_name }} </td> 
+    
                             <td>
                                 <div class="d-flex gap-3">
+                                    <a href="{{ route('assetlist.view', $property->id) }}" class="mdi mdi-eye font-size-18"></a>
                                     <a href="{{ route('assetlist.editassetlist', $property->id) }}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
                                     <a href="javascript:void(0);" class="text-danger"><i class="mdi mdi-delete font-size-18"></i></a> 
                                 </div>

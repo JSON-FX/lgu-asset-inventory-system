@@ -67,7 +67,7 @@
                                 <td>
                                     <i class="fab fa-cc-mastercard me-1"></i> Mastercard
                                 </td>
-                                <td>
+                               <td>
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-primary btn-sm btn-rounded" data-bs-toggle="modal" data-bs-target=".orderdetailsModal">
                                         View Details

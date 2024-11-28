@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="control-label">Category</label>
-                                    <select class="form-control" name="category_id">
+                                    <select class="form-control select2" name="category_id">
                                         <option value="">Select</option>
                                         @foreach($categories as $category)
                                             <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
@@ -58,7 +58,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="control-label">Office</label>
-                                    <select class="form-control" name="office_id">
+                                    <select class="form-control select2" name="office_id">
                                         <option value="">Select</option>
                                         @foreach($offices as $office)
                                             <option value="{{ $office->id }}" {{ old('office_id') == $office->id ? 'selected' : '' }}>
@@ -72,7 +72,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="control-label">Status</label>
-                                    <select class="form-control" name="status_id">
+                                    <select class="form-control select2" name="status_id">
                                         <option value="">Select</option>
                                         @foreach($statuses as $status)
                                             <option value="{{ $status->id }}" {{ old('status_id') == $status->id ? 'selected' : '' }}>
@@ -90,7 +90,7 @@
                             <div class="col-sm-6">
                                 <div class="mb-3">
                                     <label class="control-label">User</label>
-                                    <select class="form-control" name="employee_id">
+                                    <select class="form-control select2" name="employee_id">
                                         <option value="">Select</option>
                                         @foreach($employees as $employee)
                                             <option value="{{ $employee->id }}" {{ old('employee_id') == $employee->id ? 'selected' : '' }}>
