@@ -84,6 +84,10 @@
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
+                                
+                            </div>
+                            
+                            <div class="col-sm-6">
                                 <div class="mb-3">
                                     <label class="control-label">User</label>
                                     <select class="form-control" name="employee_id">
@@ -119,12 +123,9 @@
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
-                            </div>
-                            
-                            <div class="col-sm-6">
                                 <div class="mb-3">
                                     <label for="inventory_remarks">Inventory Remarks</label>
-                                    <textarea class="form-control" id="inventory_remarks" name="inventory_remarks" rows="5" placeholder="Remarks">{{ old('inventory_remarks', $asset->inventory_remarks ?? '') }}</textarea>
+                                    <textarea class="form-control" id="inventory_remarks" name="inventory_remarks" rows="1" placeholder="Remarks">{{ old('inventory_remarks', $asset->inventory_remarks ?? '') }}</textarea>
                                     @error('inventory_remarks')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
