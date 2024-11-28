@@ -10,9 +10,9 @@
                 <li class="menu-title" data-key="t-menu">@lang('translation.Menu')</li>
 
                 <li>
-                    <a href="dashboard">
+                    <a href="{{ route('dashboard') }}">
                         <i data-feather="home"></i>
-                        <span class="badge rounded-pill bg-soft-success text-success float-end">+9</span>
+                        {{-- <span class="badge rounded-pill bg-soft-success text-success float-end">+9</span> --}}
                         <span data-key="t-dashboard">@lang('translation.Dashboards')</span>
                     </a>
                 </li>
@@ -29,19 +29,19 @@
                     
                 </li>
                 <li>
-                    <a href="category">
+                    <a href="{{ route('category.index') }}">
                         <i data-feather="layers"></i>
                         <span data-key="t-authentication">@lang('Category')</span>
                     </a>
                 </li>
                 <li>
-                    <a href="office">
+                    <a href="{{ route('office.index') }}">
                         <i data-feather="trello"></i>
                         <span data-key="t-tasks">@lang('Office')</span>
                     </a>
                 </li>
                 <li>
-                    <a href="users">
+                    <a href="{{ route('users.index') }}">
                         <i data-feather="users"></i>
                         <span data-key="t-contacts">@lang('User')</span>
                     </a>
