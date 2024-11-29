@@ -1,5 +1,6 @@
 @extends('layouts.master')
 @section('title') @lang('translation.Data_Tables')  @endsection
+
 @section('css')
 <link href="{{ URL::asset('assets/libs/datatables.net-bs4/datatables.net-bs4.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ URL::asset('assets/libs/datatables.net-buttons-bs4/datatables.net-buttons-bs4.min.css') }}" rel="stylesheet" type="text/css" />
@@ -21,13 +22,11 @@
                 <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                         <tr>
-                            
                             <th>Prop No.</th>
                             <th>Description</th>
                             <th>Category</th>
                             <th>Purchase Date</th>
                             <th>User</th>
-                            
                             <th>Status</th>
                             <th>Deleted At</th>
                             <th>Actions</th>
@@ -37,38 +36,59 @@
                     <tbody>
                         @forelse ($trashedProperties as $property)
                         <tr class="hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-200 ease-in-out">
-                            
                             <td>{{ $property->property_number }}</td>
                             <td>{{ $property->description }}</td>
                             <td>{{ $property->category->category_name }}</td>
                             <td>{{ $property->date_purchase ? $property->date_purchase->format('Y-m-d') : 'N/A' }}</td>
                             <td>{{ $property->employee->employee_name }}</td>
-                            
                             <td>{{ $property->status->status_name }}</td>
-                            <td>{{ $property->deleted_at ? $property->deleted_at->format('Y-m-d H:i:s') : 'N/A' }}</td>
+                            <td>{{ $property->deleted_at ? \Carbon\Carbon::parse($property->deleted_at)->format('Y-m-d h:i:A') : 'N/A' }}</td>
                             <td>
                                 <div class="d-flex gap-3">
                                     <a href="{{ route('asset.restore', $property->id) }}" class="btn btn-success btn-sm">Restore</a>
-                                    <a href="{{ route('asset.forceDelete', $property->id) }}" 
-                                       class="btn btn-danger btn-sm"
-                                       onclick="return confirm('Are you sure you want to permanently delete this property?');">
-                                        Permanently Delete
-                                    </a>
+                                    <a href="javascript:void(0);" 
+                                        class="btn btn-danger btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#deleteModal-{{ $property->id }}"
+                                        >Permanently Delete</a>
                                 </div>
                             </td>
                         </tr>
+
+                        <!-- Modal for deletion confirmation (outside the loop) -->
+                        <div class="modal fade" id="deleteModal-{{ $property->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel-{{ $property->id }}" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel-{{ $property->id }}">Confirm Deletion</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to permanently delete the asset <strong>{{ $property->description }}</strong>?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <!-- Form that submits the delete request -->
+                                        <form action="{{ route('asset.forceDelete', $property->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-danger">Yes, Permanently Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         @empty
                         <tr>
-                            <td colspan="10" class="text-center">No trashed properties found.</td>
+                            <td colspan="8" class="text-center">No trashed properties found.</td>
                         </tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
         </div>
-        <!-- end card -->
     </div> <!-- end col -->
-</div> <!-- end row -->
+</div>
 
 @endsection
 

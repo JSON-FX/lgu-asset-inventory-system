@@ -28,7 +28,7 @@ Route::get('/asset/{id}/edit', [PropertyController::class, 'edit'])->name('asset
 Route::get('/asset/{id}/view', [PropertyController::class, 'view'])->name('asset.view');
 Route::get('/asset/trash', [PropertyController::class, 'trash'])->name('asset.trash');
 Route::get('/asset/restore/{id}', [PropertyController::class, 'restore'])->name('asset.restore');
-Route::get('/asset/force-delete/{id}', [PropertyController::class, 'forceDelete'])->name('asset.forceDelete');
+Route::delete('/asset/force-delete/{id}', [PropertyController::class, 'forceDelete'])->name('asset.forceDelete');
 
 
 
