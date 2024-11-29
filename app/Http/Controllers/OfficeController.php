@@ -63,5 +63,18 @@ class OfficeController extends Controller
         // Redirect to the assets list page with a success message
         return redirect()->route('office.index')->with('success', 'office added successfully!');
     }
+    public function destroy($id)
+    {
+        // Find the office by ID
+        $office = Office::findOrFail($id);
+
+        // Delete the office
+        $office->delete();
+
+        // Redirect to the office list page with a success message
+        return redirect()->route('office.index')->with('success', 'Office deleted successfully!');
+    }
+    
+
     
 }

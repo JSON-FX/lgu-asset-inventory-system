@@ -133,4 +133,31 @@ class PropertyController extends Controller
 
         return redirect()->route('asset')->with('success', 'Asset deleted successfully!');
     }
+    public function trash()
+    {
+        // Fetch only soft-deleted properties
+        $trashedProperties = Property::onlyTrashed()->get();
+
+        // Return a view and pass the data
+        return view('action_asset.trash', compact('trashedProperties'));
+    }
+    public function restore($id)
+    {
+        // Find the soft-deleted property and restore it
+        $property = Property::onlyTrashed()->findOrFail($id);
+        $property->restore();
+
+        return redirect()->route('asset.trash')->with('success', 'Property restored successfully!');
+    }
+    public function forceDelete($id)
+    {
+        // Find the soft-deleted property and permanently delete it
+        $property = Property::onlyTrashed()->findOrFail($id);
+        $property->forceDelete();
+
+        return redirect()->route('asset.trash')->with('success', 'Property permanently deleted!');
+    }
+
+
+
 }

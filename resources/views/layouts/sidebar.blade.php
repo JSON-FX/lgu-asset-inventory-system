@@ -48,7 +48,7 @@
                 </li>
                
                 <li>
-                    <a href="javascript: void(0);" class="has-arrow">
+                    <a href="{{ route('asset.trash') }}" class="has-arrow">
                         <i data-feather="file-text"></i>
                         <span data-key="t-pages">@lang('Reports')</span>
                     </a>

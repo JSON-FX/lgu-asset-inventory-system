@@ -53,7 +53,7 @@
                                 <div class="d-flex gap-3">
                                     <a href="{{ route('assetlist.view', $property->id) }}" class="mdi mdi-eye font-size-18"></a>
                                     <a href="{{ route('assetlist.editassetlist', $property->id) }}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
-                                    <a href="javascript:void(0);" class="text-danger"><i class="mdi mdi-delete font-size-18"></i></a> 
+                                    <a href="{{ route('assetlist.delete', $property->id) }}" class="text-danger"><i class="mdi mdi-delete font-size-18"></i></a> 
                                 </div>
                             </td>
                         </tr>

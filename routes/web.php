@@ -12,44 +12,26 @@ use App\Http\Controllers\DashboardController;
 use App\Exports\PropertiesExport;
 use Maatwebsite\Excel\Facades\Excel;
 
-Route::get('/properties/export', function () {
-    return Excel::download(new PropertiesExport, 'properties.xlsx');
-})->name('asset.export');
-
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-Route::post('/create', [PropertyController::class, 'store'])->name('asset.store');
-Route::get('/create', [PropertyController::class, 'create'])->name('assetlist.create');
-Route::put('/create/{assetlist}/', [PropertyController::class, 'update'])->name('assetlist.update');
-Route::get('/create/{id}/editassetlist', [PropertyController::class, 'edit'])->name('assetlist.editassetlist');
-Route::get('/asset/{id}/view', [PropertyController::class, 'view'])->name('assetlist.view');
-
-// Route to show the 'Navigation pages' 
-Route::get('/category', [CategoryController::class, 'index'])->middleware('auth')->name('category.index');
-
-// Home route
+// Home-Index route
 Route::get('/', function () {
     return view('welcome');
 }); 
-Route::get('/ecommerce-orders', function () {
-    return view('ecommerce-orders');
-}); 
+// Route to show the 'Dashboard Actions' 
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+ 
+// Route to show the 'Asset Actions' 
+Route::post('/add-asset', [PropertyController::class, 'store'])->name('asset.store');
+Route::get('/add-asset', [PropertyController::class, 'create'])->name('assetlist.create');
+Route::put('/update-asset/{assetlist}/', [PropertyController::class, 'update'])->name('assetlist.update');
+Route::get('/asset/delete/{id}', [PropertyController::class, 'destroy'])->name('assetlist.delete');
+Route::get('/asset/{id}/edit', [PropertyController::class, 'edit'])->name('assetlist.editassetlist');
+Route::get('/asset/{id}/view', [PropertyController::class, 'view'])->name('assetlist.view');
+Route::get('/asset/trash', [PropertyController::class, 'trash'])->name('asset.trash');
+Route::get('/asset/restore/{id}', [PropertyController::class, 'restore'])->name('asset.restore');
+Route::get('/asset/force-delete/{id}', [PropertyController::class, 'forceDelete'])->name('asset.forceDelete');
 
-Route::get('/ecommerce-customers', function () {
-    return view('ecommerce-customers');
-}); 
 
 
-Route::get('/tables-datatable', function () {
-    return view('tables-datatable');
-}); 
-// Route::prefix('assetlist')->group(function () {
-//     Route::get('/', [PropertyController::class, 'index'])->name('assets.index');
-//     Route::get('/create', [PropertyController::class, 'create'])->name('asset.create');
-//     Route::post('/', [PropertyController::class, 'store'])->name('asset.store');
-//     Route::get('/{id}/edit', [PropertyController::class, 'edit'])->name('asset.edit');
-//     Route::put('/{asset}', [PropertyController::class, 'update'])->name('asset.update');
-// });//
 // Route to show the 'Users Actions' 
 Route::post('/users', [EmployeeController::class, 'store'])->name('users.store');
 Route::get('/users/create', [EmployeeController::class, 'create'])->name('users.create');
@@ -88,6 +70,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+// Export Excel File routes
+Route::get('/properties/export', function () {
+    return Excel::download(new PropertiesExport, 'properties.xlsx');
+})->name('asset.export');
 
 // Import the authentication routes
 require __DIR__.'/auth.php';
