@@ -36,7 +36,7 @@
 
                     <tbody>
                         @forelse ($trashedProperties as $property)
-                        <tr>
+                        <tr class="hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-200 ease-in-out">
                             
                             <td>{{ $property->property_number }}</td>
                             <td>{{ $property->description }}</td>

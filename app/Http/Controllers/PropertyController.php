@@ -89,7 +89,7 @@ class PropertyController extends Controller
         $statuses = Status::all();
         $employees = Employee::all();
 
-        return view('action_asset.view', compact('property', 'categories', 'offices', 'statuses', 'employees'));
+        return view('asset', compact('property', 'categories', 'offices', 'statuses', 'employees'));
     }
 
     /**

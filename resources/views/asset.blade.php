@@ -16,9 +16,11 @@
 
 <div class="row">
     <div class="col-12">
+        
         <div class="card">
-    
+            
             <div class="card-body">
+            
                 <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                     <tr>
@@ -51,7 +53,7 @@
     
                             <td>
                                 <div class="d-flex gap-3">
-                                    <a href="{{ route('assetlist.view', $property->id) }}" class="mdi mdi-eye font-size-18"></a>
+                                    <a  class="mdi mdi-eye font-size-18"data-bs-toggle="modal" data-bs-target=".orderdetailsModal"></a>
                                     <a href="{{ route('assetlist.editassetlist', $property->id) }}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
                                     <a href="{{ route('assetlist.delete', $property->id) }}" class="text-danger"><i class="mdi mdi-delete font-size-18"></i></a> 
                                 </div>
@@ -68,7 +70,71 @@
         </div>
         <!-- end cardaa -->
     </div> <!-- end col -->
-</div> <!-- end row -->
+</div>
+<div class="modal fade orderdetailsModal" id="orderdetailsModal-{{ $property->id }}" tabindex="-1" role="dialog" aria-labelledby="orderdetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orderdetailsModalLabel">Asset Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xl-3">
+                        <div class="product-detai-imgs">
+                            <div class="row">
+                                <div class="col-md-7 offset-md-1 col-sm-9 col-8">
+                                    <div class="tab-content" id="v-pills-tabContent">
+                                        <div class="tab-pane fade show active" id="product-1" role="tabpanel" aria-labelledby="product-1-tab">
+                                            <div>
+                                                <div class="img-fluid mx-auto d-block">
+                                                    {!! QrCode::size(100)->generate($property->property_number) !!}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3">
+                        <div class="mt-4 mt-xl-3">
+                            <h5 class="mt-1 mb-3">Property Number</h5>
+                            <p class="text-muted sm-4">{{ $property->property_number }}</p>
+                            <h5 class="mt-1 mb-3">Serial Number</h5>
+                            <p class="text-muted sm-4">{{ $property->serial_number }}</p>
+                            <h5 class="mt-1 mb-3">Description</h5>
+                            <p class="text-muted sm-4">{{ $property->description }}</p>
+                            <h5 class="mt-1 mb-3">Category</h5>
+                            <p class="text-muted sm-4">{{ $property->category->category_name }}</p>
+                            <h5 class="mt-1 mb-3">Office</h5>
+                            <p class="text-muted sm-4">{{ $property->office->office_name }}</p>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6">
+                        <div class="mt-4 mt-xl-3">
+                            <h5 class="mt-1 mb-3">Status</h5>
+                            <p class="text-muted sm-4">{{ $property->status->status_name }}</p>
+                            <h5 class="mt-1 mb-3">User</h5>
+                            <p class="text-muted sm-4">{{ $property->employee->employee_name }}</p>
+                            <h5 class="mt-1 mb-3">Date Purchased</h5>
+                            <p class="text-muted sm-4">{{ $property->date_purchase }}</p>
+                            <h5 class="mt-1 mb-3">Acquisition Cost</h5>
+                            <p class="text-muted sm-4">₱{{ number_format($property->acquisition_cost, 2) }}</p>
+                            <h5 class="mt-1 mb-3">Inventory Remarks</h5>
+                            <p class="text-muted sm-4">{{ $property->inventory_remarks }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection
 @section('script')

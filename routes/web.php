@@ -25,7 +25,7 @@ Route::get('/add-asset', [PropertyController::class, 'create'])->name('assetlist
 Route::put('/update-asset/{assetlist}/', [PropertyController::class, 'update'])->name('assetlist.update');
 Route::get('/asset/delete/{id}', [PropertyController::class, 'destroy'])->name('assetlist.delete');
 Route::get('/asset/{id}/edit', [PropertyController::class, 'edit'])->name('assetlist.editassetlist');
-Route::get('/asset/{id}/view', [PropertyController::class, 'view'])->name('assetlist.view');
+Route::get('/asset/{id}/view', [PropertyController::class, 'view'])->name('asset.view');
 Route::get('/asset/trash', [PropertyController::class, 'trash'])->name('asset.trash');
 Route::get('/asset/restore/{id}', [PropertyController::class, 'restore'])->name('asset.restore');
 Route::get('/asset/force-delete/{id}', [PropertyController::class, 'forceDelete'])->name('asset.forceDelete');
@@ -61,7 +61,7 @@ Route::get('/category', [CategoryController::class, 'index'])->middleware('auth'
 Route::get('/office', [OfficeController::class, 'index'])->middleware('auth')->name('office.index');
 Route::get('/status', [StatusController::class, 'index'])->middleware('auth')->name('status.index');
 Route::get('/users', [EmployeeController::class, 'index'])->middleware('auth')->name('users.index');
-Route::get('/asset', [PropertyController::class, 'index'])->middleware(['auth',   'verified'])->name('asset');
+Route::get('/asset', [PropertyController::class, 'index',])->middleware(['auth',   'verified'])->name('asset');
 
 
 

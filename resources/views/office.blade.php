@@ -53,7 +53,7 @@
                                 <div class="d-flex gap-3">
                                     <a href="{{ route('office.editoffice', $office->id) }}" class="mdi mdi-eye font-size-18"></a>
                                     <a href="{{ route('office.editoffice', $office->id) }}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
-                                    <a href="{{ route('office.delete', $office->id) }}" class="text-danger"><i class="mdi mdi-delete font-size-18"></i></a> 
+                                    <a href="{{ route('office.index', $office->id) }}" class="text-danger"><i class="mdi mdi-delete font-size-18"></i></a> 
                                 </div>
                             </td>
                         </tr>

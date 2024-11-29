@@ -48,12 +48,12 @@
                 </li>
                
                 <li>
-                    <a href="{{ route('asset.trash') }}" class="has-arrow">
+                    <a href="javascript: void(0);" class="has-arrow">
                         <i data-feather="file-text"></i>
                         <span data-key="t-pages">@lang('Reports')</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="pages-starter" key="t-starter-page">@lang('translation.Starter_Page')</a></li>
+                        <li><a href="{{ route('asset.trash') }}" key="t-starter-page">@lang('Trash')</a></li>
                         <li><a href="pages-maintenance" key="t-maintenance">@lang('translation.Maintenance')</a></li>
                         <li><a href="pages-comingsoon" key="t-coming-soon">@lang('translation.Coming_Soon')</a></li>
                         <li><a href="pages-timeline" key="t-timeline">@lang('translation.Timeline')</a></li>
