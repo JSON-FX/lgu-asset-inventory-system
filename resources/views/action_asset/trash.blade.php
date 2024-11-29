@@ -42,7 +42,7 @@
                             <td>{{ $property->date_purchase ? $property->date_purchase->format('Y-m-d') : 'N/A' }}</td>
                             <td>{{ $property->employee->employee_name }}</td>
                             <td>{{ $property->status->status_name }}</td>
-                            <td>{{ $property->deleted_at ? \Carbon\Carbon::parse($property->deleted_at)->format('Y-m-d h:i:A') : 'N/A' }}</td>
+                            <td>{{ $property->deleted_at ? \Carbon\Carbon::parse($property->deleted_at)->format('m-d-Y  h:i:A') : 'N/A' }}</td>
                             <td>
                                 <div class="d-flex gap-3">
                                     <a href="{{ route('asset.restore', $property->id) }}" class="btn btn-success btn-sm">Restore</a>
