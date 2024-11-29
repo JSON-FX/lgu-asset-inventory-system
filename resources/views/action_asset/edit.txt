@@ -55,7 +55,7 @@
                         <!-- Description -->
                         <div class="mb-4">
                             <label for="description" class="block text-sm font-medium text-white">Description</label>
-                            <input type="text" id="description" name="description" value="{{ old('description', $property->description) }}" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md" required>
+                            <input type="text" id="description" name="description" value="{{ old('property_number', $property->property_number) }}" class="mt-1 block w-full bg-gray-800 text-white border-gray-600 rounded-md" required>
                             @error('description')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror

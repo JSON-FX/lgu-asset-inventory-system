@@ -52,12 +52,19 @@
                             <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->status->status_name }} </td> 
     
                             <td>
+                                
                                 <div class="d-flex gap-3">
-                                    <a  class="mdi mdi-eye font-size-18"data-bs-toggle="modal" data-bs-target=".orderdetailsModal"></a>
+                                    <a class="mdi mdi-eye" data-bs-toggle="modal" data-bs-target="#orderdetailsModal-{{ $property->id }}"></a>
+
+
                                     <a href="{{ route('assetlist.editassetlist', $property->id) }}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
-                                    <a href="{{ route('assetlist.delete', $property->id) }}" class="text-danger"><i class="mdi mdi-delete font-size-18"></i></a> 
+                                    <a href="{{ route('assetlist.delete', $property->id) }}" class="text-danger" onclick="return confirm('Are you sure you want to delete this asset?')">
+                                        <i class="mdi mdi-delete font-size-18"></i>
+                                    </a>
+                                    
                                 </div>
                             </td>
+                            
                         </tr>
                         @empty
                             <tr>
@@ -71,11 +78,11 @@
         <!-- end cardaa -->
     </div> <!-- end col -->
 </div>
-<div class="modal fade orderdetailsModal" id="orderdetailsModal-{{ $property->id }}" tabindex="-1" role="dialog" aria-labelledby="orderdetailsModalLabel" aria-hidden="true">
+<div class="modal fade" id="orderdetailsModal-{{ $property->id }}" tabindex="-1" role="dialog" aria-labelledby="orderdetailsModalLabel-{{ $property->id }}" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="orderdetailsModalLabel">Asset Details</h5>
+                <h5 class="modal-title" id="orderdetailsModalLabel-{{ $property->id }}">Details for {{ $property->property_number }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -138,6 +145,8 @@
 
 @endsection
 @section('script')
+<script src="{{ URL::asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
 <script src="{{ URL::asset('assets/libs/datatables.net/datatables.net.min.js') }}"></script>
 <script src="{{ URL::asset('assets/libs/datatables.net-bs4/datatables.net-bs4.min.js') }}"></script>
 <script src="{{ URL::asset('assets/libs/datatables.net-buttons/datatables.net-buttons.min.js') }}"></script>
