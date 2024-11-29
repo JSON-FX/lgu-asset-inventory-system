@@ -1,62 +1,86 @@
+@extends('layouts.master')
+@section('title') @lang('translation.Data_Tables')  @endsection
+@section('css')
+<link href="{{ URL::asset('assets/libs/datatables.net-bs4/datatables.net-bs4.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ URL::asset('assets/libs/datatables.net-buttons-bs4/datatables.net-buttons-bs4.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ URL::asset('assets/libs/datatables.net-responsive-bs4/datatables.net-responsive-bs4.min.css') }}" rel="stylesheet" type="text/css" />
+@endsection
 
+@section('content')
+@component('components.breadcrumb')
+@slot('li_1') Assets @endslot
+@slot('title') Trashed @endslot
+@endcomponent
 
-<div class="container">
-    <h1>Trashed Properties</h1>
-    <div class="mb-3">
-        <a href="{{ route('asset') }}" class="btn btn-primary">Back to Property List</a>
-    </div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-4">Trashed List</h4>
 
-    @if($trashedProperties->isEmpty())
-        <div class="alert alert-info">No trashed properties found.</div>
-    @else
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Property Number</th>
-                    <th>Description</th>
-                    <th>Serial Number</th>
-                    <th>Engine Number</th>
-                    <th>ELC Number</th>
-                    <th>Office</th>
-                    <th>Category</th>
-                    <th>Status</th>
-                    <th>Employee</th>
-                    <th>Acquisition Cost</th>
-                    <th>Inventory Remarks</th>
-                    <th>Deleted At</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($trashedProperties as $property)
-                    <tr>
-                        <td>{{ $property->id }}</td>
-                        <td>{{ $property->property_number }}</td>
-                        <td>{{ $property->description }}</td>
-                        <td>{{ $property->serial_number ?? 'N/A' }}</td>
-                        <td>{{ $property->engine_number ?? 'N/A' }}</td>
-                        <td>{{ $property->elc_number ?? 'N/A' }}</td>
-                        <td>{{ $property->office->office_name ?? 'N/A' }}</td>
-                        <td>{{ $property->category->category_name ?? 'N/A' }}</td>
-                        <td>{{ $property->status->status_name ?? 'N/A' }}</td>
-                        <td>{{ $property->employee->employee_name ?? 'N/A' }}</td>
+                <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
+                    <thead>
+                        <tr>
+                            
+                            <th>Prop No.</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Purchase Date</th>
+                            <th>User</th>
+                            
+                            <th>Status</th>
+                            <th>Deleted At</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
 
-                        <td>{{ $property->acquisition_cost ? number_format($property->acquisition_cost, 2) : 'N/A' }}</td>
-                        <td>{{ $property->inventory_remarks ?? 'N/A' }}</td>
-                        <td>{{ $property->deleted_at->format('Y-m-d H:i:s') }}</td>
-                        <td>
-                            <a href="{{ route('asset.restore', $property->id) }}" class="btn btn-success btn-sm">Restore</a>
-                            <a href="{{ route('asset.forceDelete', $property->id) }}" 
-                               class="btn btn-danger btn-sm"
-                               onclick="return confirm('Are you sure you want to permanently delete this property?');">
-                                Permanently Delete
-                            </a>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    @endif
-</div>
+                    <tbody>
+                        @forelse ($trashedProperties as $property)
+                        <tr>
+                            
+                            <td>{{ $property->property_number }}</td>
+                            <td>{{ $property->description }}</td>
+                            <td>{{ $property->category->category_name }}</td>
+                            <td>{{ $property->date_purchase ? $property->date_purchase->format('Y-m-d') : 'N/A' }}</td>
+                            <td>{{ $property->employee->employee_name }}</td>
+                            
+                            <td>{{ $property->status->status_name }}</td>
+                            <td>{{ $property->deleted_at ? $property->deleted_at->format('Y-m-d H:i:s') : 'N/A' }}</td>
+                            <td>
+                                <div class="d-flex gap-3">
+                                    <a href="{{ route('asset.restore', $property->id) }}" class="btn btn-success btn-sm">Restore</a>
+                                    <a href="{{ route('asset.forceDelete', $property->id) }}" 
+                                       class="btn btn-danger btn-sm"
+                                       onclick="return confirm('Are you sure you want to permanently delete this property?');">
+                                        Permanently Delete
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="10" class="text-center">No trashed properties found.</td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- end card -->
+    </div> <!-- end col -->
+</div> <!-- end row -->
 
+@endsection
+
+@section('script')
+<script src="{{ URL::asset('assets/libs/datatables.net/datatables.net.min.js') }}"></script>
+<script src="{{ URL::asset('assets/libs/datatables.net-bs4/datatables.net-bs4.min.js') }}"></script>
+<script src="{{ URL::asset('assets/libs/datatables.net-buttons/datatables.net-buttons.min.js') }}"></script>
+<script src="{{ URL::asset('assets/libs/datatables.net-buttons-bs4/datatables.net-buttons-bs4.min.js') }}"></script>
+<script src="{{ URL::asset('assets/libs/jszip/jszip.min.js') }}"></script>
+<script src="{{ URL::asset('assets/libs/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ URL::asset('assets/libs/datatables.net-responsive/datatables.net-responsive.min.js') }}"></script>
+<script src="{{ URL::asset('assets/libs/datatables.net-responsive-bs4/datatables.net-responsive-bs4.min.js') }}"></script>
+<script src="{{ URL::asset('assets/js/pages/datatables.init.js') }}"></script>
+<script src="{{ URL::asset('assets/js/app.min.js') }}"></script>
+@endsection

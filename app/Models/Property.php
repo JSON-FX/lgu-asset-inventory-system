@@ -2,9 +2,11 @@
 
 
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Property extends Model
 {
@@ -25,10 +27,18 @@ class Property extends Model
         'acquisition_cost',
         'inventory_remarks',
     ];
+
+    // Define the custom date format for storing dates in the database
     public function getDateFormat()
     {
         return 'Y-m-d H:i:s';
     }
+
+    // Cast attributes to appropriate data types
+    protected $casts = [
+        'date_purchase' => 'datetime',
+        'deleted_at' => 'datetime',
+    ];
 
     // Relationships
     public function category()
@@ -50,6 +60,4 @@ class Property extends Model
     {
         return $this->belongsTo(Employee::class);
     }
-
-    
 }
