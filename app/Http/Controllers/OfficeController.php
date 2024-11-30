@@ -29,6 +29,7 @@ class OfficeController extends Controller
         // Validate incoming data
         $request->validate([
             'office_name' => 'required|string|max:255',
+            'office_name' => 'required|string|unique:offices,office_name',
         ]);
 
         // Find the office by ID

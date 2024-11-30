@@ -19,7 +19,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Basic Information</h4>
+                    <h4 class="card-title">Asset Information</h4>
                     <p class="card-title-desc">Fill all information below</p>
                 </div>
                 <div class="card-body">

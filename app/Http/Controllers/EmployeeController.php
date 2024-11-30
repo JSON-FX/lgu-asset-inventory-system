@@ -28,7 +28,8 @@ class EmployeeController   extends Controller
     {
         // Validate incoming data
         $request->validate([
-            'employee_name' => 'required|string|max:255',
+            'employee_name' => 'required|string|unique:employees,employee_name',
+
         ]);
 
         // Find the employee by ID
@@ -44,6 +45,7 @@ class EmployeeController   extends Controller
     }
     public function create()
     {
+        
         return view('action_users.addusers');  // Return the 'create' view for adding a new asset
     }
 
@@ -52,7 +54,9 @@ class EmployeeController   extends Controller
     {
         // Validate the incoming request data
         $request->validate([
-            'employee_name' => 'required|string|max:255'
+            'employee_name' => 'required|string|unique:employees,employee_name',
+        ], [
+            'employee_name.unique' => 'User Name is already taken.',  // Custom error message
         ]);
 
         // Create a new asset

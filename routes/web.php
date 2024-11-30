@@ -16,6 +16,9 @@ use Maatwebsite\Excel\Facades\Excel;
 Route::get('/', function () {
     return view('welcome');
 }); 
+Route::get('/list', function () {
+    return view('list');
+}); 
 // Route to show the 'Dashboard Actions' 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
  
