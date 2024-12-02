@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title') 
-    @lang('translation.Add_Asset') 
+    @lang('Add Asset') 
 @endsection
 
 @section('css')

@@ -48,7 +48,7 @@
                                     <a href="{{ route('asset.restore', $property->id) }}" class="btn btn-success btn-sm">Restore</a>
                                     <a href="javascript:void(0);" 
                                         class="btn btn-danger btn-sm" 
-                                        data-bs-toggle="modal" 
+                                        data-bs-toggle="modal"                                         
                                         data-bs-target="#deleteModal-{{ $property->id }}"
                                         >Permanently Delete</a>
                                 </div>

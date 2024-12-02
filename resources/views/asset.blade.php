@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title') @lang('translation.Data_Tables') @endsection
+@section('title') @lang('Asset List') @endsection
 @section('css')
     <link href="{{ URL::asset('assets/libs/datatables.net-bs4/datatables.net-bs4.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ URL::asset('assets/libs/datatables.net-buttons-bs4/datatables.net-buttons-bs4.min.css') }}" rel="stylesheet" type="text/css" />
@@ -84,7 +84,7 @@
                                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document"> <!-- Added modal-lg -->
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="orderdetailsModalLabel-{{ $property->id }}">Details for {{ $property->property_number }}</h5>
+                                                <h5 class="modal-title" id="orderdetailsModalLabel-{{ $property->id }}">{{ $property->description }} details</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
