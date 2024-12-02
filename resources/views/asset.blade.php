@@ -82,9 +82,8 @@
                                     </div>
                                 </div>
 
-                                <!-- Modal for this specific property -->
                                 <div class="modal fade" id="orderdetailsModal-{{ $property->id }}" tabindex="-1" role="dialog" aria-labelledby="orderdetailsModalLabel-{{ $property->id }}" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document"> <!-- Added modal-lg -->
+                                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="orderdetailsModalLabel-{{ $property->id }}">{{ $property->description }} details</h5>
@@ -101,7 +100,7 @@
                                                                         <div class="tab-pane fade show active" id="product-1" role="tabpanel" aria-labelledby="product-1-tab">
                                                                             <div>
                                                                                 <div class="img-fluid mx-auto d-block">
-                                                                                    {!! QrCode::size(180)->generate($property->property_number) !!} <!-- Increased QR Code Size -->
+                                                                                    {!! QrCode::size(180)->generate($property->property_number) !!}
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -110,7 +109,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
+                                
                                                     <!-- Middle Column: Property Details -->
                                                     <div class="col-xl-4">
                                                         <div class="mt-4 mt-xl-3">
@@ -126,7 +125,7 @@
                                                             <p class="text-muted sm-4">{{ $property->office->office_name }}</p>
                                                         </div>
                                                     </div>
-
+                                
                                                     <!-- Right Column: More Details -->
                                                     <div class="col-xl-4">
                                                         <div class="mt-4 mt-xl-3">
@@ -145,11 +144,18 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
+                                                <a href="{{ route('asset.exportexcel', $property->id) }}" class="btn btn-success">
+                                                    Export to Excel
+                                                </a>
+                                                <a href="{{ route('asset.exportpdf', $property->id) }}" class="btn btn-danger">
+                                                    Export to PDF
+                                                </a>
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                
                             @endforeach
                         </tbody>
                     </table>

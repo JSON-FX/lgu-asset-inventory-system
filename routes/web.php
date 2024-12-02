@@ -11,6 +11,7 @@ use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\DashboardController;
 use App\Exports\PropertiesExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 // Home-Index route
 Route::get('/', function () {
@@ -74,9 +75,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 // Export Excel File routes
-Route::get('/properties/export', function () {
-    return Excel::download(new PropertiesExport, 'properties.xlsx');
-})->name('asset.export');
+Route::get('/properties/exportexcel', function () {
+    return Excel::download(new PropertiesExport, 'asset.xlsx');
+})->name('asset.exportexcel');
+
+
+Route::get('/properties/{id}/exportpdf', function ($id) {
+    $property = App\Models\Property::with(['category', 'office', 'status', 'employee'])->findOrFail($id); // Fetch property and relationships
+    return Pdf::loadView('properties.pdf', compact('property'))
+              ->download('property-' . $property->id . '.pdf'); // Generate and download PDF
+})->name('asset.exportpdf');
+
 
 // Import the authentication routes
 require __DIR__.'/auth.php';
