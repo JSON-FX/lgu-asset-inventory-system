@@ -11,9 +11,6 @@
         @slot('li_1') Assets @endslot
         @slot('title') Assets List @endslot
     @endcomponent
-    
-    <a href="javascript: void(0);"  id="alert-message" class="btn btn-primary btn-sm waves-effect waves-light">Click me</a></td>
-    <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">

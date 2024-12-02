@@ -7,7 +7,7 @@
         <div id="sidebar-menu">
             <!-- Left Menu Start -->
             <ul class="metismenu list-unstyled" id="side-menu">
-                <li class="menu-title" data-key="t-menu">@lang('translation.Menu')</li>
+                <li class="menu-title" data-key="t-menu">@lang('')</li>
 
                 <li>
                     <a href="{{ route('dashboard') }}">
@@ -46,6 +46,13 @@
                         <span data-key="t-contacts">@lang('User')</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('status.index') }}">
+                        <i data-feather="activity"></i>
+                        <span data-key="t-contacts">@lang('Status')</span>
+                    </a>
+                </li>
+                
                
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
@@ -54,13 +61,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('asset.trash') }}" key="t-starter-page">@lang('Trash')</a></li>
-                        <li><a href="pages-maintenance" key="t-maintenance">@lang('translation.Maintenance')</a></li>
-                        <li><a href="pages-comingsoon" key="t-coming-soon">@lang('translation.Coming_Soon')</a></li>
-                        <li><a href="pages-timeline" key="t-timeline">@lang('translation.Timeline')</a></li>
-                        <li><a href="pages-faqs" key="t-faqs">@lang('translation.FAQs')</a></li>
-                        <li><a href="pages-pricing" key="t-pricing">@lang('translation.Pricing')</a></li>
-                        <li><a href="pages-404" key="t-error-404">@lang('translation.Error_404')</a></li>
-                        <li><a href="pages-500" key="t-error-500">@lang('translation.Error_500')</a></li>
+                        <li><a href="pages-maintenance" key="t-maintenance">@lang('Logs')</a></li>
                     </ul>
                 </li>
             </ul>
