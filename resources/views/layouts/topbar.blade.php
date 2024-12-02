@@ -50,7 +50,7 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
                     <!-- item-->
-                    <a class="dropdown-item" href="{{route('profile.edit')}}"><i class="mdi mdi-face-profile font-size-16 align-middle me-1"></i> @lang('translation.Profile')</a>
+                    <a class="dropdown-item" href="{{route('profile.edit')}}"><i class="mdi mdi-face-profile font-size-16 align-middle me-1"></i> @lang('Profile')</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item " href="javascript:void();" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="bx bx-power-off font-size-16 align-middle me-1"></i> <span key="t-logout">@lang('translation.Logout')</span></a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

@@ -26,12 +26,12 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 Route::post('/add-asset', [PropertyController::class, 'store'])->name('asset.store');
 Route::get('/add-asset', [PropertyController::class, 'create'])->name('assetlist.create');
 Route::put('/update-asset/{assetlist}/', [PropertyController::class, 'update'])->name('assetlist.update');
-Route::get('/asset/delete/{id}', [PropertyController::class, 'destroy'])->name('assetlist.delete');
+Route::get('/asset/delete/{id}', [PropertyController::class, 'destroy'])->name('assetlist.delete');//softdelete
 Route::get('/asset/{id}/edit', [PropertyController::class, 'edit'])->name('assetlist.editassetlist');
 Route::get('/asset/{id}/view', [PropertyController::class, 'view'])->name('asset.view');
-Route::get('/asset/trash', [PropertyController::class, 'trash'])->name('asset.trash');
+Route::get('/asset/trash', [PropertyController::class, 'trash'])->name('asset.trash');//trash view,
 Route::get('/asset/restore/{id}', [PropertyController::class, 'restore'])->name('asset.restore');
-Route::delete('/asset/force-delete/{id}', [PropertyController::class, 'forceDelete'])->name('asset.forceDelete');
+Route::delete('/asset/force-delete/{id}', [PropertyController::class, 'forceDelete'])->name('asset.forceDelete');//permanent delete'
 
 
 

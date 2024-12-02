@@ -53,9 +53,10 @@ class PropertyController extends Controller
             'office_id' => 'required|exists:offices,id',
             'status_id' => 'required|exists:statuses,id',
             'employee_id' => 'required|exists:employees,id',
-            'date_purchase' => 'nullable|date',
-            'acquisition_cost' => 'nullable|numeric',
-            'inventory_remarks' => 'nullable|string',
+            'date_purchase' => 'nullable|date|required',
+            'acquisition_cost' => 'nullable|numeric|required',
+            'inventory_remarks' => 'nullable|required',
+            'serial_number' => 'required|string|unique:properties',
             
         ]);
         

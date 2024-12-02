@@ -47,12 +47,37 @@
                                             <a href="{{ route('assetlist.editassetlist', $property->id) }}" class="text-success">
                                                 <i class="mdi mdi-pencil font-size-18"></i>
                                             </a>
-                                            <a href="{{ route('assetlist.delete', $property->id) }}" class="text-danger" onclick="return confirm('Are you sure you want to delete this asset?')">
+                                            <a href="javascript:void(0);" 
+                                                class="text-danger" 
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#deleteModal-{{ $property->id }}">
                                                 <i class="mdi mdi-delete font-size-18"></i>
                                             </a>
                                             
                                     </td>
                                 </tr>
+                                <!-- Modal for softdeletion confirmation -->
+                                <div class="modal fade" id="deleteModal-{{ $property->id }}" tabindex="-1" aria-labelledby="deleteModalLabel-{{ $property->id }}" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="deleteModalLabel-{{ $property->id }}">Confirm Deletion</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to move <strong>{{ $property->description }}</strong> to trash?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <!-- Form for deletion -->
+                                                <form action="{{ route('assetlist.delete', $property->id) }}" method="GET">
+                                                    @csrf
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                    <button type="submit" class="btn btn-danger">Yes</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <!-- Modal for this specific property -->
                                 <div class="modal fade" id="orderdetailsModal-{{ $property->id }}" tabindex="-1" role="dialog" aria-labelledby="orderdetailsModalLabel-{{ $property->id }}" aria-hidden="true">

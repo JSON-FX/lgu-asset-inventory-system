@@ -57,7 +57,7 @@
 
                         <!-- Modal for deletion confirmation (outside the loop) -->
                         <div class="modal fade" id="deleteModal-{{ $property->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel-{{ $property->id }}" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="deleteModalLabel-{{ $property->id }}">Confirm Deletion</h5>
@@ -80,7 +80,7 @@
                         </div>
                         @empty
                         <tr>
-                            <td colspan="8" class="text-center">No trashed properties found.</td>
+                            <td colspan="8" class="text-center">No trashed assets found.</td>
                         </tr>
                         @endforelse
                     </tbody>
