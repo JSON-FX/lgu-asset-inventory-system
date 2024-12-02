@@ -4,13 +4,15 @@
     <link href="{{ URL::asset('assets/libs/datatables.net-bs4/datatables.net-bs4.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ URL::asset('assets/libs/datatables.net-buttons-bs4/datatables.net-buttons-bs4.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ URL::asset('assets/libs/datatables.net-responsive-bs4/datatables.net-responsive-bs4.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ URL::asset('assets/libs/alertifyjs/alertifyjs.min.css') }}" rel="stylesheet"> <!-- Load AlertifyJS CSS Last -->
 @endsection
 @section('content')
     @component('components.breadcrumb')
         @slot('li_1') Assets @endslot
         @slot('title') Assets List @endslot
     @endcomponent
-
+    
+    <a href="javascript: void(0);"  id="alert-message" class="btn btn-primary btn-sm waves-effect waves-light">Click me</a></td>
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -51,7 +53,7 @@
                                             <a href="{{ route('assetlist.delete', $property->id) }}" class="text-danger" onclick="return confirm('Are you sure you want to delete this asset?')">
                                                 <i class="mdi mdi-delete font-size-18"></i>
                                             </a>
-                                        </div>
+                                            
                                     </td>
                                 </tr>
 
@@ -133,16 +135,24 @@
 @endsection
 
 @section('script')
-    <script src="{{ URL::asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ URL::asset('assets/libs/datatables.net/datatables.net.min.js') }}"></script>
-    <script src="{{ URL::asset('assets/libs/datatables.net-bs4/datatables.net-bs4.min.js') }}"></script>
-    <script src="{{ URL::asset('assets/libs/datatables.net-buttons/datatables.net-buttons.min.js') }}"></script>
-    <script src="{{ URL::asset('assets/libs/datatables.net-buttons-bs4/datatables.net-buttons-bs4.min.js') }}"></script>
-    <script src="{{ URL::asset('assets/libs/jszip/jszip.min.js') }}"></script>
-    <script src="{{ URL::asset('assets/libs/pdfmake/pdfmake.min.js') }}"></script>
-    <script src="{{ URL::asset('assets/libs/datatables.net-responsive/datatables.net-responsive.min.js') }}"></script>
-    <script src="{{ URL::asset('assets/libs/datatables.net-responsive-bs4/datatables.net-responsive-bs4.min.js') }}"></script>
-    <script src="{{ URL::asset('assets/js/pages/datatables.init.js') }}"></script>
-    <script src="{{ URL::asset('assets/js/app.min.js') }}"></script>
+<!-- Core JavaScript libraries -->
+<script src="{{ URL::asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script> <!-- Bootstrap is foundational -->
+<script src="{{ URL::asset('assets/libs/alertifyjs/alertifyjs.min.js') }}"></script> <!-- AlertifyJS should be loaded after Bootstrap -->
+
+<!-- DataTables libraries -->
+<script src="{{ URL::asset('assets/libs/datatables.net/datatables.net.min.js') }}"></script>
+<script src="{{ URL::asset('assets/libs/datatables.net-bs4/datatables.net-bs4.min.js') }}"></script>
+<script src="{{ URL::asset('assets/libs/datatables.net-buttons/datatables.net-buttons.min.js') }}"></script>
+<script src="{{ URL::asset('assets/libs/datatables.net-buttons-bs4/datatables.net-buttons-bs4.min.js') }}"></script>
+<script src="{{ URL::asset('assets/libs/jszip/jszip.min.js') }}"></script>
+<script src="{{ URL::asset('assets/libs/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ URL::asset('assets/libs/datatables.net-responsive/datatables.net-responsive.min.js') }}"></script>
+<script src="{{ URL::asset('assets/libs/datatables.net-responsive-bs4/datatables.net-responsive-bs4.min.js') }}"></script>
+
+<!-- Your custom scripts -->
+<script src="{{ URL::asset('assets/js/pages/notification.init.js') }}"></script>
+<script src="{{ URL::asset('assets/js/pages/datatables.init.js') }}"></script>
+<script src="{{ URL::asset('assets/js/app.min.js') }}"></script>
+
     
 @endsection
