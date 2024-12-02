@@ -9,6 +9,7 @@
 @slot('li_1') Office @endslot
 @slot('title') Office List @endslot
 @endcomponent
+
 <div class="row">
     <div class="col-lg-12">
         <div class="card mb-0">
@@ -22,7 +23,7 @@
                     <div class="col-md-6">
                         <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
                             <div>
-                                <a href="{{ route('office.create') }}" class="btn btn-success"><i class="bx bx-plus me-1"></i> Add Office</a>
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addOfficeModal"><i class="bx bx-plus me-1"></i> Add Office</button>
                             </div>
                             <div class="dropdown">
                                 <a class="btn btn-link text-muted py-1 font-size-16 shadow-none dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -39,6 +40,37 @@
                 </div>
                 <!-- end row -->
 
+                <!-- Add Office Modal -->
+                <div class="modal fade" id="addOfficeModal" tabindex="-1" aria-labelledby="addOfficeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addOfficeModalLabel">Add New Office</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{ route('office.store') }}" method="POST">
+                                    @csrf
+                                    <!-- Office Name -->
+                                    <div class="mb-4">
+                                        <label for="office_name" class="form-label">Office Name</label>
+                                        <input type="text" id="office_name" name="office_name" class="form-control" required>
+                                        @error('office_name')
+                                            <div class="text-danger mt-2">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <!-- Submit Button -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Add Office</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Make table scrollable on small screens -->
                 <div class="table-responsive mb-4">
                     <table class="table align-middle datatable dt-responsive table-check nowrap" style="border-collapse: collapse; border-spacing: 0 8px; width: 100%;">
                         <thead>
@@ -73,6 +105,7 @@
     </div>
 </div>
 @endsection
+
 @section('script')
 <script src="{{ URL::asset('assets/libs/datatables.net/datatables.net.min.js') }}"></script>
 <script src="{{ URL::asset('assets/libs/datatables.net-bs4/datatables.net-bs4.min.js') }}"></script>

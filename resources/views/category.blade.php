@@ -26,7 +26,10 @@
                     <div class="col-md-6">
                         <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
                             <div>
-                                <a href="{{ route('category.create') }}" class="btn btn-success"><i class="bx bx-plus me-1"></i> Add Category</a>
+                                <!-- Modal Trigger Button -->
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+                                    <i class="bx bx-plus me-1"></i> Add Category
+                                </button>
                             </div>
                             <div class="dropdown">
                                 <a class="btn btn-link text-muted py-1 font-size-16 shadow-none dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -42,6 +45,38 @@
                     </div>
                 </div>
                 <!-- end row -->
+
+                <!-- Add Category Modal -->
+                <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addCategoryModalLabel">Add New Category</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{ route('category.store') }}" method="POST">
+                                    @csrf
+
+                                    <!-- Category Name -->
+                                    <div class="mb-4">
+                                        <label for="category_name" class="form-label">Category Name</label>
+                                        <input type="text" id="category_name" name="category_name" value="{{ old('category_name') }}" class="form-control" required>
+                                        @error('category_name')
+                                            <div class="text-danger mt-2">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <!-- Submit Button -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Add Category</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Make table scrollable on small screens -->
                 <div class="table-responsive mb-4">

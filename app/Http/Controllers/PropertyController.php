@@ -53,9 +53,9 @@ class PropertyController extends Controller
             'office_id' => 'required|exists:offices,id',
             'status_id' => 'required|exists:statuses,id',
             'employee_id' => 'required|exists:employees,id',
-            'date_purchase' => 'nullable|date|required',
+            'date_purchase' => 'nullable|date|required|string',
             'acquisition_cost' => 'nullable|numeric|required',
-            'inventory_remarks' => 'nullable|required',
+            'inventory_remarks' => 'nullable|string|required',
             'serial_number' => 'required|string|unique:properties',
             
         ]);
@@ -105,15 +105,16 @@ class PropertyController extends Controller
         $property = Property::findOrFail($id);
 
         $request->validate([
-            'property_number' => 'required|string|max:255|unique:properties,property_number,' . $property->id,
+            'property_number' => 'required|string|max:255',
             'description' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'office_id' => 'required|exists:offices,id',
             'status_id' => 'required|exists:statuses,id',
             'employee_id' => 'required|exists:employees,id',
-            'date_purchase' => 'nullable|date',
-            'acquisition_cost' => 'nullable|numeric',
-            'inventory_remarks' => 'nullable|string',
+            'date_purchase' => 'nullable|date|required|string',
+            'acquisition_cost' => 'nullable|numeric|required',
+            'inventory_remarks' => 'nullable|string|required',
+            'serial_number' => 'required|string',
         ]);
 
         $property->update($request->all());

@@ -75,9 +75,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 // Export Excel File routes
-Route::get('/properties/exportexcel', function () {
-    return Excel::download(new PropertiesExport, 'asset.xlsx');
+Route::get('/properties/exportexcel/{id}', function ($id) {
+    return Excel::download(new PropertiesExport($id), 'asset.xlsx');
 })->name('asset.exportexcel');
+
 
 
 Route::get('/properties/{id}/exportpdf', function ($id) {
