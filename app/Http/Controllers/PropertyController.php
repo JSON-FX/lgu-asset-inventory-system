@@ -8,6 +8,8 @@ use App\Models\Office;
 use App\Models\Status;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+
 
 class PropertyController extends Controller
 {
@@ -105,7 +107,17 @@ class PropertyController extends Controller
         $property = Property::findOrFail($id);
 
         $request->validate([
-            'property_number' => 'required|string|max:255',
+            'property_number' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('properties', 'property_number')->ignore($property->id)
+            ],
+            'serial_number' => [
+                'required',
+                'string',
+                Rule::unique('properties')->ignore($property->id),
+            ],
             'description' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'office_id' => 'required|exists:offices,id',
@@ -114,13 +126,13 @@ class PropertyController extends Controller
             'date_purchase' => 'nullable|date|required|string',
             'acquisition_cost' => 'nullable|numeric|required',
             'inventory_remarks' => 'nullable|string|required',
-            'serial_number' => 'required|string',
         ]);
 
         $property->update($request->all());
 
         return redirect()->route('asset')->with('success', 'Asset updated successfully!');
     }
+
 
     /**
      * Remove the specified property from storage.

@@ -49,10 +49,10 @@ Route::put('/status/{status}/', [StatusController::class, 'update'])->name('stat
 Route::get('/status/{id}/editstatus', [StatusController::class, 'edit'])->name('status.editstatus');
 
 // Route to show the 'Office Actions' 
-Route::post('/office', [OfficeController::class, 'store'])->name('office.store');
-Route::get('/office/create', [OfficeController::class, 'create'])->name('office.create');
-Route::put('/office/{office}/', [OfficeController::class, 'update'])->name('office.update');
-Route::get('/office/{id}/editoffice', [OfficeController::class, 'edit'])->name('office.editoffice');
+Route::post('/office', [OfficeController::class, 'store'])->name('offices.store');
+Route::get('/office/create', [OfficeController::class, 'create'])->name('offices.create');
+Route::put('/office/{office}/', [OfficeController::class, 'update'])->name('offices.update');
+Route::get('/office/{id}/editoffice', [OfficeController::class, 'edit'])->name('offices.editoffice');
 
 // Route to show the 'Category Actions' 
 Route::post('/category', [CategoryController::class, 'store'])->name('category.store');

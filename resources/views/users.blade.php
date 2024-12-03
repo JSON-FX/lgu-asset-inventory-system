@@ -26,17 +26,7 @@
                     <div class="col-md-6">
                         <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
                             <div>
-                                <a href="#" class="btn btn-success"data-bs-toggle="modal" data-bs-target="#addUserModal"><i class="bx bx-plus me-1"></i> Add User</a>
-                            </div>
-                            <div class="dropdown">
-                                <a class="btn btn-link text-muted py-1 font-size-16 shadow-none dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bx bx-dots-horizontal-rounded"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
+                                <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addUserModal"><i class="bx bx-plus me-1"></i> Add User</a>
                             </div>
                         </div>
                     </div>
@@ -60,8 +50,9 @@
                                     <td>{{ $item->employee_name }}</td>
                                     <td>
                                         <div class="d-flex gap-3">
-                                            <a href="{{ route('users.editusers', $item->id) }}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
-                                            {{-- <a href="{{ route('users.delete', $item->id) }}" class="text-danger"><i class="mdi mdi-delete font-size-18"></i></a> --}}
+                                            <a href="#" class="text-success" data-bs-toggle="modal" data-bs-target="#editUserModal{{ $item->id }}">
+                                                <i class="mdi mdi-pencil font-size-18"></i>
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>
@@ -77,6 +68,7 @@
         </div>
     </div>
 </div>
+
 <!-- Add User Modal -->
 <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -118,6 +110,49 @@
     </div>
 </div>
 
+<!-- Edit User Modals -->
+@foreach ($employee as $item)
+    <div class="modal fade" id="editUserModal{{ $item->id }}" tabindex="-1" aria-labelledby="editUserModalLabel{{ $item->id }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editUserModalLabel{{ $item->id }}">Edit User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <form action="{{ route('users.update', $item->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+
+                        <!-- User Name -->
+                        <div class="mb-4">
+                            <label for="employee_name" class="form-label">User Name</label>
+                            <input 
+                                type="text" 
+                                id="employee_name" 
+                                name="employee_name" 
+                                value="{{ old('employee_name', $item->employee_name) }}" 
+                                class="form-control" 
+                                required>
+                            @error('employee_name')
+                                <div class="text-danger mt-2">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- Modal Footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Update User</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach
 
 @endsection
 

@@ -1,9 +1,11 @@
 @extends('layouts.master')
 @section('title') @lang('translation.Status_List') @endsection
+
 @section('css')
 <link href="{{ URL::asset('assets/libs/datatables.net-bs4/datatables.net-bs4.min.css') }}" rel="stylesheet">
 <link href="{{ URL::asset('assets/libs/datatables.net-responsive-bs4/datatables.net-responsive-bs4.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
+
 @section('content')
 @component('components.breadcrumb')
 @slot('li_1') Status @endslot
@@ -25,16 +27,6 @@
                             <div>
                                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addStatusModal"><i class="bx bx-plus me-1"></i> Add Status</button>
                             </div>
-                            <div class="dropdown">
-                                <a class="btn btn-link text-muted py-1 font-size-16 shadow-none dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bx bx-dots-horizontal-rounded"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -51,7 +43,6 @@
                             <div class="modal-body">
                                 <form action="{{ route('status.store') }}" method="POST">
                                     @csrf
-                                    <!-- Status Name -->
                                     <div class="mb-4">
                                         <label for="status_name" class="form-label">Status Name</label>
                                         <input type="text" id="status_name" name="status_name" class="form-control" required>
@@ -59,10 +50,38 @@
                                             <div class="text-danger mt-2">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <!-- Submit Button -->
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                         <button type="submit" class="btn btn-primary">Add Status</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Edit Status Modal -->
+                <div class="modal fade" id="editStatusModal" tabindex="-1" aria-labelledby="editStatusModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editStatusModalLabel">Edit Status</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="editStatusForm" action="{{ route('status.update', 'status_id') }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="mb-4">
+                                        <label for="edit_status_name" class="form-label">Status Name</label>
+                                        <input type="text" id="edit_status_name" name="status_name" class="form-control" required>
+                                        @error('status_name')
+                                            <div class="text-danger mt-2">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Update Status</button>
                                     </div>
                                 </form>
                             </div>
@@ -87,8 +106,8 @@
                                     <td>{{ $item->status_name }}</td>
                                     <td>
                                         <div class="d-flex gap-3">
-                                            <a href="{{ route('status.editstatus', $item->id) }}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
-                                            <a href="{{ route('status.index', $item->id) }}" class="text-danger"><i class="mdi mdi-delete font-size-18"></i></a>
+                                            <a href="#" class="text-success" data-bs-toggle="modal" data-bs-target="#editStatusModal" onclick="fillEditForm({{ $item->id }}, '{{ $item->status_name }}')"><i class="mdi mdi-pencil font-size-18"></i></a>
+                                            {{-- <a href="{{ route('status.destroy', $item->id) }}" class="text-danger"><i class="mdi mdi-delete font-size-18"></i></a> --}}
                                         </div>
                                     </td>
                                 </tr>
@@ -106,6 +125,7 @@
         </div>
     </div>
 </div>
+
 @endsection
 
 @section('script')
@@ -114,4 +134,13 @@
 <script src="{{ URL::asset('assets/libs/datatables.net-responsive/datatables.net-responsive.min.js') }}"></script>
 <script src="{{ URL::asset('/assets/js/app.min.js') }}"></script>
 <script src="{{ URL::asset('assets/js/pages/datatable-pages.init.js') }}"></script>
+<script>
+    function fillEditForm(id, statusName) {
+        // Set the action URL to the update route
+        document.getElementById('editStatusForm').action = '{{ route('status.update', 'status_id') }}'.replace('status_id', id);
+        
+        // Set the input field value
+        document.getElementById('edit_status_name').value = statusName;
+    }
+</script>
 @endsection

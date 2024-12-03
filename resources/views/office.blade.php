@@ -1,12 +1,14 @@
 @extends('layouts.master')
 @section('title') @lang('translation.Office_List') @endsection
+
 @section('css')
 <link href="{{ URL::asset('assets/libs/datatables.net-bs4/datatables.net-bs4.min.css') }}" rel="stylesheet">
 <link href="{{ URL::asset('assets/libs/datatables.net-responsive-bs4/datatables.net-responsive-bs4.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
+
 @section('content')
 @component('components.breadcrumb')
-@slot('li_1') Office @endslot
+@slot('li_1') Offices @endslot
 @slot('title') Office List @endslot
 @endcomponent
 
@@ -14,6 +16,7 @@
     <div class="col-lg-12">
         <div class="card mb-0">
             <div class="card-body">
+                <!-- Flex container to align the heading and button side by side -->
                 <div class="row align-items-center">
                     <div class="col-md-6">
                         <div class="mb-3">
@@ -23,52 +26,12 @@
                     <div class="col-md-6">
                         <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
                             <div>
-                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addOfficeModal"><i class="bx bx-plus me-1"></i> Add Office</button>
-                            </div>
-                            <div class="dropdown">
-                                <a class="btn btn-link text-muted py-1 font-size-16 shadow-none dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bx bx-dots-horizontal-rounded"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
+                                <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addOfficeModal"><i class="bx bx-plus me-1"></i> Add Office</a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- end row -->
-
-                <!-- Add Office Modal -->
-                <div class="modal fade" id="addOfficeModal" tabindex="-1" aria-labelledby="addOfficeModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="addOfficeModalLabel">Add New Office</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="{{ route('office.store') }}" method="POST">
-                                    @csrf
-                                    <!-- Office Name -->
-                                    <div class="mb-4">
-                                        <label for="office_name" class="form-label">Office Name</label>
-                                        <input type="text" id="office_name" name="office_name" class="form-control" required>
-                                        @error('office_name')
-                                            <div class="text-danger mt-2">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <!-- Submit Button -->
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-primary">Add Office</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <!-- Make table scrollable on small screens -->
                 <div class="table-responsive mb-4">
@@ -82,30 +45,115 @@
                         </thead>
                         <tbody>
                             @forelse ($office as $item)
-                                <tr>
+                                <tr class="hover:bg-opacity-50 hover:bg-gray-200 transition-colors duration-300">
                                     <td>{{ $item->id }}</td>
                                     <td>{{ $item->office_name }}</td>
                                     <td>
                                         <div class="d-flex gap-3">
-                                            <a href="{{ route('office.editoffice', $item->id) }}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
-                                            <a href="{{ route('office.index', $item->id) }}" class="text-danger"><i class="mdi mdi-delete font-size-18"></i></a>
+                                            <a href="#" class="text-success" data-bs-toggle="modal" data-bs-target="#editOfficeModal{{ $item->id }}">
+                                                <i class="mdi mdi-pencil font-size-18"></i>
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="2" class="text-center">No offices found.</td>
+                                    <td colspan="3" class="text-center">No offices found.</td>
                                 </tr>
                             @endforelse
                         </tbody>
                     </table>
-                    <!-- end table -->
-                </div>
-                <!-- end table responsive -->
+                </div> <!-- end table responsive -->
             </div>
         </div>
     </div>
 </div>
+
+<!-- Add Office Modal -->
+<div class="modal fade" id="addOfficeModal" tabindex="-1" aria-labelledby="addOfficeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="addOfficeModalLabel">Add New Office</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form action="{{ route('offices.store') }}" method="POST">
+                    @csrf
+
+                    <!-- Office Name -->
+                    <div class="mb-4">
+                        <label for="office_name" class="form-label">Office Name</label>
+                        <input 
+                            type="text" 
+                            id="office_name" 
+                            name="office_name" 
+                            value="{{ old('office_name') }}" 
+                            class="form-control" 
+                            required>
+                        @error('office_name')
+                            <div class="text-danger mt-2">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Add Office</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Office Modals -->
+@foreach ($office as $item)
+    <div class="modal fade" id="editOfficeModal{{ $item->id }}" tabindex="-1" aria-labelledby="editOfficeModalLabel{{ $item->id }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editOfficeModalLabel{{ $item->id }}">Edit Office</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <form action="{{ route('offices.update', $item->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+
+                        <!-- Office Name -->
+                        <div class="mb-4">
+                            <label for="office_name" class="form-label">Office Name</label>
+                            <input 
+                                type="text" 
+                                id="office_name" 
+                                name="office_name" 
+                                value="{{ old('office_name', $item->office_name) }}" 
+                                class="form-control" 
+                                required>
+                            @error('office_name')
+                                <div class="text-danger mt-2">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- Modal Footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Update Office</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach
+
 @endsection
 
 @section('script')
