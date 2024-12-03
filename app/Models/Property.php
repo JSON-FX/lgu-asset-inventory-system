@@ -1,12 +1,12 @@
 <?php
 
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use App\Models\Log; // Import the Log model
 
 class Property extends Model
 {
@@ -59,5 +59,35 @@ class Property extends Model
     public function employee()
     {
         return $this->belongsTo(Employee::class);
+    }
+
+    protected static function booted()
+    {
+        static::created(function ($property) {
+            Log::create([
+                'activity' => 'Asset created: ' . $property->property_number,
+                'model_type' => 'Property',
+                'model_id' => $property->id,
+                'user_id' => auth()->check() ? auth()->id() : null, // Check if authenticated
+            ]);
+        });
+
+        static::updated(function ($property) {
+            Log::create([
+                'activity' => 'Asset updated: ' . $property->property_number,
+                'model_type' => 'Property',
+                'model_id' => $property->id,
+                'user_id' => auth()->check() ? auth()->id() : null, // Check if authenticated
+            ]);
+        });
+
+        static::deleted(function ($property) {
+            Log::create([
+                'activity' => 'Asset deleted: ' . $property->property_number,
+                'model_type' => 'Property',
+                'model_id' => $property->id,
+                'user_id' => auth()->check() ? auth()->id() : null, // Check if authenticated
+            ]);
+        });
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Log;
 use App\Models\Property;
 use App\Models\Category;
 use App\Models\Office;
@@ -167,6 +167,7 @@ class PropertyController extends Controller
     {
         // Find the soft-deleted property and permanently delete it
         $property = Property::onlyTrashed()->findOrFail($id);
+        $deletedAt = $property->deleted_at;
         $property->forceDelete();
 
         return redirect()->route('asset.trash')->with('success', 'Property permanently deleted!');

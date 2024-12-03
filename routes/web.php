@@ -12,6 +12,9 @@ use App\Http\Controllers\DashboardController;
 use App\Exports\PropertiesExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Http\Controllers\LogController;
+
+Route::get('/log', [LogController::class, 'show'])->name('asset.log');
 
 // Home-Index route
 Route::get('/', function () {

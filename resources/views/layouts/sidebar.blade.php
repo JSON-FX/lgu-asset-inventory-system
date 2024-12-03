@@ -61,7 +61,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('asset.trash') }}" key="t-starter-page">@lang('Trash')</a></li>
-                        <li><a href="pages-maintenance" key="t-maintenance">@lang('Logs')</a></li>
+                        <li><a href="{{ route('asset.log') }}" key="t-maintenance">@lang('Logs')</a></li>
                     </ul>
                 </li>
             </ul>
