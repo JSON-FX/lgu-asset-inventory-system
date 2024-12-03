@@ -75,6 +75,7 @@
                     <table class="table align-middle datatable dt-responsive table-check nowrap" style="border-collapse: collapse; border-spacing: 0 8px; width: 100%;">
                         <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Office Name</th>
                                 <th>Action</th>
                             </tr>
@@ -82,6 +83,7 @@
                         <tbody>
                             @forelse ($office as $item)
                                 <tr>
+                                    <td>{{ $item->id }}</td>
                                     <td>{{ $item->office_name }}</td>
                                     <td>
                                         <div class="d-flex gap-3">

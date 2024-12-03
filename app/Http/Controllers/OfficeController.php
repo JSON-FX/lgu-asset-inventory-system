@@ -28,7 +28,6 @@ class OfficeController extends Controller
     {
         // Validate incoming data
         $request->validate([
-            'office_name' => 'required|string|max:255',
             'office_name' => 'required|string|unique:offices,office_name',
         ]);
 
@@ -53,12 +52,13 @@ class OfficeController extends Controller
     {
         // Validate the incoming request data
         $request->validate([
-            'office_name' => 'required|string|max:255'
+            'office_name' => 'required|string|unique:offices,office_name',
         ]);
 
         // Create a new asset
         Office::create([
             'office_name' => $request->office_name,
+            
         ]);
 
         // Redirect to the assets list page with a success message

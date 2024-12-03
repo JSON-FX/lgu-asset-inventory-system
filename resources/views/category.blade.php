@@ -83,6 +83,7 @@
                     <table class="table align-middle datatable dt-responsive table-check nowrap" style="border-collapse: collapse; border-spacing: 0 8px; width: 100%;">
                         <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Category Name</th>
                                 <th>Action</th>
                             </tr>
@@ -90,7 +91,9 @@
                         <tbody>
                             @forelse ($category as $item)
                                 <tr>
+                                    <td>{{ $item->id }}</td>
                                     <td>{{ $item->category_name }}</td>
+                                    
                                     <td>
                                         <div class="d-flex gap-3">
                                             <a href="{{ route('category.editcategory', $item->id) }}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>

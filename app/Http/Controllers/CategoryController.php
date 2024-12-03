@@ -52,7 +52,7 @@ class CategoryController extends Controller
     {
         // Validate the incoming request data
         $request->validate([
-            'category_name' => 'required|string|max:255'
+            'category_name' => 'required|string|max:255|unique:categories,category_name'
         ]);
 
         // Create a new asset
