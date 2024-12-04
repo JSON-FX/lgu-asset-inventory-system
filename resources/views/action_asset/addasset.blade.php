@@ -136,7 +136,7 @@
                         <!-- Submit and Reset Buttons -->
                         <div>
                             <button type="submit" class="btn btn-primary">Save Asset</button>
-                            <button type="reset" class="btn btn-secondary waves-effect waves-light">Cancel</button>
+                            <a href="{{ route('asset') }}" class="btn btn-secondary waves-effect waves-light">Cancel</a>
                         </div>
                     </form>
                     <!-- End of Form -->
