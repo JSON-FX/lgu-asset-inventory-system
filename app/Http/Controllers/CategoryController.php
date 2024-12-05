@@ -15,6 +15,15 @@ class CategoryController extends Controller
         return view('category', compact('category'));
     
     }
+    public function showPropertiesByCategory()
+    {
+        // Retrieve all categories with their associated properties
+        $categories = Category::with('properties.status')->get();
+
+        // Return the view with data
+        return view('category_properties', compact('categories'));
+    }
+
     public function edit($id)
     {
         // Find the category by ID

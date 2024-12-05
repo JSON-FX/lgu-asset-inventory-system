@@ -62,6 +62,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');
     Route::put('/category/{category}/', [CategoryController::class, 'update'])->name('category.update');
     Route::get('/category/{id}/editcategory', [CategoryController::class, 'edit'])->name('category.editcategory');
+    Route::get('/category-properties', [CategoryController::class, 'showPropertiesByCategory'])->name('category.properties');
 
     // Route to show the 'Navigation pages' 
     Route::get('/category', [CategoryController::class, 'index'])->middleware('auth')->name('category.index');
