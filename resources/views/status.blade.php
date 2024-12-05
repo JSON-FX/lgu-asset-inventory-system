@@ -92,7 +92,7 @@
                 <!-- Make table scrollable on small screens -->
                 <div class="table-responsive mb-4">
                     <table class="table align-middle datatable dt-responsive table-check nowrap" style="border-collapse: collapse; border-spacing: 0 8px; width: 100%;">
-                        <thead>
+                        <thead class="table-light">
                             <tr>
                                 <th>ID</th>
                                 <th>Status</th>
@@ -103,7 +103,23 @@
                             @forelse ($status as $item)
                                 <tr>
                                     <td>{{ $item->id }}</td>
-                                    <td>{{ $item->status_name }}</td>
+                                    <td>
+                                        <span class="badge badge-pill 
+                                            @if ($item->status_name == 'Maintenance')
+                                                badge-soft-warning
+                                            @elseif ($item->status_name == 'Serviceable')
+                                                badge-soft-success
+                                            @elseif ($item->status_name == 'Unserviceable')
+                                                badge-soft-danger
+                                            @else
+                                                badge-soft-secondary
+                                            @endif
+                                            font-size-12">
+                                            {{ $item->status_name }}
+                                        </span>
+                                    </td>
+                                    
+                                    
                                     <td>
                                         <div class="d-flex gap-3">
                                             <a href="#" class="text-success" data-bs-toggle="modal" data-bs-target="#editStatusModal" onclick="fillEditForm({{ $item->id }}, '{{ $item->status_name }}')"><i class="mdi mdi-pencil font-size-18"></i></a>

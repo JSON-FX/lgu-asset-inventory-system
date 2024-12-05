@@ -20,7 +20,7 @@
                 <h4 class="card-title mb-4">Trashed List</h4>
 
                 <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
-                    <thead>
+                    <thead class="table-light">
                         <tr>
                             <th>Prop No.</th>
                             <th>Description</th>

@@ -14,11 +14,11 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="mb-3  text-end">                     
+                    <div class="mb-3  text-end " >                     
                         <a href="{{ route('assetlist.create') }}" class="btn btn-success"><i class="bx bx-plus me-1"></i> Add Asset</a>
                     </div>
                     <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
-                        <thead>
+                        <thead class="table-light">
                             <tr>
                                 <th>Prop No.</th>
                                 <th>Description</th>
