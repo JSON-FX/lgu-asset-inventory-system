@@ -42,7 +42,18 @@
                                     <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ \Carbon\Carbon::parse($property->date_purchase)->format('m-d-Y') }}</td>
                                     <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->employee->employee_name }}</td>
                                     <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">₱{{ number_format($property->acquisition_cost, 2) }}</td>
-                                    <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->status->status_name }}</td>
+                                    <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">
+                                        @if ($property->status->status_name === 'Maintenance')
+                                            <span class="badge badge-pill badge-soft-warning font-size-10">Maintenance</span>
+                                        @elseif ($property->status->status_name === 'Serviceable')
+                                            <span class="badge badge-pill badge-soft-success font-size-10">Serviceable</span>
+                                        @elseif ($property->status->status_name === 'Unserviceable')
+                                            <span class="badge badge-pill badge-soft-danger font-size-10">Unserviceable</span>
+                                        @else
+                                            <span class="badge badge-pill badge-soft-secondary font-size-10">{{ $property->status->status_name }}</span>
+                                        @endif
+                                    </td>
+                                    
                                     <td>
                                         <div class="d-flex gap-3">
                                             <!-- Eye Icon to open the modal -->

@@ -15,6 +15,17 @@ class StatusController   extends Controller
         return view('status', compact('status'));
     
     }
+    public function showPropertiesByStatus()
+    {
+        // Retrieve properties grouped by specific statuses
+        $statuses = Status::whereIn('status_name', ['Unserviceable', 'Serviceable', 'Maintenance'])
+            ->with('properties.category') // Eager load properties and their categories
+            ->get();
+
+        // Pass the statuses and associated properties to the view
+        return view('properties_by_status', compact('statuses'));
+    }
+
     public function edit($id)
     {
         // Find the category by ID
