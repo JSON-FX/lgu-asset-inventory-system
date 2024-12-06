@@ -152,6 +152,14 @@
             </div><!-- end card -->
         </a>
     </div><!-- end col -->
+<div class="col-12">
+    <div class="card no-hover"> 
+        <div class="card-body no-hover">
+            <h4 class="card-title">Top Performing Offices</h4>
+            <div id="top-offices-chart"></div>
+        </div>
+    </div>
+</div>
     
 
 
@@ -160,8 +168,57 @@
 <!-- apexcharts -->
 <script src="{{ URL::asset('/assets/libs/apexcharts/apexcharts.min.js') }}"></script>
 <script src="{{ URL::asset('/assets/libs/admin-resources/admin-resources.min.js') }}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Ensure `topOfficesData` is properly loaded
+        var topOfficesData = @json($officesWithProperties) || [];
+        console.log("Top Offices Data:", topOfficesData);
 
-<!-- dashboard init -->
+        // Validate and sanitize the data
+        if (!Array.isArray(topOfficesData) || topOfficesData.length === 0) {
+            console.error("Invalid or empty data for chart");
+            return;
+        }
+
+        // Extract categories (office names) and series data (property counts)
+        var officeNames = topOfficesData.map(office => office.office_name || "Unknown Office");
+        var propertyCounts = topOfficesData.map(office => office.properties_count || 0);
+
+        // Chart options
+        var options = {
+            chart: {
+                type: 'bar',
+                height: 300,
+                widht: 50,
+            },
+            series: [
+                {
+                    name: 'Assets',
+                    data: propertyCounts, // Use sanitized property counts
+                },
+            ],
+            xaxis: {
+                categories: officeNames, // Use sanitized office names
+                title: { text: 'Offices' },
+            },
+            yaxis: {
+                title: { text: 'Number of Assets' },
+            },
+            colors: ['#1c84ee'],
+            title: {
+                text: 'Top Performing Offices',
+                align: 'center',
+            },
+        };
+
+        // Initialize and render the chart
+        var chart = new ApexCharts(document.querySelector("#top-offices-chart"), options);
+        chart.render();
+    });
+</script>
+
+<!-- Additional scripts -->
 <script src="{{ URL::asset('/assets/js/pages/dashboard.init.js') }}"></script>
 <script src="{{ URL::asset('/assets/js/app.min.js') }}"></script>
+
 @endsection

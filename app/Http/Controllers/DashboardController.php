@@ -18,6 +18,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        
+
         // Count the number of properties by category
         $propertiesByCategory = Category::count();
 
@@ -31,11 +33,15 @@ class DashboardController extends Controller
         $totalProperties = Property::count();
 
         $totalTrash = Property::onlyTrashed()->count();
+        $officesWithProperties = Office::withCount('properties')
+        ->orderBy('properties_count', 'desc')
+        ->take(5)
+        ->get();
 
 
     
 
         // Pass data to the view
-        return view('dashboard', compact('propertiesByCategory', 'propertiesByStatus', 'propertiesByOffice', 'totalProperties','totalTrash'));
+        return view('dashboard', compact('propertiesByCategory', 'propertiesByStatus', 'propertiesByOffice', 'totalProperties','totalTrash','officesWithProperties'));
     }
 }
