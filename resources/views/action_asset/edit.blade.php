@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title') @lang('translation.Product_Detail') @endsection
+@section('title') @lang('Edit Asset') @endsection
 @section('content')
 @section('css')
     <link href="{{ URL::asset('assets/libs/select2/select2.min.css') }}" rel="stylesheet">

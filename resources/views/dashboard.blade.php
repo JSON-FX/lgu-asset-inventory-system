@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title') @lang('translation.Dashboards') @endsection
+@section('title') @lang('Dashboard') @endsection
 @section('css')
 
 <link href="{{ URL::asset('/assets/libs/admin-resources/admin-resources.min.css') }}" rel="stylesheet">
@@ -39,6 +39,17 @@
     .card-text {
         font-size: 14px;
         color: #555;
+    }
+    .no-hover-card {
+    border: none;
+    box-shadow: none;
+    transform: none; /* Prevent zoom effect */
+    transition: none; /* No transition */
+    }
+
+    .no-hover-card .card-body {
+        background-color: transparent; /* No background color change on hover */
+        transition: none; /* No transition */
     }
     </style>
 @endsection
@@ -153,13 +164,14 @@
         </a>
     </div><!-- end col -->
 <div class="col-12">
-    <div class="card no-hover"> 
-        <div class="card-body no-hover">
-            <h4 class="card-title">Top Performing Offices</h4>
+    <div class="card no-hover-card"> 
+        <div class="card-body no-hover-card">
             <div id="top-offices-chart"></div>
         </div>
     </div>
 </div>
+    
+
     
 
 
@@ -189,7 +201,7 @@
             chart: {
                 type: 'bar',
                 height: 300,
-                widht: 50,
+                
             },
             series: [
                 {

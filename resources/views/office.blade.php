@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title') @lang('translation.Office_List') @endsection
+@section('title') @lang('Office') @endsection
 
 @section('css')
 <link href="{{ URL::asset('assets/libs/datatables.net-bs4/datatables.net-bs4.min.css') }}" rel="stylesheet">
