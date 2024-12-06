@@ -30,10 +30,9 @@
                     <table class="table align-middle datatable dt-responsive table-check nowrap" style="border-collapse: collapse; border-spacing: 0 8px; width: 100%;">
                         <thead class="table-light">
                             <tr>
-                                <th>ID</th>
+                                
                                 <th>Activity</th>
-                                <th>Model Type</th>
-                            
+                                
                                 <th>User</th>
                                 <th>Date Time</th>
                                 
@@ -42,9 +41,8 @@
                         <tbody>
                             @forelse ($logs as $log)
                                 <tr>
-                                    <td>{{ $log->id }}</td>
+                                    
                                     <td>{{ $log->activity }}</td>
-                                    <td>{{ $log->model_type }}</td>
                                     <td>{{ $log->user ? $log->user->name : 'N/A' }}</td>
                                     <td>{{ \Carbon\Carbon::parse($log->created_at)->timezone('Asia/Hong_Kong')->format('Y-m-d h:i A') }}</td>
                                 </tr>
