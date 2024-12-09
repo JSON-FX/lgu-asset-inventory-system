@@ -21,8 +21,12 @@ class PropertyController extends Controller
     
     public function index()
     {
+        $categories = Category::all();
+        $offices = Office::all();
+        $statuses = Status::all();
+        $employees = Employee::all();
         $properties = Property::with(['category', 'office', 'status', 'employee'])->get();
-        return view('asset', compact('properties'));
+        return view('asset', compact('properties','categories', 'offices', 'statuses', 'employees'));
     }
 
     /**

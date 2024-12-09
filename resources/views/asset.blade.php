@@ -1,6 +1,17 @@
 @extends('layouts.master')
 @section('title') @lang('Asset List') @endsection
 @section('css')
+    <style>
+        .select2-container--default .select2-dropdown {
+            z-index: 1090 !important; /* Ensure it's higher than the modal */
+        }
+        .select2-container {
+            z-index: 1090 !important; /* Ensure select2 container has higher priority */
+        }
+    </style>
+
+    <link href="{{ URL::asset('assets/libs/select2/select2.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('assets/libs/dropzone/dropzone.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('assets/libs/datatables.net-bs4/datatables.net-bs4.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ URL::asset('assets/libs/datatables.net-buttons-bs4/datatables.net-buttons-bs4.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ URL::asset('assets/libs/datatables.net-responsive-bs4/datatables.net-responsive-bs4.min.css') }}" rel="stylesheet" type="text/css" />
@@ -15,7 +26,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="mb-3  text-end " >                     
-                        <a href="{{ route('assetlist.create') }}" class="btn btn-success"><i class="bx bx-plus me-1"></i> Add Asset</a>
+                        <a href="{{ route('assetlist.create') }}" data-bs-toggle="modal" data-bs-target="#addAssetModal" class="btn btn-success"><i class="bx bx-plus me-1"></i> Add Asset</a>
                     </div>
                     <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
                         <thead class="table-light">
@@ -174,9 +185,178 @@
             </div>
         </div>
     </div>
+        <!-- Add Asset Modal -->
+        <div class="modal fade" id="addAssetModal" tabindex="-1" role="dialog" aria-labelledby="addAssetModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addAssetModalLabel">Add New Asset</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Start of Form -->
+                        <form action="{{ route('asset.store') }}" method="POST" class="bg-gray-900 p-6 rounded-lg">
+                            @csrf
+                            <div class="row">
+                                <!-- Left Column -->
+                                <div class="col-sm-6">
+                                    <!-- Property Number -->
+                                    <div class="mb-3">
+                                        <label for="property_number">Property Number</label>
+                                        <input id="property_number" name="property_number" type="text" class="form-control" placeholder="Property Number" value="{{ old('property_number', $asset->property_number ?? '') }}">
+                                        @error('property_number')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <!-- Description -->
+                                    <div class="mb-3">
+                                        <label for="description">Description</label>
+                                        <textarea class="form-control" id="description" name="description" rows="1" placeholder="Asset Description">{{ old('description') }}</textarea>
+                                        @error('description')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <!-- Category -->
+                                    <div class="mb-3">
+                                        <label class="control-label">Category</label>
+                                        <select class="form-control select2" name="category_id">
+                                            <option value="">Select</option>
+                                            @foreach($categories as $category)
+                                                <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                                    {{ $category->category_name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('category_id')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <!-- Office -->
+                                    <div class="mb-3">
+                                        <label class="control-label">Office</label>
+                                        <select class="form-control select2" name="office_id">
+                                            <option value="">Select</option>
+                                            @foreach($offices as $office)
+                                                <option value="{{ $office->id }}" {{ old('office_id') == $office->id ? 'selected' : '' }}>
+                                                    {{ $office->office_name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('office_id')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <!-- Status -->
+                                    <div class="mb-3">
+                                        <label class="control-label">Status</label>
+                                        <select class="form-control select2" name="status_id">
+                                            <option value="">Select</option>
+                                            @foreach($statuses as $status)
+                                                <option value="{{ $status->id }}" {{ old('status_id') == $status->id ? 'selected' : '' }}>
+                                                    {{ $status->status_name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('status_id')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <!-- Right Column -->
+                                <div class="col-sm-6">
+                                    <!-- User -->
+                                    <div class="mb-3">
+                                        <label class="control-label">User</label>
+                                        <select class="form-control select2" name="employee_id">
+                                            <option value="">Select</option>
+                                            @foreach($employees as $employee)
+                                                <option value="{{ $employee->id }}" {{ old('employee_id') == $employee->id ? 'selected' : '' }}>
+                                                    {{ $employee->employee_name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('employee_id')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <!-- Date Purchased -->
+                                    <div class="mb-3">
+                                        <label for="date_purchase">Date Purchased</label>
+                                        <input id="date_purchase" name="date_purchase" type="date" class="form-control" value="{{ old('date_purchase') }}">
+                                        @error('date_purchase')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <!-- Serial Number -->
+                                    <div class="mb-3">
+                                        <label for="serial_number">Serial Number</label>
+                                        <input id="serial_number" name="serial_number" type="text" class="form-control" placeholder="Scan Serial Number" value="{{ old('serial_number') }}" autofocus>
+                                        @error('serial_number')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <!-- Acquisition Cost -->
+                                    <div class="mb-3">
+                                        <label for="acquisition_cost">Acquisition Cost</label>
+                                        <input id="acquisition_cost" name="acquisition_cost" type="number" class="form-control" value="{{ old('acquisition_cost') }}">
+                                        @error('acquisition_cost')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <!-- Inventory Remarks -->
+                                    <div class="mb-3">
+                                        <label for="inventory_remarks">Inventory Remarks</label>
+                                        <textarea class="form-control" id="inventory_remarks" name="inventory_remarks" rows="1" placeholder="Remarks">{{ old('inventory_remarks', $asset->inventory_remarks ?? '') }}</textarea>
+                                        @error('inventory_remarks')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Submit and Cancel Buttons -->
+                            <div>
+                                <button type="submit" class="btn btn-primary">Save Asset</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            </div>
+                        </form>
+                        <!-- End of Form -->
+                    </div>
+                </div>
+            </div>
+        </div>
 @endsection
 
 @section('script')
+<script>
+    $(document).ready(function() {
+        $('.select2').select2({
+            width: '100%',
+            dropdownParent: $('#addAssetModal'),
+            minimumResultsForSearch: 0 // Always show the search box
+        });
+
+        const serialNumberField = document.getElementById('serial_number');
+        const addAssetModal = document.getElementById('addAssetModal');
+
+        addAssetModal.addEventListener('shown.bs.modal', function () {
+            serialNumberField.focus();
+        });
+
+        serialNumberField.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                alert('Serial number scanned: ' + serialNumberField.value);
+            }
+        });
+    });
+</script>
+
+
+</script>
+
+<script src="{{ URL::asset('assets/libs/select2/select2.min.js') }}"></script>
+<script src="{{ URL::asset('assets/libs/dropzone/dropzone.min.js') }}"></script>
+<script src="{{ URL::asset('assets/js/pages/ecommerce-select2.init.js') }}"></script>   
 <!-- Core JavaScript libraries -->
 <script src="{{ URL::asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script> <!-- Bootstrap is foundational -->
 <script src="{{ URL::asset('assets/libs/alertifyjs/alertifyjs.min.js') }}"></script> <!-- AlertifyJS should be loaded after Bootstrap -->
