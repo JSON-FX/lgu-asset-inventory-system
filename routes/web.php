@@ -49,7 +49,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/status/create', [StatusController::class, 'create'])->name('status.create');
     Route::put('/status/{status}/', [StatusController::class, 'update'])->name('status.update');
     Route::get('/status/{id}/editstatus', [StatusController::class, 'edit'])->name('status.editstatus');
-    Route::get('/properties-by-status', [StatusController::class, 'showPropertiesByStatus'])->name('properties.by.status');
+    Route::get('/asset-by-status', [StatusController::class, 'showPropertiesByStatus'])->name('properties.by.status');
 
     // Route to show the 'Office Actions' 
     Route::post('/office', [OfficeController::class, 'store'])->name('offices.store');

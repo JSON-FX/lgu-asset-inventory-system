@@ -89,7 +89,7 @@
 
     <div class="col-xl-3 col-md-6">
         <!-- Wrap the card inside the anchor tag -->
-        <a href="properties-by-status" class="block no-underline">
+        <a href="asset-by-status" class="block no-underline">
             <!-- card -->
             <div class="card card-h-100 hover:shadow-lg transition-shadow duration-300">
                 <!-- card body -->

@@ -111,11 +111,11 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="serial_number">Serial Number</label>
-                                    <input id="serial_number" name="serial_number" type="text" class="form-control" placeholder="Serial Number" value="{{ old('serial_number') }}">
+                                    <input id="serial_number" name="serial_number" type="text" class="form-control" placeholder="Scan Serial Number" value="{{ old('serial_number') }}" autofocus>
                                     @error('serial_number')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
-                                </div>
+                                </div>                                
                                 <div class="mb-3">
                                     <label for="acquisition_cost">Acquisition Cost</label>
                                     <input id="acquisition_cost" name="acquisition_cost" type="number" class="form-control" value="{{ old('acquisition_cost') }}">
@@ -147,6 +147,27 @@
 @endsection
 
 @section('script')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        const serialNumberField = document.getElementById('serial_number');
+        const addAssetModal = document.getElementById('addAssetModal');
+
+        // Automatically focus the serial number field when the modal opens
+        addAssetModal.addEventListener('shown.bs.modal', function () {
+            serialNumberField.focus();
+        });
+
+        // Handle enter key or scanned input if scanner sends a newline
+        serialNumberField.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault(); // Prevent form submission (if inside a form)
+                alert('Serial number scanned: ' + serialNumberField.value);
+                // You can perform additional actions here, like validating the input.
+            }
+        });
+    });
+
+    </script>
     <script src="{{ URL::asset('assets/libs/select2/select2.min.js') }}"></script>
     <script src="{{ URL::asset('assets/libs/dropzone/dropzone.min.js') }}"></script>
     <script src="{{ URL::asset('assets/js/pages/ecommerce-select2.init.js') }}"></script>
