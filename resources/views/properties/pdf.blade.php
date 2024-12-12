@@ -105,7 +105,7 @@
             </tr>
             <tr>
                 <th>INVENTORY COMMITTEE REMARKS</th>
-                <td>{{ $property->remarks }}</td>
+                <td>{{ $property->inventory_remarks }}</td>
             </tr>
         </table>
 
