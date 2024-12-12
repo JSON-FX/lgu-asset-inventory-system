@@ -61,7 +61,7 @@ class PropertyController extends Controller
             'employee_id' => 'required|exists:employees,id',
             'date_purchase' => 'nullable|date|required|string',
             'acquisition_cost' => 'nullable|numeric|required',
-            'inventory_remarks' => 'nullable|string|required',
+            'inventory_remarks' => 'nullable|string',
             'serial_number' => 'required|string|unique:properties',
             
         ]);
@@ -129,7 +129,7 @@ class PropertyController extends Controller
             'employee_id' => 'required|exists:employees,id',
             'date_purchase' => 'nullable|date|required|string',
             'acquisition_cost' => 'nullable|numeric|required',
-            'inventory_remarks' => 'nullable|string|required',
+            'inventory_remarks' => 'nullable|string',
         ]);
 
         $property->update($request->all());

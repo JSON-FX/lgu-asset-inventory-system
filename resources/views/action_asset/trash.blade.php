@@ -46,17 +46,44 @@
                             <td>
                                 <div class="d-flex gap-3">
                                     <a class="mdi mdi-eye font-size-18" data-bs-toggle="modal" data-bs-target="#orderdetailsModal-{{ $property->id }}"></a>
-                                    <a href="{{ route('asset.restore', $property->id) }}" class="btn btn-success btn-sm">Restore</a>
+                                    <a href="#" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#restoreModal-{{ $property->id }}">Restore</a>
                                     
-                                    {{-- <a href="javascript:void(0);" 
+                                    @if(auth()->id() == 1)
+                                        <a href="javascript:void(0);" 
                                         class="btn btn-danger btn-sm" 
                                         data-bs-toggle="modal"                                         
                                         data-bs-target="#deleteModal-{{ $property->id }}"
-                                        >Permanently Delete</a> --}}
+                                        >
+                                            Permanently Delete
+                                        </a>
+                                    @endif
+
                                 </div>
                             </td>
                             
                         </tr>
+                        <div class="modal fade" id="restoreModal-{{ $property->id }}" tabindex="-1" aria-labelledby="restoreModalLabel-{{ $property->id }}" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="restoreModalLabel-{{ $property->id }}">Confirm Restoration</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to restore <strong>{{ $property->description }}</strong> from trash?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <!-- Form for restoration -->
+                                        <form action="{{ route('asset.restore', $property->id) }}" method="GET">
+                                            @csrf
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-success">Yes</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
 
                         <!-- Modal for deletion confirmation (outside the loop) -->
                         <div class="modal fade" id="deleteModal-{{ $property->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel-{{ $property->id }}" aria-hidden="true">
