@@ -1,13 +1,13 @@
 # Laravel Project
 
 ## Introduction
-This is a Laravel-based web application built to manage [describe the purpose of your project, e.g., assets, inventory, etc.]. It provides features like [list key features, e.g., CRUD operations, role management, reporting, etc.].
+This is a Laravel-based web application built to manage property assets, inventory, etc. It provides features like CRUD operations, role management, reporting.
 
 ## Features
-- [Feature 1]
-- [Feature 2]
-- [Feature 3]
-- User roles and permissions
+- Register
+- Login
+- Admin Dashboard
+- Add Edit Update Delete Asset
 
 ## Requirements
 - PHP >= 8.0 up
