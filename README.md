@@ -116,4 +116,4 @@ Contributions are welcome! Please submit a pull request or open an issue to disc
 This project is open-source and available under the [LICENSE](/LICENSE) file.
 
 ## Contact
-For any inquiries, please contact [Your Name] at [your email].
+For any inquiries, please contact LGU-MIS-QUEZON at lgu.quezon.bukidnon@gmail.com.
