@@ -19,12 +19,12 @@ This is a Laravel-based web application built to manage property assets, invento
 
 1. Clone the repository:
    ```bash
-   git clone [repository_url]
+   git clone https://github.com/JSON-FX/lgu-asset-inventory-system.git
    ```
 
 2. Navigate to the project directory:
    ```bash
-   cd [project_directory]
+   cd lgu-asset-inventory-system
    ```
 
 3. Install PHP dependencies:
