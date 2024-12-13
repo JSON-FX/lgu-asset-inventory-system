@@ -89,5 +89,22 @@ class Property extends Model
                 'user_id' => auth()->check() ? auth()->id() : null, // Check if authenticated
             ]);
         });
+        static::created(function ($property) {
+            // Get the date when the property was created
+            $date = $property->created_at->format('Y-m-d');  // Use the created_at date of the property
+        
+            // Count how many properties were added on this day
+            $totalAssets = Property::whereDate('created_at', $date)->count();  // Count the number of properties created on the same day
+        
+            // Find or create the CalendarEntry for the given date
+            $calendarEntry = CalendarEntry::firstOrNew(['date' => $date]);
+        
+            // Update the total_assets count with the number of properties added that day
+            $calendarEntry->total_assets = $totalAssets;
+        
+            // Save the updated calendar entry
+            $calendarEntry->save();
+        });
+        
     }
 }

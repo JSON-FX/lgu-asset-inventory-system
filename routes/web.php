@@ -12,7 +12,7 @@ use App\Exports\PropertiesExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\LogController;
-
+use App\Http\Controllers\CalendarController;
 
 
 // Home-Index route/login page
@@ -21,10 +21,15 @@ Route::get('/', function () {
 }); 
 
 Route::middleware(['auth'])->group(function () {
-
+    
     // Route to show the 'Dashboard Actions' 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    
+
+    //Route to show the 'Calendar Actions' 
+    Route::get('calendar', [CalendarController::class, 'index'])->name('calendar.index');
+    Route::get('calendar/{date}', [CalendarController::class, 'showDay'])->name('calendar.showDay');
+    Route::post('calendar', [CalendarController::class, 'store'])->name('calendar.store');
+
     // Route to show the 'Asset Actions' 
     Route::post('/add-asset', [PropertyController::class, 'store'])->name('asset.store');
     Route::get('/add-asset', [PropertyController::class, 'create'])->name('assetlist.create');
