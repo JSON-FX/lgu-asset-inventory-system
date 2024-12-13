@@ -65,7 +65,8 @@ return [
     |
     */
 
-    'timezone' => env('APP_TIMEZONE', 'UTC+8'),
+    'timezone' => env('APP_TIMEZONE', 'Asia/Manila'),
+
 
     /*
     |--------------------------------------------------------------------------
