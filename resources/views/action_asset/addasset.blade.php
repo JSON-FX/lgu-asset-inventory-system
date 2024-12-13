@@ -24,7 +24,7 @@
                 </div>
                 <div class="card-body">
                     <!-- Start of Form -->
-                    <form action="{{ route('asset.store') }}" method="POST" class="bg-gray-900 p-6 rounded-lg">
+                    <form id="addAssetForm" action="{{ route('asset.store') }}" method="POST" class="bg-gray-900 p-6 rounded-lg">
                         @csrf
                         <div class="row">
                             <div class="col-sm-6">
@@ -135,7 +135,7 @@
 
                         <!-- Submit and Reset Buttons -->
                         <div>
-                            <button type="submit" class="btn btn-primary">Save Asset</button>
+                            <button type="button" id="addAssetButton"class="btn btn-primary">Save Asset</button>
                             <a href="{{ route('asset') }}" class="btn btn-secondary waves-effect waves-light">Cancel</a>
                         </div>
                     </form>
@@ -171,5 +171,23 @@
     <script src="{{ URL::asset('assets/libs/select2/select2.min.js') }}"></script>
     <script src="{{ URL::asset('assets/libs/dropzone/dropzone.min.js') }}"></script>
     <script src="{{ URL::asset('assets/js/pages/ecommerce-select2.init.js') }}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.getElementById('addAssetButton').addEventListener('click', function (e) {
+            e.preventDefault(); // Prevent default button behavior
+
+            // Display success alert after form submission
+            Swal.fire({
+                title: 'Success!',
+                text: 'Asset has been added successfully.',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                // Submit the form after showing the success alert
+                document.getElementById('addAssetForm').submit();
+            });
+        });
+    </script>
     <script src="{{ URL::asset('/assets/js/app.min.js') }}"></script>
 @endsection

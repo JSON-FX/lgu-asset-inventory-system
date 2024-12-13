@@ -195,7 +195,7 @@
                     </div>
                     <div class="modal-body">
                         <!-- Start of Form -->
-                        <form action="{{ route('asset.store') }}" method="POST" class="bg-gray-900 p-6 rounded-lg">
+                        <form id="addAssetForm" action="{{ route('asset.store') }}"method="POST" class="bg-gray-900 p-6 rounded-lg">
                             @csrf
                             <div class="row">
                                 <!-- Left Column -->
@@ -315,7 +315,7 @@
                             </div>
                             <!-- Submit and Cancel Buttons -->
                             <div>
-                                <button type="submit" class="btn btn-primary">Save Asset</button>
+                                <button type="button" id="addAssetButton" class="btn btn-primary">Save Asset</button>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                             </div>
                         </form>
@@ -360,7 +360,24 @@
 <!-- Core JavaScript libraries -->
 <script src="{{ URL::asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script> <!-- Bootstrap is foundational -->
 <script src="{{ URL::asset('assets/libs/alertifyjs/alertifyjs.min.js') }}"></script> <!-- AlertifyJS should be loaded after Bootstrap -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.getElementById('addAssetButton').addEventListener('click', function (e) {
+        e.preventDefault(); // Prevent default button behavior
 
+        // Display success alert after form submission
+        Swal.fire({
+            title: 'Success!',
+            text: 'Asset has been added successfully.',
+            icon: 'success',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
+        }).then(() => {
+            // Submit the form after showing the success alert
+            document.getElementById('addAssetForm').submit();
+        });
+    });
+</script>
 <!-- DataTables libraries -->
 <script src="{{ URL::asset('assets/libs/datatables.net/datatables.net.min.js') }}"></script>
 <script src="{{ URL::asset('assets/libs/datatables.net-bs4/datatables.net-bs4.min.js') }}"></script>

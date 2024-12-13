@@ -74,10 +74,10 @@
                                     </div>
                                     <div class="modal-footer">
                                         <!-- Form for restoration -->
-                                        <form action="{{ route('asset.restore', $property->id) }}" method="GET">
+                                        <form id="restoreAssetForm"action="{{ route('asset.restore', $property->id) }}" method="GET">
                                             @csrf
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                            <button type="submit" class="btn btn-success">Yes</button>
+                                            <button type="button" id="restoreAssetButton"class="btn btn-success">Yes</button>
                                         </form>
                                     </div>
                                 </div>
@@ -205,5 +205,23 @@
 <script src="{{ URL::asset('assets/libs/datatables.net-responsive/datatables.net-responsive.min.js') }}"></script>
 <script src="{{ URL::asset('assets/libs/datatables.net-responsive-bs4/datatables.net-responsive-bs4.min.js') }}"></script>
 <script src="{{ URL::asset('assets/js/pages/datatables.init.js') }}"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.getElementById('restoreAssetButton').addEventListener('click', function (e) {
+        e.preventDefault(); // Prevent default button behavior
+
+        // Display success alert after form submission
+        Swal.fire({
+            title: 'Success!',
+            text: 'Asset Restored successfully.',
+            icon: 'success',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
+        }).then(() => {
+            // Submit the form after showing the success alert
+            document.getElementById('restoreAssetForm').submit();
+        });
+    });
+</script>
 <script src="{{ URL::asset('assets/js/app.min.js') }}"></script>
 @endsection

@@ -40,7 +40,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form action="{{ route('category.store') }}" method="POST">
+                                <form id="addCategoryForm" action="{{ route('category.store') }}" method="POST">
                                     @csrf
                                     <div class="mb-4">
                                         <label for="category_name" class="form-label">Category Name</label>
@@ -51,7 +51,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-primary">Add Category</button>
+                                        <button type="button" class="btn btn-primary" id="addCategoryButton">Add Category</button>
                                     </div>
                                 </form>
                             </div>
@@ -129,6 +129,25 @@
 @endsection
 
 @section('script')
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.getElementById('addCategoryButton').addEventListener('click', function (e) {
+        e.preventDefault(); // Prevent default button behavior
+
+        // Display success alert after form submission
+        Swal.fire({
+            title: 'Success!',
+            text: 'Category has been added successfully.',
+            icon: 'success',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
+        }).then(() => {
+            // Submit the form after showing the success alert
+            document.getElementById('addCategoryForm').submit();
+        });
+    });
+</script>
+
 <script src="{{ URL::asset('assets/libs/datatables.net/datatables.net.min.js') }}"></script>
 <script src="{{ URL::asset('assets/libs/datatables.net-bs4/datatables.net-bs4.min.js') }}"></script>
 <script src="{{ URL::asset('assets/libs/datatables.net-responsive/datatables.net-responsive.min.js') }}"></script>
