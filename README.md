@@ -77,7 +77,8 @@ This is a Laravel-based web application built to manage property assets, invento
     ```
 
 ## Usage
-
+ if you use  xampp  as a server then enable the  Imagick  follow the youtube video provided
+ https://www.youtube.com/watch?v=qZ9_rq6c9uY&ab_channel=MuruganS 
 ### Roles and Permissions
 - Admin (ID: 1) has full access to all features.
 - Other users may have restricted access based on roles.
