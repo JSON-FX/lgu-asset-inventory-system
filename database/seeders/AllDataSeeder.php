@@ -13,10 +13,23 @@ class AllDataSeeder extends Seeder
     {
         // Insert dummy data into categories table
         DB::table('categories')->insert([
-            ['category_name' => 'Electronics', 'created_at' => now(), 'updated_at' => now()],
-            ['category_name' => 'Furnitures', 'created_at' => now(), 'updated_at' => now()],
-            ['category_name' => 'Vehicles', 'created_at' => now(), 'updated_at' => now()],
-            ['category_name' => 'Stationery', 'created_at' => now(), 'updated_at' => now()],
+            ['category_name' => 'Machinery & Equipments', 'created_at' => now(), 'updated_at' => now()],
+            ['category_name' => 'Office Equipments', 'created_at' => now(), 'updated_at' => now()],
+            ['category_name' => 'ICT', 'created_at' => now(), 'updated_at' => now()],
+            ['category_name' => 'Agricultural & Forestry', 'created_at' => now(), 'updated_at' => now()],
+            ['category_name' => 'Communication Equipment', 'created_at' => now(), 'updated_at' => now()],
+            ['category_name' => 'Construction & Heavy Equipment', 'created_at' => now(), 'updated_at' => now()],
+            ['category_name' => 'Disaster Response and Rescue Equipment', 'created_at' => now(), 'updated_at' => now()],
+            ['category_name' => 'Military, Police & Security Equipment', 'created_at' => now(), 'updated_at' => now()],
+            ['category_name' => 'Medical Equipment', 'created_at' => now(), 'updated_at' => now()],
+            ['category_name' => 'Sports Equipment', 'created_at' => now(), 'updated_at' => now()],
+            ['category_name' => 'Technology & Scientific', 'created_at' => now(), 'updated_at' => now()],
+            ['category_name' => 'Motor Vehicles', 'created_at' => now(), 'updated_at' => now()],
+            ['category_name' => 'Furniture & Fixture', 'created_at' => now(), 'updated_at' => now()],
+            ['category_name' => 'Other PPE', 'created_at' => now(), 'updated_at' => now()],
+            ['category_name' => 'Computer Software', 'created_at' => now(), 'updated_at' => now()],
+            ['category_name' => 'Laboratory', 'created_at' => now(), 'updated_at' => now()],
+            ['category_name' => 'Other Transportation Equipment', 'created_at' => now(), 'updated_at' => now()],
         ]);
 
         // Insert dummy data into offices table
@@ -70,6 +83,9 @@ class AllDataSeeder extends Seeder
             ['office_name' => 'GSD', 'created_at' => now(), 'updated_at' => now()],
             ['office_name' => 'MTC', 'created_at' => now(), 'updated_at' => now()],
             ['office_name' => 'PAO', 'created_at' => now(), 'updated_at' => now()],
+            ['office_name' => 'BUKSU', 'created_at' => now(), 'updated_at' => now()],
+            ['office_name' => 'LSB', 'created_at' => now(), 'updated_at' => now()],
+            ['office_name' => 'School District', 'created_at' => now(), 'updated_at' => now()],
         ]);
 
         // Insert dummy data into statuses table
