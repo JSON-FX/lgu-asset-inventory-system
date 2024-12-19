@@ -31,6 +31,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('calendar', [CalendarController::class, 'store'])->name('calendar.store');
 
     // Route to show the 'Asset Actions' 
+    Route::get('/asset-list', [PropertyController::class, 'index'])->name('assetlist.index');
     Route::post('/add-asset', [PropertyController::class, 'store'])->name('asset.store');
     Route::get('/add-asset', [PropertyController::class, 'create'])->name('assetlist.create');
     Route::put('/update-asset/{assetlist}/', [PropertyController::class, 'update'])->name('assetlist.update');

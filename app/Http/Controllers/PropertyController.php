@@ -19,15 +19,31 @@ class PropertyController extends Controller
      * @return \Illuminate\View\View
      */
     
-    public function index()
+     public function index(Request $request)
     {
         $categories = Category::all();
         $offices = Office::all();
         $statuses = Status::all();
         $employees = Employee::all();
-        $properties = Property::with(['category', 'office', 'status', 'employee'])->get();
-        return view('asset', compact('properties','categories', 'offices', 'statuses', 'employees'));
+
+        // Fetch properties based on filters
+        $query = Property::with(['category', 'office', 'status', 'employee']);
+
+        if ($request->has('acquisition_cost_filter') && $request->acquisition_cost_filter != '') {
+            if ($request->acquisition_cost_filter == 'above_50k') {
+                $query->where('acquisition_cost', '>=', 50000);
+            } elseif ($request->acquisition_cost_filter == 'below_50k') {
+                $query->where('acquisition_cost', '<', 50000);
+            }
+        }
+
+        $properties = $query->get();
+
+        return view('asset', compact('properties', 'categories', 'offices', 'statuses', 'employees'));
     }
+
+
+     
 
     /**
      * Show the form for creating a new property.

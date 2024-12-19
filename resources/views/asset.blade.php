@@ -16,7 +16,7 @@
     <link href="{{ URL::asset('assets/libs/datatables.net-buttons-bs4/datatables.net-buttons-bs4.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ URL::asset('assets/libs/datatables.net-responsive-bs4/datatables.net-responsive-bs4.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ URL::asset('assets/libs/alertifyjs/alertifyjs.min.css') }}" rel="stylesheet"> <!-- Load AlertifyJS CSS Last -->
-@endsection
+@endsection 
 @section('content')
     @component('components.breadcrumb')
         @slot('li_1') Assets @endslot
@@ -28,6 +28,18 @@
                     <div class="mb-3  text-end " >                     
                         <a href="{{ route('assetlist.create') }}" data-bs-toggle="modal" data-bs-target="#addAssetModal" class="btn btn-success"><i class="bx bx-plus me-1"></i> Add Asset</a>
                     </div>
+                    <form action="{{ route('assetlist.index') }}" method="GET" id="filterForm">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="acquisition_cost_filter">Acquisition Cost</label>
+                                <select name="acquisition_cost_filter" id="acquisition_cost_filter" class="form-control">
+                                    <option value="">Select Option</option>
+                                    <option value="above_50k" {{ request('acquisition_cost_filter') == 'above_50k' ? 'selected' : '' }}>Above 50,000</option>
+                                    <option value="below_50k" {{ request('acquisition_cost_filter') == 'below_50k' ? 'selected' : '' }}>Below 50,000</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
                     <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
                         <thead class="table-light">
                             <tr>
@@ -391,6 +403,12 @@
 <!-- Your custom scripts -->
 <script src="{{ URL::asset('assets/js/pages/notification.init.js') }}"></script>
 <script src="{{ URL::asset('assets/js/pages/datatables.init.js') }}"></script>
+<script>
+    // Trigger the form submission automatically on selection change
+    document.getElementById('acquisition_cost_filter').addEventListener('change', function() {
+        document.getElementById('filterForm').submit();
+    });
+</script>
 <script src="{{ URL::asset('assets/js/app.min.js') }}"></script>
 
     
