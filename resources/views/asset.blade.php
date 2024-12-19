@@ -31,7 +31,7 @@
                     <form action="{{ route('assetlist.index') }}" method="GET" id="filterForm">
                         <div class="row">
                             <div class="col-md-3">
-                                <label for="acquisition_cost_filter">Acquisition Cost</label>
+                                <label for="acquisition_cost_filter">Item Cost</label>
                                 <select name="acquisition_cost_filter" id="acquisition_cost_filter" class="form-control">
                                     <option value="">Select Option</option>
                                     <option value="above_50k" {{ request('acquisition_cost_filter') == 'above_50k' ? 'selected' : '' }}>Above 50,000</option>
