@@ -137,6 +137,20 @@
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
+                                    <div class="mb-3">
+                                        <label class="control-label">User</label>
+                                        <select class="form-control select2" name="employee_id2">
+                                            <option value="">Select</option>
+                                            @foreach($employees as $employee)
+                                            <option value="{{ $employee->id }}" {{ old('employee_id2', $property->employee_id2) == $employee->id ? 'selected' : '' }}>
+                                                    {{ $employee->employee_name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('employee_id2')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
                                     
                                 </div>
                                 
@@ -173,6 +187,13 @@
                                         <label for="acquisition_cost">Acquisition Cost</label>
                                         <input id="acquisition_cost" name="acquisition_cost" type="number" class="form-control" value="{{ old('acquisition_cost', $property->acquisition_cost) }}">
                                         @error('acquisition_cost')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="qty">QTY</label>
+                                        <input id="qty" name="qty" type="number" class="form-control" value="{{ old('qty', $property->qty) }}">
+                                        @error('qty')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>

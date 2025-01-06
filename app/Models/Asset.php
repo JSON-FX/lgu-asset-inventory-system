@@ -20,6 +20,9 @@ class Asset extends Model
         'acquisition_cost',
         'user',
         'status',
-        'inventory_remarks'
+        'qty',
+        'inventory_remarks',
+        'image',
+        
     ];
 }

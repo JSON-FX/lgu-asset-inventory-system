@@ -154,25 +154,53 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'property_number' => 'required|string|max:255|unique:properties',
-            'description' => 'required|string|max:255',
+        // Validate the other form fields
+        $validated = $request->validate([
+            'property_number' => 'required|string|max:255',
+            'description' => 'required|string',
             'category_id' => 'required|exists:categories,id',
             'office_id' => 'required|exists:offices,id',
             'status_id' => 'required|exists:statuses,id',
             'employee_id' => 'required|exists:employees,id',
-            'date_purchase' => 'nullable|date|required|string',
-            'acquisition_cost' => 'nullable|numeric|required',
+            'employee_id2' => 'required|exists:employees,id',
+            'date_purchase' => 'required|date',
+            'acquisition_cost' => 'required|numeric',
+            'qty' => 'required|integer',
             'inventory_remarks' => 'nullable|string',
-            'serial_number' => 'required|string|unique:properties',
-            
+            'serial_number' => 'required|string|max:255',
         ]);
-        
 
-        Property::create($request->all());
+        // Validate image upload
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $image = $request->file('image');
+            // Store the image in the 'public' disk (which maps to the public directory)
+            $imagePath = $image->store('images', 'public');
+        } else {
+            // Handle error: No image uploaded or invalid image
+            return back()->withErrors(['image' => 'Invalid image upload']);
+        }
 
-        return redirect()->route('asset')->with('success', 'Asset added successfully!');
+        // Store the property details along with the image path
+        Property::create([
+            'property_number' => $request->property_number,
+            'description' => $request->description,
+            'category_id' => $request->category_id,
+            'office_id' => $request->office_id,
+            'status_id' => $request->status_id,
+            'employee_id' => $request->employee_id,
+            'employee_id2' => $request->employee_id2,
+            'date_purchase' => $request->date_purchase,
+            'acquisition_cost' => $request->acquisition_cost,
+            'qty' => $request->qty,
+            'inventory_remarks' => $request->inventory_remarks,
+            'serial_number' => $request->serial_number,
+            'image_path' => $imagePath,  // Store the image path in the database
+        ]);
+
+        // Redirect or return success message
+        return redirect()->route('assetlist.index')->with('success', 'Property added successfully!');
     }
+
 
     /**
      * Show the form for editing the specified property.
@@ -187,6 +215,7 @@ class PropertyController extends Controller
         $offices = Office::all();
         $statuses = Status::all();
         $employees = Employee::all();
+        
 
         return view('action_asset.edit', compact('property', 'categories', 'offices', 'statuses', 'employees'));
     }
@@ -200,6 +229,7 @@ class PropertyController extends Controller
 
         return view('asset', compact('property', 'categories', 'offices', 'statuses', 'employees'));
     }
+    
 
     /**
      * Update the specified property in storage.
@@ -229,8 +259,9 @@ class PropertyController extends Controller
             'office_id' => 'required|exists:offices,id',
             'status_id' => 'required|exists:statuses,id',
             'employee_id' => 'required|exists:employees,id',
-            'date_purchase' => 'nullable|date|required|string',
-            'acquisition_cost' => 'nullable|numeric|required',
+            'date_purchase' => 'nullable|date',
+            'acquisition_cost' => 'nullable|numeric',
+            'qty' => 'nullable|numeric|required',
             'inventory_remarks' => 'nullable|string',
         ]);
 
@@ -278,6 +309,23 @@ class PropertyController extends Controller
 
         return redirect()->route('asset.trash')->with('success', 'Property permanently deleted!');
     }
+    public function generatePDF()
+    {
+        $property = new Property();
+        return $property->generatePDF();
+    }
+    public function exportPdf($id)
+    {
+        // Fetch the property with its relationships
+        $property = Property::with(['category', 'office', 'status', 'employee', 'employee2'])->findOrFail($id);
+
+        // Load the view and pass the data
+        $pdf = PDF::loadView('pdf.property', compact('property'));
+
+        // Return the PDF for download
+        return $pdf->download('property-' . $property->id . '.pdf');
+    }
+        
 
 
 

@@ -18,10 +18,10 @@
     <link href="{{ URL::asset('assets/libs/alertifyjs/alertifyjs.min.css') }}" rel="stylesheet"> <!-- Load AlertifyJS CSS Last -->
 @endsection 
 @section('content')
-    @component('components.breadcrumb')
-        @slot('li_1') Assets @endslot
-        @slot('title') Assets List @endslot
-    @endcomponent
+@component('components.breadcrumb')
+@slot('li_1') Assets @endslot
+@slot('title') Assets List @endslot
+@endcomponent
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
@@ -30,27 +30,34 @@
                     </div>
                     <form action="{{ route('assetlist.index') }}" method="GET" id="filterForm">
                         <div class="row">
-                            <div class="col-md-3">
-                                <label for="acquisition_cost_filter">Item Cost</label>
-                                <select name="acquisition_cost_filter" id="acquisition_cost_filter" class="form-control">
-                                    <option value="">Select Option</option>
-                                    <option value="above_50k" {{ request('acquisition_cost_filter') == 'above_50k' ? 'selected' : '' }}>Above 50,000</option>
-                                    <option value="below_50k" {{ request('acquisition_cost_filter') == 'below_50k' ? 'selected' : '' }}>Below 50,000</option>
-                                </select>
+                            <div class="flex flex-wrap -mx-4">
+                                <div class="w-full md:w-1/4 px-4 mb-4">
+                                    <label for="acquisition_cost_filter" class="block text-sm font-medium mb-2">Item Cost</label>
+                                    <select name="acquisition_cost_filter" id="acquisition_cost_filter" class="block w-full border rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring focus:border-gray-500 sm:text-sm">
+                                        <option value="">Select Option</option>
+                                        <option value="above_50k" {{ request('acquisition_cost_filter') == 'above_50k' ? 'selected' : '' }}>Above 50,000</option>
+                                        <option value="below_50k" {{ request('acquisition_cost_filter') == 'below_50k' ? 'selected' : '' }}>Below 50,000</option>
+                                    </select>
+                                </div>
                             </div>
+                            
                         </div>
                     </form>
                     <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
                         <thead class="table-light">
                             <tr>
-                                <th>Prop No.</th>
+                                <th>Qty</th>
+                                <th>PR No.</th>
                                 <th>Description</th>
                                 <th>Category</th>
                                 <th>Office</th>
+                                <th>Serial No.</th>
                                 <th>Purchase date</th>
+                                <th>Accountable</th>
                                 <th>User</th>
                                 <th>Acquisition cost</th>
                                 <th>Status</th>
+                                <th>Remarks</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -58,11 +65,14 @@
                         <tbody>
                             @foreach ($properties as $property)
                                 <tr>
+                                    <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->qty }}</td>
                                     <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->property_number }}</td>
                                     <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->description }}</td>
                                     <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->category->category_name }}</td>
                                     <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->office->office_name }}</td>
+                                    <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->serial_number }}</td>
                                     <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ \Carbon\Carbon::parse($property->date_purchase)->format('m-d-Y') }}</td>
+                                    <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->employee2->employee_name }}</td>
                                     <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->employee->employee_name }}</td>
                                     <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">₱{{ number_format($property->acquisition_cost, 2) }}</td>
                                     <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">
@@ -76,6 +86,7 @@
                                             <span class="badge badge-pill badge-soft-secondary font-size-10">{{ $property->status->status_name }}</span>
                                         @endif
                                     </td>
+                                    <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->inventory_remarks }}</td>
                                     
                                     <td>
                                         <div class="d-flex gap-3">
@@ -129,7 +140,8 @@
                                                     <div class="col-xl-4">
                                                         <div class="product-detai-imgs">
                                                             <div class="row">
-                                                                <div class="col-md-7 offset-md-1 col-sm-9 col-8">
+                                                                <!-- QR Code Section -->
+                                                                <div class="col-md-7 offset-md-1 col-sm-9 col-8 mt-4">
                                                                     <div class="tab-content" id="v-pills-tabContent">
                                                                         <div class="tab-pane fade show active" id="product-1" role="tabpanel" aria-labelledby="product-1-tab">
                                                                             <div>
@@ -140,9 +152,31 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                <!-- Image Section -->
+                                                                <div class="col-md-7 offset-md-1 col-sm-9 col-8 mt-4">
+                                                                    <div class="tab-content" id="v-pills-tabContent">
+                                                                        <div class="tab-pane fade show active" id="product-1" role="tabpanel" aria-labelledby="product-1-tab">
+                                                                            <div>
+                                                                                <div class="img-fluid mx-auto d-block">
+                                                                                    <!-- Add link to view image in a new tab -->
+                                                                                    <a href="{{ asset('storage/' . $property->image_path) }}" target="_blank">
+                                                                                        <img 
+                                                                                            src="{{ asset('storage/' . $property->image_path) }}" 
+                                                                                            alt="Property Image" 
+                                                                                            style="width: 180px; height: 180px; object-fit: cover;">
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                
                                                             </div>
+                                                            
+                                                            
                                                         </div>
                                                     </div>
+                                                    
                                 
                                                     <!-- Middle Column: Property Details -->
                                                     <div class="col-xl-4">
@@ -157,6 +191,8 @@
                                                             <p class="text-muted sm-4">{{ $property->category->category_name }}</p>
                                                             <h5 class="mt-1 mb-3">Office</h5>
                                                             <p class="text-muted sm-4">{{ $property->office->office_name }}</p>
+                                                            <h5 class="mt-1 mb-3">Accountable</h5>
+                                                            <p class="text-muted sm-4">{{ $property->employee2->employee_name }}</p>
                                                         </div>
                                                     </div>
                                 
@@ -171,6 +207,8 @@
                                                             <p class="text-muted sm-4">{{ \Carbon\Carbon::parse($property->date_purchase)->format('m-d-Y') }}</p>
                                                             <h5 class="mt-1 mb-3">Acquisition Cost</h5>
                                                             <p class="text-muted sm-4">₱{{ number_format($property->acquisition_cost, 2) }}</p>
+                                                            <h5 class="mt-1 mb-3">Qty</h5>
+                                                            <p class="text-muted sm-4">{{ number_format($property->qty,) }}</p>
                                                             <h5 class="mt-1 mb-3">Inventory Remarks</h5>
                                                             <p class="text-muted sm-4">{{ $property->inventory_remarks }}</p>
                                                         </div>
@@ -185,10 +223,12 @@
                                                     Generate PAR
                                                 </a>
                                                 <a href="{{ route('asset.exportpdf', $property->id) }}" class="btn btn-danger">
-                                                    Export to PDF
+                                                    Generate Sticker
                                                 </a>
+                                                
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                             </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -210,7 +250,7 @@
                     </div>
                     <div class="modal-body">
                         <!-- Start of Form -->
-                        <form id="addAssetForm" action="{{ route('asset.store') }}"method="POST" class="bg-gray-900 p-6 rounded-lg">
+                        <form id="addAssetForm" action="{{ route('asset.store') }}"method="POST" enctype="multipart/form-data" class="bg-gray-900 p-6 rounded-lg">
                             @csrf
                             <div class="row">
                                 <!-- Left Column -->
@@ -276,6 +316,20 @@
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
+                                    <div class="mb-3">
+                                        <label class="control-label">Accountable</label>
+                                        <select class="form-control select2" name="employee_id2">
+                                            <option value="">Select</option>
+                                            @foreach($employees as $employee)
+                                                <option value="{{ $employee->id }}" {{ old('employee_id2') == $employee->id ? 'selected' : '' }}>
+                                                    {{ $employee->employee_name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('employee_id2')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
                                 </div>
                                 <!-- Right Column -->
                                 <div class="col-sm-6">
@@ -304,6 +358,41 @@
                                     </div>
                                     <!-- Serial Number -->
                                     <div class="mb-3">
+                                        <label>Select Type</label><br>
+                                        <input type="radio" id="engine_number_radio" name="number_type" value="engine" onchange="toggleFields()">
+                                        <label for="engine_number_radio">Vehicle</label>
+                                
+                                        <input type="radio" id="serial_number_radio" name="number_type" value="serial" onchange="toggleFields()">
+                                        <label for="serial_number_radio">Item</label>
+                                    </div>
+                                
+                                    <!-- ENGINE Number Input Field (Initially hidden) -->
+                                    <div id="engine_number_field" class="mb-3" style="display: none;">
+                                        <label for="engine_number">ENGINE Number</label>
+                                        <input id="engine_number" name="engine_number" type="text" class="form-control" placeholder="Scan Engine Number" value="{{ old('engine_number') }}" autofocus>
+                                        @error('engine_number')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <div id="elc_number_field" class="mb-3" style="display: none;">
+                                        <label for="elc_number">ELC Number</label>
+                                        <input id="elc_number" name="elc_number" type="text" class="form-control" placeholder="Enter ELC Number" value="{{ old('elc_number') }}">
+                                        @error('elc_number')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                
+                                    <!-- Plate Number Input Field (Initially hidden) -->
+                                    <div id="plate_number_field" class="mb-3" style="display: none;">
+                                        <label for="plate_number">Plate Number</label>
+                                        <input id="plate_number" name="plate_number" type="text" class="form-control" placeholder="Enter Plate Number" value="{{ old('plate_number') }}">
+                                        @error('plate_number')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                
+                                    <!-- Serial Number Input Field (Initially visible) -->
+                                    <div id="serial_number_field" class="mb-3">
                                         <label for="serial_number">Serial Number</label>
                                         <input id="serial_number" name="serial_number" type="text" class="form-control" placeholder="Scan Serial Number" value="{{ old('serial_number') }}" autofocus>
                                         @error('serial_number')
@@ -318,6 +407,14 @@
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
+                                    <!-- Acquisition Cost -->
+                                    <div class="mb-3">
+                                        <label for="qty">Quantity</label>
+                                        <input id="qty" name="qty" type="number" class="form-control" value="{{ old('qty') }}">
+                                        @error('qty')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
                                     <!-- Inventory Remarks -->
                                     <div class="mb-3">
                                         <label for="inventory_remarks">Inventory Remarks</label>
@@ -326,6 +423,10 @@
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
+                                    <div class="mb-3">
+                                        <label for="image">Upload Image:</label>
+                                        <input type="file" name="image" id="image" accept="image/*" required>
+                                    </div>                                                                    
                                 </div>
                             </div>
                             <!-- Submit and Cancel Buttons -->
@@ -412,6 +513,32 @@
         document.getElementById('filterForm').submit();
     });
 </script>
+<script>
+    // Function to toggle visibility of input fields based on radio button selection
+    function toggleFields() {
+        // Get the selected radio button value
+        var selectedOption = document.querySelector('input[name="number_type"]:checked').value;
+
+        // Show/Hide fields based on the selected option
+        if (selectedOption === 'engine') {
+            document.getElementById('engine_number_field').style.display = 'block';
+            document.getElementById('elc_number_field').style.display = 'block';
+            document.getElementById('plate_number_field').style.display = 'block';
+            document.getElementById('serial_number_field').style.display = 'none';
+        } else if (selectedOption === 'serial') {
+            document.getElementById('serial_number_field').style.display = 'block';
+            document.getElementById('engine_number_field').style.display = 'none';
+            document.getElementById('elc_number_field').style.display = 'none';
+            document.getElementById('plate_number_field').style.display = 'none';
+        }
+    }
+
+    // Initialize the toggle functionality based on default radio button selection
+    window.onload = function() {
+        toggleFields();
+    };
+</script>
+
 <script src="{{ URL::asset('assets/js/app.min.js') }}"></script>
 
     

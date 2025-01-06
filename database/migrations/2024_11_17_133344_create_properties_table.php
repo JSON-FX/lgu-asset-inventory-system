@@ -51,11 +51,16 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->foreignId('status_id')->constrained('statuses')->onDelete('cascade');
             $table->foreignId('employee_id')->constrained('employees')->onDelete('cascade');
+            $table->foreignId('employee_id2')->constrained('employees')->onDelete('cascade');
             $table->date('date_purchase')->nullable();
             $table->decimal('acquisition_cost', 15, 2)->nullable();
+            $table->decimal('qty', 15, 2)->nullable();
             $table->text('inventory_remarks')->nullable();
+            $table->string('image_path')->nullable();
             $table->timestamps();
         });
+
+        
     }
 
     /**
