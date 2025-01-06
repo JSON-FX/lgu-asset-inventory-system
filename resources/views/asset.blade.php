@@ -179,7 +179,10 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <a href="{{ route('property.export', $property->id) }}" class="btn btn-success">
-                                                    Export to Excel
+                                                    Generate ICS
+                                                </a>
+                                                <a href="{{ route('property2.export', $property->id) }}" class="btn btn-success">
+                                                    Generate PAR
                                                 </a>
                                                 <a href="{{ route('asset.exportpdf', $property->id) }}" class="btn btn-danger">
                                                     Export to PDF

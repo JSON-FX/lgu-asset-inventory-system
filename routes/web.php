@@ -22,8 +22,9 @@ Route::get('/', function () {
 }); 
 
 Route::middleware(['auth'])->group(function () {
-    //ICS GENERATOR
-    Route::get('property/export/{propertyId}', [PropertyController::class, 'exportPropertyToExcel'])->name('property.export');
+    //ICS-PAR GENERATOR
+    Route::get('property/export-ICS/{propertyId}', [PropertyController::class, 'exportICSToExcel'])->name('property.export');
+    Route::get('property/export-PAR/{propertyId}', [PropertyController::class, 'exportPARToExcel'])->name('property2.export');
 
     // Route to show the 'Dashboard Actions' 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
