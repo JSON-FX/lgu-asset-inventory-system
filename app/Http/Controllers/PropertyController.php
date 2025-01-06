@@ -55,21 +55,22 @@ class PropertyController extends Controller
         // Get the active sheet
         $sheet = $spreadsheet->getActiveSheet();
         $icsNumber = \Carbon\Carbon::now()->format('Y-m') . '-' . $property->id;
-        $sheet->setCellValue('H10', $icsNumber);
+        $sheet->setCellValue('E7','PAR #. '. $icsNumber);
         
         // Set values in the spreadsheet using property data
         $sheet->setCellValue('G14', $property->id); 
-        $sheet->setCellValue('G11', 'PR#: '.($property->property_number));  // Property No.
-        $sheet->setCellValue('B2', $property->serial_number);   // Serial No.
-        $sheet->setCellValue('E14', $property->description);     // Description
+        $sheet->setCellValue('E8', 'PR#: '.($property->property_number));  // Property No.
+        $sheet->setCellValue('D14', $property->serial_number);   // Serial No.
+        $sheet->setCellValue('C11', $property->description);     // Description
         $sheet->setCellValue('C11', $property->category->category_name); // Category
-        $sheet->setCellValue('A51', $property->office->office_name);   
-        $sheet->setCellValue('F51', $property->office->office_name);  // Office
+        $sheet->setCellValue('A7', $property->office->office_name);   
+        $sheet->setCellValue('A50', $property->office->office_name);  // Office
         $sheet->setCellValue('A41', $property->status->status_name);     // Status
         $sheet->setCellValue('F48', $property->employee->employee_name); // User
         $sheet->setCellValue('A48', $property->employee->employee_name); // User
-        $sheet->setCellValue('E38', \Carbon\Carbon::parse($property->date_purchase)->format('m-d-Y')); // Date Purchased
-        $sheet->setCellValue('D14', '₱' . number_format($property->acquisition_cost, 2));  // Acquisition Cost
+        $sheet->setCellValue('E11', \Carbon\Carbon::parse($property->date_purchase)->format('m-d-Y')); // Date Purchased
+        $sheet->setCellValue('F11', '₱' . number_format($property->acquisition_cost, 2)); 
+        $sheet->setCellValue('G11', '₱' . number_format($property->acquisition_cost, 2)); // Acquisition Cost
         $sheet->setCellValue('E40', $property->inventory_remarks);  // Inventory Remarks
 
         // Save the modified Excel file
