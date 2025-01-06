@@ -178,7 +178,7 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <a href="{{ route('asset.exportexcel', $property->id) }}" class="btn btn-success">
+                                                <a href="{{ route('property.export', $property->id) }}" class="btn btn-success">
                                                     Export to Excel
                                                 </a>
                                                 <a href="{{ route('asset.exportpdf', $property->id) }}" class="btn btn-danger">

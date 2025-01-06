@@ -9,8 +9,8 @@ use App\Models\Status;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-
-
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class PropertyController extends Controller
 {
     /**
@@ -41,6 +41,49 @@ class PropertyController extends Controller
 
         return view('asset', compact('properties', 'categories', 'offices', 'statuses', 'employees'));
     }
+    public function exportPropertyToExcel($propertyId)
+    {
+        // Retrieve the property from the database
+        $property = Property::with(['category', 'office', 'status', 'employee'])->find($propertyId);
+
+        // Path to the template Excel file
+        $templatePath = public_path('assets/templates/ics_template.xlsx');
+
+        // Load the template Excel file
+        $spreadsheet = IOFactory::load($templatePath);
+
+        // Get the active sheet
+        $sheet = $spreadsheet->getActiveSheet();
+        $icsNumber = \Carbon\Carbon::now()->format('Y-m') . '-' . $property->id;
+        $sheet->setCellValue('H10', $icsNumber);
+        
+        // Set values in the spreadsheet using property data
+        $sheet->setCellValue('G14', $property->id); 
+        $sheet->setCellValue('G11', 'PR#: '.($property->property_number));  // Property No.
+        $sheet->setCellValue('B2', $property->serial_number);   // Serial No.
+        $sheet->setCellValue('E14', $property->description);     // Description
+        $sheet->setCellValue('C11', $property->category->category_name); // Category
+        $sheet->setCellValue('A51', $property->office->office_name);   
+        $sheet->setCellValue('F51', $property->office->office_name);  // Office
+        $sheet->setCellValue('A41', $property->status->status_name);     // Status
+        $sheet->setCellValue('F48', $property->employee->employee_name); // User
+        $sheet->setCellValue('A48', $property->employee->employee_name); // User
+        $sheet->setCellValue('E38', \Carbon\Carbon::parse($property->date_purchase)->format('m-d-Y')); // Date Purchased
+        $sheet->setCellValue('D14', '₱' . number_format($property->acquisition_cost, 2));  // Acquisition Cost
+        $sheet->setCellValue('E40', $property->inventory_remarks);  // Inventory Remarks
+
+        // Save the modified Excel file
+        $writer = new Xlsx($spreadsheet);
+
+        // Define output path
+        return response()->stream(function() use ($writer) {
+            $writer->save('php://output');  // Output the file directly to the browser
+        }, 200, [
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',  // Excel MIME type
+            'Content-Disposition' => 'attachment; filename="property_' . $property->description . '_export.xlsx"',  // Download prompt with file name
+        ]);
+    }
+    
 
 
      

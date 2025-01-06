@@ -13,6 +13,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\ExcelController;
 
 
 // Home-Index route/login page
@@ -21,7 +22,9 @@ Route::get('/', function () {
 }); 
 
 Route::middleware(['auth'])->group(function () {
-    
+    //ICS GENERATOR
+    Route::get('property/export/{propertyId}', [PropertyController::class, 'exportPropertyToExcel'])->name('property.export');
+
     // Route to show the 'Dashboard Actions' 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
