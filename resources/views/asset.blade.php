@@ -216,18 +216,28 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <a href="{{ route('property.export', $property->id) }}" class="btn btn-success">
-                                                    Generate ICS
-                                                </a>
-                                                <a href="{{ route('property2.export', $property->id) }}" class="btn btn-success">
-                                                    Generate PAR
-                                                </a>
+                                                <!-- Generate ICS button for acquisition_cost below 50,000 -->
+                                                @if($property->acquisition_cost < 50000)
+                                                    <a href="{{ route('property.export', $property->id) }}" class="btn btn-success">
+                                                        Generate ICS
+                                                    </a>
+                                                @endif
+                                            
+                                                <!-- Generate PAR button for acquisition_cost above 50,000 -->
+                                                @if($property->acquisition_cost >= 50000)
+                                                    <a href="{{ route('property2.export', $property->id) }}" class="btn btn-success">
+                                                        Generate PAR
+                                                    </a>
+                                                @endif
+                                            
+                                                <!-- Generate Sticker button always shown -->
                                                 <a href="{{ route('asset.exportpdf', $property->id) }}" class="btn btn-danger">
                                                     Generate Sticker
                                                 </a>
-                                                
+                                            
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                             </div>
+                                            
                                             
                                         </div>
                                     </div>
