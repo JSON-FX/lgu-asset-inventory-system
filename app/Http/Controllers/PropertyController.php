@@ -58,20 +58,20 @@ class PropertyController extends Controller
         $sheet->setCellValue('E7','PAR #. '. $icsNumber);
         
         // Set values in the spreadsheet using property data
-        $sheet->setCellValue('G14', $property->id); 
+        // $sheet->setCellValue('G14', $property->id); 
         $sheet->setCellValue('E8', 'PR#: '.($property->property_number));  // Property No.
         $sheet->setCellValue('D14', $property->serial_number);   // Serial No.
         $sheet->setCellValue('C11', $property->description);     // Description
-        $sheet->setCellValue('C11', $property->category->category_name); // Category
-        $sheet->setCellValue('A7', $property->office->office_name);   
+        // $sheet->setCellValue('C11', $property->category->category_name); // Category
+        $sheet->setCellValue('A7', 'Entity Name: '.($property->office->office_name));   
         $sheet->setCellValue('A50', $property->office->office_name);  // Office
-        $sheet->setCellValue('A41', $property->status->status_name);     // Status
+        // $sheet->setCellValue('A41', $property->status->status_name);     // Status
         $sheet->setCellValue('F48', $property->employee->employee_name); // User
         $sheet->setCellValue('A48', $property->employee->employee_name); // User
         $sheet->setCellValue('E11', \Carbon\Carbon::parse($property->date_purchase)->format('m-d-Y')); // Date Purchased
-        $sheet->setCellValue('F11', '₱' . number_format($property->acquisition_cost, 2)); 
-        $sheet->setCellValue('G11', '₱' . number_format($property->acquisition_cost, 2)); // Acquisition Cost
-        $sheet->setCellValue('E40', $property->inventory_remarks);  // Inventory Remarks
+        $sheet->setCellValue('F11', number_format($property->acquisition_cost, 2)); 
+        $sheet->setCellValue('G11', number_format($property->acquisition_cost, 2)); // Acquisition Cost
+        // $sheet->setCellValue('E40', $property->inventory_remarks);  // Inventory Remarks
 
         // Save the modified Excel file
         $writer = new Xlsx($spreadsheet);
