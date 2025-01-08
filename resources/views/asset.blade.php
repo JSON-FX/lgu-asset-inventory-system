@@ -204,9 +204,12 @@
                                                             <h5 class="mt-1 mb-3">User</h5>
                                                             <p class="text-muted sm-4">{{ $property->employee->employee_name }}</p>
                                                             <h5 class="mt-1 mb-3">Date Purchased</h5>
-                                                            <p class="text-muted sm-4">{{ \Carbon\Carbon::parse($property->date_purchase)->format('m-d-Y') }}</p>
+                                                            <p class="text-muted sm-4">
+                                                                {{ $property->date_purchase ? \Carbon\Carbon::parse($property->date_purchase)->format('F j, Y') : 'N/A' }}
+                                                            </p>
                                                             <h5 class="mt-1 mb-3">Acquisition Cost</h5>
-                                                            <p class="text-muted sm-4">₱{{ number_format($property->acquisition_cost, 2) }}</p>
+                                                            <p class="text-muted sm-4">{{ $property->acquisition_cost ? number_format($property->acquisition_cost, 2) : 'N/A' }}</p>
+
                                                             <h5 class="mt-1 mb-3">Qty</h5>
                                                             <p class="text-muted sm-4">{{ number_format($property->qty,) }}</p>
                                                             <h5 class="mt-1 mb-3">Inventory Remarks</h5>

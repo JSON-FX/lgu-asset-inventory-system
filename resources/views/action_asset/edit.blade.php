@@ -79,7 +79,7 @@
                             <h5 class="mt-1 mb-3">User</h5>
                             <p class="text-muted sm-4">{{ $employees->find($property->employee_id)?->employee_name }}</p>
                             <h5 class="mt-1 mb-3">Date Purchased</h5>
-                            <p class="text-muted sm-4">{{ $property->date_purchase }}</p>
+                            <p class="text-muted sm-4">{{ \Carbon\Carbon::parse($property->date_purchase)->format('F j, Y') }}</p>
                             <h5 class="mt-1 mb-3">Acquisition Cost</h5>
                             <p class="text-muted sm-4">₱{{ number_format($property->acquisition_cost, 2) }}</p>
                             <h5 class="mt-1 mb-3">Inventory Remarks</h5>

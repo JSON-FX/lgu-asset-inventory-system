@@ -6,6 +6,79 @@
 <link href="{{ URL::asset('/assets/libs/admin-resources/admin-resources.min.css') }}" rel="stylesheet">
 <link href="{{ URL::asset('/assets/libs/@fullcalendar/@fullcalendar.min.css') }}" rel="stylesheet">
 <style>
+    /* Styling for the property card */
+    .property-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Hover effect */
+    .property-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Styling for the image container */
+    .property-image-container {
+        height: 200px;  /* Fixed height for the image */
+        overflow: hidden;  /* Hide overflow if image exceeds the area */
+    }
+
+    /* Image will be centered and fit within the container */
+    .property-image {
+        object-fit: cover;  /* Make sure the image covers the area without distortion */
+        width: 100%;  /* Take up the full width of the container */
+        height: 100%;  /* Take up the full height of the container */
+    }
+
+    /* Consistent text size and spacing */
+    .property-card .card-body {
+        padding: 20px;
+    }
+
+    .property-card .card-title {
+        font-size: 1.1rem;
+        font-weight: bold;
+    }
+
+    .property-card .card-text {
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+    }
+
+    /* Styling for the "View Details" button */
+    .property-card .btn {
+        margin-top: 10px;
+        font-size: 0.9rem;
+        width: 100%;  /* Ensures button spans the width of the card */
+    }
+
+    .property-card .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    /* Ensure uniform spacing for the property cards */
+    .col-md-4 {
+        display: flex;
+        justify-content: center;
+    }
+
+    /* Ensuring that all cards have the same height */
+    .property-card .card-body {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-body .card-title {
+        color: #333;
+    }
+
     .calendar-container {
         max-width: 900px;
         margin: 0 auto;
@@ -350,6 +423,45 @@
     </table>
 </div>
 
+<div class="container mt-4">
+    <div class="row">
+        @foreach($properties as $property)
+            <div class="col-md-4 mb-4">
+                <div class="card property-card h-100">
+                    <!-- Property Image -->
+                    <div class="property-image-container">
+                        <img src="{{ $property->image_path ? asset('storage/' . $property->image_path) : asset('path/to/placeholder.jpg') }}" 
+                             alt="{{ $property->description }}" 
+                             class="card-img-top property-image">
+                    </div>
+
+                    <div class="card-body">
+                        <!-- Property Description -->
+                        <h5 class="card-title">{{ $property->description }}</h5>
+
+                        <!-- Property Category -->
+                        <p class="card-text text-muted">{{ $property->category->category_name }}</p>
+
+                        <!-- Property Acquisition Cost -->
+                        <p class="card-text">
+                            @if($property->acquisition_cost)
+                                ₱{{ number_format($property->acquisition_cost, 2) }}
+                            @else
+                                <span class="text-warning">N/A</span>
+                            @endif
+                        </p>
+
+                        <!-- Property Office -->
+                        <p class="card-text text-muted">Office: {{ $property->office->office_name }}</p>
+
+                        <!-- Optional: View Details Link -->
+                        <a href="{{ route('assetlist.editassetlist', $property->id) }}" class="btn btn-primary btn-sm">View Details</a>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
+</div>
 
 
 @endsection
