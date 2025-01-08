@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 class PropertyController extends Controller
 {
     /**
@@ -99,6 +100,16 @@ class PropertyController extends Controller
         $sheet = $spreadsheet->getActiveSheet();
         $icsNumber = \Carbon\Carbon::now()->format('Y-m') . '-' . $property->id;
         $sheet->setCellValue('H10', $icsNumber);
+        $imagePath = storage_path('app/public/' . $property->image_path);
+
+    // Insert the image into cell C26
+        $drawing = new Drawing();
+        $drawing->setName('Property Image');
+        $drawing->setDescription('Image of the Property');
+        $drawing->setPath($imagePath); // Path to the image file
+        $drawing->setHeight(100); // Set image height (optional)
+        $drawing->setCoordinates('D24'); // Cell where the image will be placed
+        $drawing->setWorksheet($sheet);
         
         // Set values in the spreadsheet using property data
         $sheet->setCellValue('G14', $property->id); 
@@ -314,18 +325,7 @@ class PropertyController extends Controller
         $property = new Property();
         return $property->generatePDF();
     }
-    public function exportPdf($id)
-    {
-        // Fetch the property with its relationships
-        $property = Property::with(['category', 'office', 'status', 'employee', 'employee2'])->findOrFail($id);
-
-        // Load the view and pass the data
-        $pdf = PDF::loadView('pdf.property', compact('property'));
-
-        // Return the PDF for download
-        return $pdf->download('property-' . $property->id . '.pdf');
-    }
-        
+    
 
 
 

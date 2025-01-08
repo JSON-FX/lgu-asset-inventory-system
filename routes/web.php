@@ -96,7 +96,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/properties/{id}/exportpdf', function ($id) {
         $property = App\Models\Property::with(['category', 'office', 'status', 'employee'])->findOrFail($id); // Fetch property and relationships
         return Pdf::loadView('properties.pdf', compact('property'))
-                ->download('property-' . $property->id . '.pdf'); // Generate and download PDF
+                ->stream('property-' . $property->id . '.pdf'); // Generate and download PDF
     })->name('asset.exportpdf');
 });
 
