@@ -31,6 +31,11 @@ return new class extends Migration
             $table->string('status_name')->unique()->nullable();
             $table->timestamps();
         });
+        Schema::create('accounts', function (Blueprint $table) {
+            $table->id();
+            $table->string('account_name')->unique()->nullable();
+            $table->timestamps();
+        });
 
         // Create employees table
         Schema::create('employees', function (Blueprint $table) {
@@ -50,6 +55,7 @@ return new class extends Migration
             $table->foreignId('office_id')->constrained('offices')->onDelete('cascade');
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->foreignId('status_id')->constrained('statuses')->onDelete('cascade');
+            $table->foreignId('account_id')->constrained('accounts')->onDelete('cascade');
             $table->foreignId('employee_id')->constrained('employees')->onDelete('cascade');
             $table->foreignId('employee_id2')->constrained('employees')->onDelete('cascade');
             $table->date('date_purchase')->nullable();
@@ -73,5 +79,6 @@ return new class extends Migration
         Schema::dropIfExists('statuses');
         Schema::dropIfExists('offices');
         Schema::dropIfExists('categories');
+        Schema::dropIfExists('accounts');
     }
 };

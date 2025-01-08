@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\DashboardController;
 use App\Exports\PropertiesExport;
+use App\Http\Controllers\AccountController;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\LogController;
@@ -53,7 +54,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/users/create', [EmployeeController::class, 'create'])->name('users.create');
     Route::put('/users/{users}/', [EmployeeController::class, 'update'])->name('users.update');
     Route::get('/users/{id}/editusers', [EmployeeController::class, 'edit'])->name('users.editusers');
-
+    
+    // Route to show the 'Account Actions' 
+    Route::post('/account', [AccountController::class, 'store'])->name('account.store');
+    Route::get('/account/create', [AccountController::class, 'create'])->name('account.create');
+    Route::put('/account/{account}/', [AccountController::class, 'update'])->name('account.update');
+    Route::get('/account/{id}/editstatus', [AccountController::class, 'edit'])->name('account.editstatus');
+    Route::get('/asset-by-account', [AccountController::class, 'showPropertiesByStatus'])->name('properties.by.account');
     // Route to show the 'Status Actions' 
     Route::post('/status', [StatusController::class, 'store'])->name('status.store');
     Route::get('/status/create', [StatusController::class, 'create'])->name('status.create');
@@ -80,7 +87,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/status', [StatusController::class, 'index'])->middleware('auth')->name('status.index');
     Route::get('/users', [EmployeeController::class, 'index'])->middleware('auth')->name('users.index');
     Route::get('/asset', [PropertyController::class, 'index',])->middleware(['auth',   'verified'])->name('asset');
-    
+    Route::get('/account', [AccountController::class, 'index'])->middleware('auth')->name('account.index');
+
     // Route to show the 'Profile pages' 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

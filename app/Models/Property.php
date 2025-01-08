@@ -23,6 +23,7 @@ class Property extends Model
         'office_id',
         'category_id',
         'status_id',
+        'account_id',
         'employee_id',
         'employee_id2',
         'date_purchase',
@@ -30,6 +31,7 @@ class Property extends Model
         'qty',
         'inventory_remarks',
         'image_path',
+        
     ];
 
     // Define the custom date format for storing dates in the database
@@ -63,6 +65,10 @@ class Property extends Model
     public function employee()
     {
         return $this->belongsTo(Employee::class);
+    }
+    public function accounts()
+    {
+        return $this->belongsTo(Account::class);
     }
 
     protected static function booted()
@@ -115,48 +121,15 @@ class Property extends Model
     public function employee2()
     {
         return $this->belongsTo(Employee::class, 'employee_id2');
+
     }
-    public function generatePDF()
+    public function account()
     {
-        $data = [
-            'entity_name' => 'MEO',
-            'par_no' => '2022-173',
-            'fund_cluster' => 'GENERAL FUND',
-            'pr_no' => 'GF-1572',
-            'items' => [
-                [
-                    'qty' => 2,
-                    'unit' => 'PC',
-                    'description' => 'FIBER GLASS HEAVY DUTY EXTENSION LADDER, 32FT',
-                    'date_acquired' => '12/29/2022',
-                    'unit_price' => 39350.00,
-                    'amount' => 78700.00,
-                ],
-            ],
-            'received_by' => 'GRACE D. PONTILLAS, CE',
-            'received_by_position' => 'Engineer I',
-            'issued_by' => 'JUMIDES A. ALGABRE',
-            'issued_by_position' => 'MMO-PSMD-OIC',
-        ];
-
-        // Generate PDF
-        $pdf = Pdf::loadView('property_acknowledgment', $data );
-
-        // Return the PDF as a string or file
-        return $pdf->stream(); // OR return $pdf->download('filename.pdf');
+        return $this->belongsTo(Account::class);
     }
-    public function exportPdf($id)
-    {
-        // Fetch the property with its relationships
-        $property = Property::with(['category', 'office', 'status', 'employee', 'employee2'])->findOrFail($id);
 
-        // Load the view and pass the data
-        $pdf = PDF::loadView('property', compact('property'))
-                ->setPaper('a4', 'portrait'); // Ensure A4 paper size in portrait orientation
-
-        // Stream the PDF (this will open in the browser in a new tab)
-        return $pdf->stream('property-' . $property->id . '.pdf');
-    }
+    
+    
 
 
 }

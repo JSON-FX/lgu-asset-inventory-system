@@ -52,6 +52,12 @@
                         <span data-key="t-contacts">@lang('Status')</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('account.index') }}">
+                        <i data-feather="book"></i>
+                        <span data-key="t-contacts">@lang('Account')</span>
+                    </a>
+                </li>
                 
                
                 <li>

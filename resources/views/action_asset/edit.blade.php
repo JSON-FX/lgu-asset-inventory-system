@@ -18,7 +18,8 @@
                     <div class="col-xl-3">
                         <div class="product-detai-imgs">
                             <div class="row">
-                                <div class="col-md-7 offset-md-1 col-sm-9 col-8">
+                                <!-- QR Code Column -->
+                                <div class="col-md-7 offset-md-1 col-sm-9 col-8" style="margin-top: 20px;"> <!-- Space added above QR code -->
                                     <div class="tab-content" id="v-pills-tabContent">
                                         <div class="tab-pane fade show active" id="product-1" role="tabpanel" aria-labelledby="product-1-tab">
                                             <div>
@@ -27,14 +28,31 @@
                                                 </div>
                                             </div>
                                         </div>
-                                
                                     </div>
-                                
-
+                                </div>
+                            
+                                <!-- Image Column -->
+                                <div class="col-md-7 offset-md-1 col-sm-9 col-8" style="margin-top: 20px;"> <!-- Space added above Image -->
+                                    <div class="tab-content" id="v-pills-tabContent">
+                                        <div class="tab-pane fade show active" id="product-2" role="tabpanel" aria-labelledby="product-2-tab">
+                                            <div>
+                                                <div class="img-fluid mx-auto d-block">
+                                                    <a href="{{ asset('storage/' . $property->image_path) }}" target="_blank">
+                                                        <img 
+                                                            src="{{ asset('storage/' . $property->image_path) }}" 
+                                                            alt="Property Image" 
+                                                            style="width: 225px; height: 225px; object-fit: cover;">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
+                    
                     
 
                     <div class="col-xl-3">
@@ -49,7 +67,9 @@
                             <h5 class="mt-1 mb-3">Category</h5>
                             <p class="text-muted sm-4">{{ $categories->find($property->category_id)?->category_name }}</p>
                             <h5 class="mt-1 mb-3">Office</h5>
-                            <p class="text-muted sm-4">{{ $offices->find($property->office_id)?->office_name }}</p>    
+                            <p class="text-muted sm-4">{{ $offices->find($property->office_id)?->office_name }}</p>  
+                            <h5 class="mt-1 mb-3">Accountable</h5>
+                            <p class="text-muted sm-4">{{ $employees->find($property->employee_id2)?->employee_name }}</p>  
                         </div>
                     </div>
                     <div class="col-xl-6">
@@ -76,7 +96,7 @@
                     </div>
                     <div class="card-body">
                         <!-- Start of Form -->
-                        <form action="{{ route('assetlist.update', $property->id) }}" method="POST" class="bg-gray-900 p-6 rounded-lg">
+                        <form action="{{ route('assetlist.update', $property->id) }}" method="POST" enctype="multipart/form-data" class="bg-gray-900 p-6 rounded-lg">
                             @csrf
                             @method('PUT')
                             <div class="row">
@@ -138,7 +158,22 @@
                                         @enderror
                                     </div>
                                     <div class="mb-3">
-                                        <label class="control-label">User</label>
+                                        <label class="control-label">Account</label>
+                                        <select class="form-control select2" name="account_id">
+                                            <option value="">Select</option>
+                                            @foreach($accounts as $account)
+                                            <option value="{{ $account->id }}" {{ old('account_id', $property->account_id) == $account->id ? 'selected' : '' }}>
+                                                    {{ $account->account_name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('account_id')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label class="control-label">Accountable</label>
                                         <select class="form-control select2" name="employee_id2">
                                             <option value="">Select</option>
                                             @foreach($employees as $employee)
@@ -197,6 +232,7 @@
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
+                                    
                                     <div class="mb-3">
                                         <label for="inventory_remarks">Inventory Remarks</label>
                                         <textarea class="form-control" id="inventory_remarks" name="inventory_remarks" rows="1" placeholder="Remarks">{{ old('inventory_remarks', $property->inventory_remarks) }}</textarea>
@@ -204,6 +240,10 @@
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
+                                    <div class="mb-3">
+                                        <label for="image">Upload Image:</label>
+                                        <input type="file" name="image" id="image" accept="image/*">
+                                    </div>   
                                 </div>
                             </div>
     

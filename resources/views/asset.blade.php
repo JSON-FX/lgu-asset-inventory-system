@@ -340,6 +340,20 @@
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
+                                    <div class="mb-3">
+                                        <label class="control-label">Account</label>
+                                        <select class="form-control select2" name="account_id">
+                                            <option value="">Select</option>
+                                            @foreach($accounts as $account)
+                                                <option value="{{ $account->id }}" {{ old('account_id') == $account->id ? 'selected' : '' }}>
+                                                    {{ $account->account_name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('account_id')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
                                 </div>
                                 <!-- Right Column -->
                                 <div class="col-sm-6">
