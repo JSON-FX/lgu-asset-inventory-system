@@ -57,11 +57,33 @@
 
                     <div class="col-xl-3">
                         <div class="mt-4 mt-xl-3">
-                            
                             <h5 class="mt-1 mb-3">Propert Number</h5>
                             <p class="text-muted sm-4">{{ $property->property_number }}</p>
-                            <h5 class="mt-1 mb-3">Serial Number</h5>
-                            <p class="text-muted sm-4">{{ $property->serial_number }}</p>
+                            
+                            @if($property->elc_number || $property->engine_number)
+                                <!-- If elc_number or engine_number is present, show these details instead of serial number -->
+                                @if($property->elc_number)
+                                    <h5 class="mt-1 mb-3">ELC Number</h5>
+                                    <p class="text-muted sm-4">{{ $property->elc_number }}</p>
+                                @endif
+                                @if($property->chasis_number)
+                                    <h5 class="mt-1 mb-3">Chassis Number</h5>
+                                    <p class="text-muted sm-4">{{ $property->chasis_number }}</p>
+                                @endif
+                                @if($property->plate_number)
+                                    <h5 class="mt-1 mb-3">Plate Number</h5>
+                                    <p class="text-muted sm-4">{{ $property->plate_number }}</p>
+                                @endif
+                                @if($property->engine_number)
+                                    <h5 class="mt-1 mb-3">Engine Number</h5>
+                                    <p class="text-muted sm-4">{{ $property->engine_number }}</p>
+                                @endif
+                            @else
+                                <!-- If no elc_number or engine_number, show serial number -->
+                                <h5 class="mt-1 mb-3">Serial Number</h5>
+                                <p class="text-muted sm-4">{{ $property->serial_number }}</p>
+                            @endif
+                    
                             <h5 class="mt-1 mb-3">Description</h5>
                             <p class="text-muted sm-4">{{ $property->description }}</p>
                             <h5 class="mt-1 mb-3">Category</h5>
@@ -74,7 +96,7 @@
                     </div>
                     <div class="col-xl-6">
                         <div class="mt-4 mt-xl-3">    
-                        <h5 class="mt-1 mb-3">Status</h5>
+                            <h5 class="mt-1 mb-3">Status</h5>
                             <p class="text-muted sm-4">{{ $statuses->find($property->status_id)?->status_name }}</p>
                             <h5 class="mt-1 mb-3">User</h5>
                             <p class="text-muted sm-4">{{ $employees->find($property->employee_id)?->employee_name }}</p>
@@ -86,6 +108,7 @@
                             <p class="text-muted sm-4">{{ $property->inventory_remarks }}</p>
                         </div>
                     </div>
+                    
                 </div>
             </div>
             <div class="col-12">
@@ -215,6 +238,41 @@
                                         <label for="serial_number">Serial Number</label>
                                         <input id="serial_number" name="serial_number" type="text" class="form-control" placeholder="Serial Number" value="{{ old('serial_number', $property->serial_number) }}">
                                         @error('serial_number')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="serial_number">Serial Number</label>
+                                        <input id="serial_number" name="serial_number" type="text" class="form-control" placeholder="Serial Number" value="{{ old('serial_number', $property->serial_number) }}">
+                                        @error('serial_number')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="engine_number">Engine Number</label>
+                                        <input id="engine_number" name="engine_number" type="text" class="form-control" placeholder="Engine Number" value="{{ old('engine_number', $property->engine_number) }}">
+                                        @error('engine_number')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="chasis_number">Chasis Number</label>
+                                        <input id="chasis_number" name="chasis_number" type="text" class="form-control" placeholder="Chasis Number" value="{{ old('chasis_number', $property->chasis_number) }}">
+                                        @error('chasis_number')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="plate_number">Plate Number</label>
+                                        <input id="plate_number" name="plate_number" type="text" class="form-control" placeholder="Plate Number" value="{{ old('plate_number', $property->plate_number) }}">
+                                        @error('plate_number')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="elc_number">ELC Number</label>
+                                        <input id="elc_number" name="elc_number" type="text" class="form-control" placeholder="ELC Number" value="{{ old('elc_number', $property->elc_number) }}">
+                                        @error('elc_number')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>

@@ -51,6 +51,8 @@ return new class extends Migration
             $table->string('description');
             $table->string('serial_number')->nullable();
             $table->string('engine_number')->nullable();
+            $table->string('chasis_number')->nullable();
+            $table->string('plate_number')->nullable();
             $table->string('elc_number')->nullable();
             $table->foreignId('office_id')->constrained('offices')->onDelete('cascade');
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');

@@ -18,8 +18,10 @@ class Property extends Model
         'property_number',
         'description',
         'serial_number',
-        'engine_number',
         'elc_number',
+        'engine_number',
+        'chasis_number',
+        'plate_number',
         'office_id',
         'category_id',
         'status_id',
@@ -31,6 +33,7 @@ class Property extends Model
         'qty',
         'inventory_remarks',
         'image_path',
+        
         
     ];
 

@@ -198,7 +198,7 @@ class PropertyController extends Controller
             'acquisition_cost' => 'nullable|numeric',
             'qty' => 'required|integer',
             'inventory_remarks' => 'nullable|string',
-            'serial_number' => 'required|string|max:255',
+            'serial_number' => 'nullable|string|max:255',
         ]);
 
         // Validate image upload
@@ -228,7 +228,7 @@ class PropertyController extends Controller
             'serial_number' => $request->serial_number,
             'image_path' => $imagePath,  // Store the image path in the database
         ]);
-
+        session()->flash('success', 'Asset Added successfully!');
         // Redirect or return success message
         return redirect()->route('assetlist.index')->with('success', 'Property added successfully!');
     }
@@ -318,7 +318,7 @@ class PropertyController extends Controller
 
         // Update the property details
         $property->update($request->except('image')); // We exclude 'image' since it's already handled separately
-
+        session()->flash('success', 'Asset updated successfully!');
         // Redirect with success message
         return redirect()->route('asset')->with('success', 'Asset updated successfully!');
     }

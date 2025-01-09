@@ -1,3 +1,5 @@
+
+
 @extends('layouts.master')
 @section('title') @lang('Asset List') @endsection
 @section('css')
@@ -22,6 +24,18 @@
 @slot('li_1') Assets @endslot
 @slot('title') Assets List @endslot
 @endcomponent
+@if(session('success'))
+    <div class="alert alert-success" id="success-message">
+        {{ session('success') }}
+    </div>
+
+    <script>
+        setTimeout(function() {
+            document.getElementById('success-message').style.display = 'none';
+        }, 5000); // Hides the message after 5 seconds
+    </script>
+@endif
+
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
@@ -181,26 +195,52 @@
                                                     <!-- Middle Column: Property Details -->
                                                     <div class="col-xl-4">
                                                         <div class="mt-4 mt-xl-3">
-                                                            <h5 class="mt-1 mb-3">Property No.</h5>
-                                                            <p class="text-muted sm-4">{{ $property->property_number }}</p>
-                                                            <h5 class="mt-1 mb-3">Serial No.</h5>
-                                                            <p class="text-muted sm-4">{{ $property->serial_number }}</p>
                                                             <h5 class="mt-1 mb-3">Description</h5>
                                                             <p class="text-muted sm-4">{{ $property->description }}</p>
+                                                            <h5 class="mt-1 mb-3">Property No.</h5>
+                                                            <p class="text-muted sm-4">{{ $property->property_number }}</p>
+                                                            
+                                                            @if($property->elc_number || $property->engine_number)
+                                                                <!-- If elc_number or engine_number is present, show these details instead of serial number -->
+                                                                @if($property->elc_number)
+                                                                    <h5 class="mt-1 mb-3">ELC Number</h5>
+                                                                    <p class="text-muted sm-4">{{ $property->elc_number }}</p>
+                                                                @endif
+                                                                @if($property->chasis_number)
+                                                                    <h5 class="mt-1 mb-3">Chassis Number</h5>
+                                                                    <p class="text-muted sm-4">{{ $property->chasis_number }}</p>
+                                                                @endif
+                                                                @if($property->plate_number)
+                                                                    <h5 class="mt-1 mb-3">Plate Number</h5>
+                                                                    <p class="text-muted sm-4">{{ $property->plate_number }}</p>
+                                                                @endif
+                                                                @if($property->engine_number)
+                                                                    <h5 class="mt-1 mb-3">Engine Number</h5>
+                                                                    <p class="text-muted sm-4">{{ $property->engine_number }}</p>
+                                                                @endif
+                                                            @else
+                                                                <!-- If no elc_number or engine_number, show serial number -->
+                                                                <h5 class="mt-1 mb-3">Serial No.</h5>
+                                                                <p class="text-muted sm-4">{{ $property->serial_number }}</p>
+                                                            @endif
+                                                            <h5 class="mt-1 mb-3">Account</h5>
+                                                            <p class="text-muted sm-4">{{ $property->account->account_name }}</p>
+                                                            
                                                             <h5 class="mt-1 mb-3">Category</h5>
                                                             <p class="text-muted sm-4">{{ $property->category->category_name }}</p>
                                                             <h5 class="mt-1 mb-3">Office</h5>
                                                             <p class="text-muted sm-4">{{ $property->office->office_name }}</p>
-                                                            <h5 class="mt-1 mb-3">Accountable</h5>
-                                                            <p class="text-muted sm-4">{{ $property->employee2->employee_name }}</p>
+                                                            
                                                         </div>
                                                     </div>
-                                
+                                                    
                                                     <!-- Right Column: More Details -->
                                                     <div class="col-xl-4">
                                                         <div class="mt-4 mt-xl-3">
                                                             <h5 class="mt-1 mb-3">Status</h5>
                                                             <p class="text-muted sm-4">{{ $property->status->status_name }}</p>
+                                                            <h5 class="mt-1 mb-3">Accountable</h5>
+                                                            <p class="text-muted sm-4">{{ $property->employee2->employee_name }}</p>
                                                             <h5 class="mt-1 mb-3">User</h5>
                                                             <p class="text-muted sm-4">{{ $property->employee->employee_name }}</p>
                                                             <h5 class="mt-1 mb-3">Date Purchased</h5>
@@ -209,13 +249,15 @@
                                                             </p>
                                                             <h5 class="mt-1 mb-3">Acquisition Cost</h5>
                                                             <p class="text-muted sm-4">{{ $property->acquisition_cost ? number_format($property->acquisition_cost, 2) : 'N/A' }}</p>
-
+                                                    
                                                             <h5 class="mt-1 mb-3">Qty</h5>
-                                                            <p class="text-muted sm-4">{{ number_format($property->qty,) }}</p>
+                                                            <p class="text-muted sm-4">{{ number_format($property->qty) }}</p>
+                                                    
                                                             <h5 class="mt-1 mb-3">Inventory Remarks</h5>
                                                             <p class="text-muted sm-4">{{ $property->inventory_remarks }}</p>
                                                         </div>
                                                     </div>
+                                                    
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -417,6 +459,14 @@
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
+                                    <!-- Plate Number Input Field (Initially hidden) -->
+                                    <div id="chasis_number_field" class="mb-3" style="display: none;">
+                                        <label for="chasis_number">Chasis Number</label>
+                                        <input id="chasis_number" name="chasis_number" type="text" class="form-control" placeholder="Enter Plate Number" value="{{ old('chasis_number') }}">
+                                        @error('chasis_number')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
                                 
                                     <!-- Serial Number Input Field (Initially visible) -->
                                     <div id="serial_number_field" class="mb-3">
@@ -452,7 +502,10 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="image">Upload Image:</label>
-                                        <input type="file" name="image" id="image" accept="image/*" required>
+                                        <input type="file" name="image" id="image" accept="image/*" onchange="previewImage(event)">
+                                        <div id="image-preview-container" style="display: none; margin-top: 10px;">
+                                            <img id="image-preview" src="" alt="Image Preview" style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px;">
+                                        </div>
                                     </div>                                                                    
                                 </div>
                             </div>
@@ -551,12 +604,14 @@
             document.getElementById('engine_number_field').style.display = 'block';
             document.getElementById('elc_number_field').style.display = 'block';
             document.getElementById('plate_number_field').style.display = 'block';
+            document.getElementById('chasis_number_field').style.display = 'block';
             document.getElementById('serial_number_field').style.display = 'none';
         } else if (selectedOption === 'serial') {
             document.getElementById('serial_number_field').style.display = 'block';
             document.getElementById('engine_number_field').style.display = 'none';
             document.getElementById('elc_number_field').style.display = 'none';
             document.getElementById('plate_number_field').style.display = 'none';
+            document.getElementById('chasis_number_field').style.display = 'none';
         }
     }
 
@@ -564,6 +619,26 @@
     window.onload = function() {
         toggleFields();
     };
+</script>
+<script>
+    function previewImage(event) {
+        const imagePreviewContainer = document.getElementById('image-preview-container');
+        const imagePreview = document.getElementById('image-preview');
+        
+        const file = event.target.files[0];
+        
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+                imagePreviewContainer.style.display = 'block';  // Show the preview container
+            };
+            reader.readAsDataURL(file);
+        } else {
+            imagePreviewContainer.style.display = 'none';  // Hide preview container if no file is selected
+        }
+    }
+
 </script>
 
 <script src="{{ URL::asset('assets/js/app.min.js') }}"></script>
