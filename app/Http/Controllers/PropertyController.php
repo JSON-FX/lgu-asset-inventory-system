@@ -286,7 +286,7 @@ class PropertyController extends Controller
             Rule::unique('properties', 'property_number')->ignore($property->id)
         ],
         'serial_number' => [
-            'required',
+            'nullable',
             'string',
             Rule::unique('properties')->ignore($property->id),
         ],
