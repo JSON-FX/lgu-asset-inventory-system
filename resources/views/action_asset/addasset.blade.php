@@ -84,6 +84,20 @@
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
+                                <div class="mb-3">
+                                    <label class="control-label">Accountable</label>
+                                    <select class="form-control select2" name="employee_id2">
+                                        <option value="">Select</option>
+                                        @foreach($employees as $employee)
+                                        <option value="{{ $employee->id }}" {{ old('employee_id2') == $employee->id ? 'selected' : '' }}>
+                                                {{ $employee->employee_name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('employee_id2')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
                                 
                             </div>
                             

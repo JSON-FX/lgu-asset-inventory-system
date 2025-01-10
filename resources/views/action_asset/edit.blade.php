@@ -241,13 +241,7 @@
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="serial_number">Serial Number</label>
-                                        <input id="serial_number" name="serial_number" type="text" class="form-control" placeholder="Serial Number" value="{{ old('serial_number', $property->serial_number) }}">
-                                        @error('serial_number')
-                                            <small class="text-danger">{{ $message }}</small>
-                                        @enderror
-                                    </div>
+                                
                                     <div class="mb-3">
                                         <label for="engine_number">Engine Number</label>
                                         <input id="engine_number" name="engine_number" type="text" class="form-control" placeholder="Engine Number" value="{{ old('engine_number', $property->engine_number) }}">

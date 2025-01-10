@@ -110,7 +110,8 @@
                                                         <div class="col-xl-4">
                                                             <div class="product-detai-imgs">
                                                                 <div class="row">
-                                                                    <div class="col-md-7 offset-md-1 col-sm-9 col-8">
+                                                                    <!-- QR Code Section -->
+                                                                    <div class="col-md-7 offset-md-1 col-sm-9 col-8 mt-4">
                                                                         <div class="tab-content" id="v-pills-tabContent">
                                                                             <div class="tab-pane fade show active" id="product-1" role="tabpanel" aria-labelledby="product-1-tab">
                                                                                 <div>
@@ -121,52 +122,124 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
+                                                                    <!-- Image Section -->
+                                                                    <div class="col-md-7 offset-md-1 col-sm-9 col-8 mt-4">
+                                                                        <div class="tab-content" id="v-pills-tabContent">
+                                                                            <div class="tab-pane fade show active" id="product-1" role="tabpanel" aria-labelledby="product-1-tab">
+                                                                                <div>
+                                                                                    <div class="img-fluid mx-auto d-block">
+                                                                                        <!-- Add link to view image in a new tab -->
+                                                                                        <a href="{{ asset('storage/' . $property->image_path) }}" target="_blank">
+                                                                                            <img 
+                                                                                                src="{{ asset('storage/' . $property->image_path) }}" 
+                                                                                                alt="Property Image" 
+                                                                                                style="width: 180px; height: 180px; object-fit: cover;">
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    
                                                                 </div>
+                                                                
+                                                                
                                                             </div>
                                                         </div>
+                                                        
                                     
                                                         <!-- Middle Column: Property Details -->
                                                         <div class="col-xl-4">
                                                             <div class="mt-4 mt-xl-3">
-                                                                <h5 class="mt-1 mb-3">Property No.</h5>
-                                                                <p class="text-muted sm-4">{{ $property->property_number }}</p>
-                                                                <h5 class="mt-1 mb-3">Serial No.</h5>
-                                                                <p class="text-muted sm-4">{{ $property->serial_number }}</p>
                                                                 <h5 class="mt-1 mb-3">Description</h5>
                                                                 <p class="text-muted sm-4">{{ $property->description }}</p>
+                                                                <h5 class="mt-1 mb-3">Property No.</h5>
+                                                                <p class="text-muted sm-4">{{ $property->property_number }}</p>
+                                                                
+                                                                @if($property->elc_number || $property->engine_number)
+                                                                    <!-- If elc_number or engine_number is present, show these details instead of serial number -->
+                                                                    @if($property->elc_number)
+                                                                        <h5 class="mt-1 mb-3">ELC Number</h5>
+                                                                        <p class="text-muted sm-4">{{ $property->elc_number }}</p>
+                                                                    @endif
+                                                                    @if($property->chasis_number)
+                                                                        <h5 class="mt-1 mb-3">Chassis Number</h5>
+                                                                        <p class="text-muted sm-4">{{ $property->chasis_number }}</p>
+                                                                    @endif
+                                                                    @if($property->plate_number)
+                                                                        <h5 class="mt-1 mb-3">Plate Number</h5>
+                                                                        <p class="text-muted sm-4">{{ $property->plate_number }}</p>
+                                                                    @endif
+                                                                    @if($property->engine_number)
+                                                                        <h5 class="mt-1 mb-3">Engine Number</h5>
+                                                                        <p class="text-muted sm-4">{{ $property->engine_number }}</p>
+                                                                    @endif
+                                                                @else
+                                                                    <!-- If no elc_number or engine_number, show serial number -->
+                                                                    <h5 class="mt-1 mb-3">Serial No.</h5>
+                                                                    <p class="text-muted sm-4">{{ $property->serial_number }}</p>
+                                                                @endif
+                                                                <h5 class="mt-1 mb-3">Account</h5>
+                                                                <p class="text-muted sm-4">{{ $property->account->account_name }}</p>
+                                                                
                                                                 <h5 class="mt-1 mb-3">Category</h5>
                                                                 <p class="text-muted sm-4">{{ $property->category->category_name }}</p>
                                                                 <h5 class="mt-1 mb-3">Office</h5>
                                                                 <p class="text-muted sm-4">{{ $property->office->office_name }}</p>
+                                                                
                                                             </div>
                                                         </div>
-                                    
+                                                        
                                                         <!-- Right Column: More Details -->
                                                         <div class="col-xl-4">
                                                             <div class="mt-4 mt-xl-3">
                                                                 <h5 class="mt-1 mb-3">Status</h5>
                                                                 <p class="text-muted sm-4">{{ $property->status->status_name }}</p>
+                                                                <h5 class="mt-1 mb-3">Accountable</h5>
+                                                                <p class="text-muted sm-4">{{ $property->employee2->employee_name }}</p>
                                                                 <h5 class="mt-1 mb-3">User</h5>
                                                                 <p class="text-muted sm-4">{{ $property->employee->employee_name }}</p>
                                                                 <h5 class="mt-1 mb-3">Date Purchased</h5>
-                                                                <p class="text-muted sm-4">{{ \Carbon\Carbon::parse($property->date_purchase)->format('m-d-Y') }}</p>
+                                                                <p class="text-muted sm-4">
+                                                                    {{ $property->date_purchase ? \Carbon\Carbon::parse($property->date_purchase)->format('F j, Y') : 'N/A' }}
+                                                                </p>
                                                                 <h5 class="mt-1 mb-3">Acquisition Cost</h5>
-                                                                <p class="text-muted sm-4">₱{{ number_format($property->acquisition_cost, 2) }}</p>
+                                                                <p class="text-muted sm-4">{{ $property->acquisition_cost ? number_format($property->acquisition_cost, 2) : 'N/A' }}</p>
+                                                        
+                                                                <h5 class="mt-1 mb-3">Qty</h5>
+                                                                <p class="text-muted sm-4">{{ number_format($property->qty) }}</p>
+                                                        
                                                                 <h5 class="mt-1 mb-3">Inventory Remarks</h5>
                                                                 <p class="text-muted sm-4">{{ $property->inventory_remarks }}</p>
                                                             </div>
                                                         </div>
+                                                        
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <a href="{{ route('asset.exportexcel', $property->id) }}" class="btn btn-success">
-                                                        Export to Excel
-                                                    </a>
+                                                    <!-- Generate ICS button for acquisition_cost below 50,000 -->
+                                                    @if($property->acquisition_cost < 50000)
+                                                        <a href="{{ route('property.export', $property->id) }}" class="btn btn-success">
+                                                            Generate ICS
+                                                        </a>
+                                                    @endif
+                                                
+                                                    <!-- Generate PAR button for acquisition_cost above 50,000 -->
+                                                    @if($property->acquisition_cost >= 50000)
+                                                        <a href="{{ route('property2.export', $property->id) }}" class="btn btn-success">
+                                                            Generate PAR
+                                                        </a>
+                                                    @endif
+                                                
+                                                    <!-- Generate Sticker button always shown -->
                                                     <a href="{{ route('asset.exportpdf', $property->id) }}" class="btn btn-danger">
-                                                        Export to PDF
+                                                        Generate Sticker
                                                     </a>
+                                                
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                 </div>
+                                                
+                                                
                                             </div>
                                         </div>
                                     </div>
