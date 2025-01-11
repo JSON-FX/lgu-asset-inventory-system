@@ -23,6 +23,8 @@ Route::get('/', function () {
 }); 
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/search-properties', [PropertyController::class, 'searchProperties']);
+
     //ICS-PAR GENERATOR
     Route::get('property/export-ICS/{propertyId}', [PropertyController::class, 'exportICSToExcel'])->name('property.export');
     Route::get('property/export-PAR/{propertyId}', [PropertyController::class, 'exportPARToExcel'])->name('property2.export');

@@ -367,7 +367,28 @@ class PropertyController extends Controller
     {
         $property = new Property();
         return $property->generatePDF();
+
     }
+    public function searchProperties(Request $request)
+    {
+        $categories = Category::all();
+        $offices = Office::all();
+        $statuses = Status::all();
+        $employees = Employee::all();
+        $accounts = Account::all();
+        $searchQuery = $request->input('query');
+        
+        // Fetch properties that match the query for either 'property_number' or 'description'
+        $properties = Property::with(['status', 'category', 'office', 'employee', 'employee2', 'account'])
+                            ->where('property_number', 'LIKE', '%' . $searchQuery . '%')
+                            ->orWhere('description', 'LIKE', '%' . $searchQuery . '%')
+                            ->get(['property_number', 'description','acquisition_cost','image_path']);
+        
+        // Return the results to a new view for displaying the search results
+        return view('search-results', compact('properties', 'searchQuery', 'categories', 'offices', 'statuses', 'employees', 'accounts'));
+    }
+
+
     
 
 

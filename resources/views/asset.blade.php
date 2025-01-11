@@ -1,6 +1,6 @@
 
 
-@extends('layouts.master')
+@extends('layouts.master-layouts')
 @section('title') @lang('Asset List') @endsection
 @section('css')
     <style>

@@ -1,5 +1,5 @@
 <?php use Carbon\Carbon; ?>
-@extends('layouts.master')
+@extends('layouts.master-layouts')
 @section('title') @lang('Dashboard') @endsection
 @section('css')
 
@@ -526,6 +526,7 @@
         window.location.href = `/calendar?month=${selectedYear}-${selectedMonth.padStart(2, '0')}`;
     }
 </script>
+
 
 <!-- Additional scripts -->
 <script src="{{ URL::asset('/assets/js/pages/dashboard.init.js') }}"></script>

@@ -27,12 +27,15 @@
             </button>
 
             <!-- App Search-->
-            <form class="app-search d-none d-lg-block">
+            <form class="app-search d-none d-lg-block" id="searchForm" action="/search-properties" method="GET" target="_blank">
                 <div class="position-relative">
-                    <input type="text" class="form-control" placeholder="Search...">
-                    <button class="btn btn-primary" type="button"><i class="bx bx-search-alt align-middle"></i></button>
+                    <input type="text" class="form-control" id="searchInput" name="query" placeholder="Search...">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="bx bx-search-alt align-middle"></i>
+                    </button>
                 </div>
             </form>
+            
         </div>
 
         <div class="d-flex">
@@ -295,62 +298,17 @@
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-uielement" role="button">
-                            <i data-feather="briefcase"></i>
-                            <span data-key="t-elements">@lang('translation.Elements')</span>
-                            <div class="arrow-down"></div>
+                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages" role="button">
+                            <i data-feather="grid"></i><span data-key="t-apps">@lang('translation.Apps')</span> <div class="arrow-down"></div>
                         </a>
+                        <div class="dropdown-menu" aria-labelledby="topnav-pages">
+                          
 
-                        <div class="dropdown-menu mega-dropdown-menu px-2 dropdown-mega-menu-xl" aria-labelledby="topnav-uielement">
-                            <div class="ps-2 p-lg-0">
-                                <div class="row">
-                                    <div class="col-lg-8">
-                                        <div>
-                                            <div class="menu-title">@lang('translation.Elements')</div>
-                                            <div class="row g-0">
-                                                <div class="col-lg-5">
-                                                    <div>
-                                                        <a href="ui-alerts " class="dropdown-item" data-key="t-alerts">@lang('translation.Alerts')</a>
-                                                        <a href="ui-buttons " class="dropdown-item" data-key="t-buttons">@lang('translation.Buttons')</a>
-                                                        <a href="ui-cards " class="dropdown-item" data-key="t-cards">@lang('translation.Cards')</a>
-                                                        <a href="ui-carousel " class="dropdown-item" data-key="t-carousel">@lang('translation.Carousel')</a>
-                                                        <a href="ui-dropdowns " class="dropdown-item" data-key="t-dropdowns">@lang('translation.Dropdowns')</a>
-                                                        <a href="ui-grid " class="dropdown-item" data-key="t-grid">@lang('translation.Grid')</a>
-                                                        <a href="ui-images " class="dropdown-item" data-key="t-images">@lang('translation.Images')</a>
-                                                        <a href="ui-modals " class="dropdown-item" data-key="t-modals">@lang('translation.Modals')</a>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-5">
-                                                    <div>
-                                                        <a href="ui-offcanvas " class="dropdown-item" data-key="t-offcanvas">@lang('translation.Offcanvas')</a>
-                                                        <a href="ui-progressbars " class="dropdown-item" data-key="t-progress-bars">@lang('translation.Progress_Bars')</a>
-                                                        <a href="ui-placeholders " class="dropdown-item" data-key="t-progress-bars">@lang('translation.Placeholders')</a>
-                                                        <a href="ui-tabs-accordions " class="dropdown-item" data-key="t-tabs-accordions">@lang('translation.Tabs_&_Accordions')</a>
-                                                        <a href="ui-typography " class="dropdown-item" data-key="t-typography">@lang('translation.Typography')</a>
-                                                        <a href="ui-video " class="dropdown-item" data-key="t-video">@lang('translation.Video')</a>
-                                                        <a href="ui-general " class="dropdown-item" data-key="t-general">@lang('translation.General')</a>
-                                                        <a href="ui-colors " class="dropdown-item" data-key="t-colors">@lang('translation.Colors')</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="col-lg-4">
-                                        <div>
-                                            <div class="menu-title">@lang('translation.Extended')</div>
-                                            <div>
-                                                <a href="extended-lightbox " class="dropdown-item" data-key="t-lightbox">@lang('translation.Lightbox')</a>
-                                                <a href="extended-rangeslider " class="dropdown-item" data-key="t-range-slider">@lang('translation.Range_Slider')</a>
-                                                <a href="extended-sweet-alert " class="dropdown-item" data-key="t-sweet-alert">@lang('translation.Sweet_Alert') 2</a>
-                                                <a href="extended-session-timeout " class="dropdown-item" data-key="t-session-timeout">@lang('translation.Session_Timeout')</a>
-                                                <a href="extended-rating " class="dropdown-item" data-key="t-rating">@lang('translation.Rating')</a>
-                                                <a href="extended-notifications " class="dropdown-item" data-key="t-notifications">@lang('translation.Notifications')</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            
+                            <a href="apps-chat " class="dropdown-item" data-key="t-chat">@lang('Assetlist')</a>
+                            <a href="apps-chat " class="dropdown-item" data-key="t-chat">@lang('Add Asset')</a>
+
                         </div>
                     </li>
 
@@ -359,62 +317,13 @@
                             <i data-feather="grid"></i><span data-key="t-apps">@lang('translation.Apps')</span> <div class="arrow-down"></div>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="topnav-pages">
-
-                            <div class="dropdown">
-                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-ecommerce"
-                                    role="button">
-                                    <span data-key="t-ecommerce">@lang('translation.Ecommerce')</span> <div class="arrow-down"></div>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="topnav-ecommerce">
-
-                                    <a href="ecommerce-products " class="dropdown-item" data-key="t-products">@lang('translation.Products')</a>
-                                    <a href="ecommerce-product-detail " class="dropdown-item" data-key="t-product-detail">@lang('translation.Product_Detail')</a>
-                                    <a href="ecommerce-orders " class="dropdown-item" data-key="t-orders">@lang('translation.Orders')</a>
-                                    <a href="ecommerce-customers " class="dropdown-item" data-key="t-customers">@lang('translation.Customers')</a>
-                                    <a href="ecommerce-cart " class="dropdown-item" data-key="t-cart">@lang('translation.Cart')</a>
-                                    <a href="ecommerce-checkout " class="dropdown-item" data-key="t-checkout">@lang('translation.Checkout')</a>
-                                    <a href="ecommerce-shops " class="dropdown-item" data-key="t-shops">@lang('translation.Shops')</a>
-                                    <a href="ecommerce-add-product " class="dropdown-item" data-key="t-add-product">@lang('translation.Add_Product')</a>
-                                </div>
-                            </div>
+                          
 
 
-                            <a href="apps-calendar " class="dropdown-item" data-key="t-calendar">@lang('translation.Calendars')</a>
-                            <a href="apps-chat " class="dropdown-item" data-key="t-chat">@lang('translation.Chat')</a>
+                            
+                            <a href="apps-chat " class="dropdown-item" data-key="t-chat">@lang('Assetlist')</a>
+                            <a href="apps-chat " class="dropdown-item" data-key="t-chat">@lang('Add Asset')</a>
 
-                            <div class="dropdown">
-                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-email"
-                                    role="button">
-                                    <span data-key="t-email">@lang('translation.Email')</span> <div class="arrow-down"></div>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="topnav-email">
-                                    <a href="apps-email-inbox " class="dropdown-item" data-key="t-inbox">@lang('translation.Inbox')</a>
-                                    <a href="apps-email-read " class="dropdown-item" data-key="t-read-email">@lang('translation.Read_Email')</a>
-                                </div>
-                            </div>
-
-                            <div class="dropdown">
-                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-tasks"
-                                    role="button">
-                                    <span data-key="t-tasks">@lang('translation.Tasks')</span> <div class="arrow-down"></div>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="topnav-tasks">
-                                    <a href="tasks-list " class="dropdown-item" data-key="t-task-list">@lang('translation.Task_List')</a>
-                                    <a href="tasks-kanban " class="dropdown-item" data-key="t-kanban-board">@lang('translation.Kanban_Board')</a>
-                                    <a href="tasks-create " class="dropdown-item" data-key="t-create-task">@lang('translation.Create_Task')</a>
-                                </div>
-                            </div>
-                            <div class="dropdown">
-                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-contact"
-                                    role="button">
-                                    <span data-key="t-contacts">@lang('translation.Contacts')</span> <div class="arrow-down"></div>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="topnav-contact">
-                                    <a href="apps-contacts-grid " class="dropdown-item" data-key="t-user-grid">@lang('translation.User_Grid')</a>
-                                    <a href="apps-contacts-list " class="dropdown-item" data-key="t-user-list">@lang('translation.User_List')</a>
-                                    <a href="apps-contacts-profile " class="dropdown-item" data-key="t-profile">@lang('translation.Profile')</a>
-                                </div>
-                            </div>
                         </div>
                     </li>
 
@@ -539,3 +448,33 @@
         </nav>
     </div>
 </div>
+<script>
+    function searchProperties() {
+        let query = document.getElementById('searchInput').value;
+        
+        // Only make the request if there are at least 3 characters in the search query
+        if (query.length >= 3) {
+            fetch(`/search-properties?query=${query}`)
+                .then(response => response.json())
+                .then(data => {
+                    let resultsContainer = document.getElementById('propertyResults');
+                    resultsContainer.innerHTML = ''; // Clear previous results
+                    
+                    if (data.length === 0) {
+                        resultsContainer.innerHTML = '<p>No results found</p>';
+                    } else {
+                        data.forEach(property => {
+                            let resultItem = document.createElement('div');
+                            resultItem.classList.add('result-item');
+                            resultItem.innerHTML = `<strong>${property.property_number}</strong>: ${property.description}`;
+                            resultsContainer.appendChild(resultItem);
+                        });
+                    }
+                });
+        } else {
+            document.getElementById('propertyResults').innerHTML = ''; // Clear results if the input is too short
+        }
+    }
+</script>
+    
+    
