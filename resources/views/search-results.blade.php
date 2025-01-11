@@ -14,11 +14,17 @@
             <p>No results found.</p>
         @else
             <ul class="list-group">
-                @foreach($properties as $property)
+                @foreach($properties->take(1) as $property)
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <strong>{{ $property->property_number }}</strong>: {{ $property->description }}
+                        <strong>{{ $property->property_number }}</strong>: {{ $property->description }}<a href="{{ asset('storage/' . $property->image_path) }}" target="_blank">
+                            <img 
+                                src="{{ asset('storage/' . $property->image_path) }}" 
+                                alt="Property Image" 
+                                style="width: 180px; height: 180px; object-fit: cover;">
+                        </a>
                         
-                        <!-- Button to trigger the modal -->
+
+                        <!-- Button to trigger the modal with more detailed information -->
                         <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#orderdetailsModal-{{ $property->id }}">
                             View Details
                         </button>
@@ -64,6 +70,7 @@
                                                                                 style="width: 180px; height: 180px; object-fit: cover;">
                                                                         </a>
                                                                     </div>
+                                                                    <p class="text-muted mt-2">Image Description: {{ $property->image_description ?? 'No description' }}</p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -106,28 +113,16 @@
                                             </div>
                                         </div>
 
-                                        <!-- Right Column: More Details -->
-                                        {{-- <div class="col-xl-4">
+                                        <!-- Right Column: Office Name -->
+                                        <div class="col-xl-4">
                                             <div class="mt-4 mt-xl-3">
-                                                <h5 class="mt-1 mb-3">Status</h5>
-                                                <p class="text-muted sm-4">{{ $property->status->status_name}}</p> <!-- Safely access the status -->
-                                                <h5 class="mt-1 mb-3">Accountable</h5>
-                                                <p class="text-muted sm-4">{{ $property->employee2->employee_name}}</p> <!-- Safely access employee2 -->
-                                                <h5 class="mt-1 mb-3">User</h5>
-                                                <p class="text-muted sm-4">{{ $property->employee->employee_name}}</p> <!-- Safely access employee -->
-                                                <h5 class="mt-1 mb-3">Date Purchased</h5>
-                                                <p class="text-muted sm-4">
-                                                    {{\Carbon\Carbon::parse($property->date_purchase)->format('F j, Y')}}
-                                                </p>
+                                                <h5 class="mt-1 mb-3">Office Name</h5>
+                                                <p class="text-muted sm-4">{{ $property->office_name }}</p>
                                             </div>
-                                        </div> --}}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <!-- Modal Footer with Buttons -->
-                                    {{-- <a href="{{ route('property.export', $property->id) }}" class="btn btn-success">Generate ICS</a>
-                                    <a href="{{ route('property2.export', $property->id) }}" class="btn btn-success">Generate PAR</a>
-                                    <a href="{{ route('asset.exportpdf', $property->id) }}" class="btn btn-danger">Generate Sticker</a> --}}
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 </div>
                             </div>
