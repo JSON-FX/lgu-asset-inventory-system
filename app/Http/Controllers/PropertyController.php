@@ -14,6 +14,7 @@ use Illuminate\Validation\Rule;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use Barryvdh\DomPDF\Facade\Pdf;
 class PropertyController extends Controller
 {
     /**
@@ -387,6 +388,33 @@ class PropertyController extends Controller
         // Return the results to a new view for displaying the search results
         return view('search-results', compact('properties', 'searchQuery', 'categories', 'offices', 'statuses', 'employees', 'accounts'));
     }
+    public function index2(Request $request)
+    {
+        $properties = Property::with(['office', 'category', 'status', 'account', 'employee', 'employee2']);
+
+        // Apply search filter
+        if ($request->has('search')) {
+            $properties = $properties->search($request->input('search'));
+        }
+
+        $properties = $properties->get();
+
+        return view('properties.index', compact('properties'));
+    }
+
+    public function export(Request $request)
+    {
+        $selectedIds = $request->input('selected_ids');
+
+        $properties = Property::with(['office', 'category', 'status', 'account', 'employee', 'employee2'])
+            ->whereIn('id', $selectedIds)
+            ->get();
+
+        // Export to PDF or Excel
+        $pdf = PDF::loadView('properties.export', compact('properties'));
+        return $pdf->download('properties.pdf');
+    }
+    
 
 
     

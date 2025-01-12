@@ -23,6 +23,9 @@ Route::get('/', function () {
 }); 
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/properties', [PropertyController::class, 'index2'])->name('properties.index');
+    Route::get('/properties/export', [PropertyController::class, 'export'])->name('properties.export');
+
     Route::get('/search-properties', [PropertyController::class, 'searchProperties']);
 
     //ICS-PAR GENERATOR

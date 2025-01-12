@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Results for "{{ $searchQuery }}"</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
+@extends('layouts.master-layouts')
+@section('title') @lang('Account') @endsection
+
+@section('css')
+@section('content')
+@component('components.breadcrumb')
+@slot('li_1') Search @endslot
+@slot('title')  @endslot
+@endcomponent
     <div class="container mt-5">
         <h1>Search Results for "{{ $searchQuery }}"</h1>
         
@@ -16,14 +16,17 @@
             <ul class="list-group">
                 @foreach($properties->take(1) as $property)
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <strong>{{ $property->property_number }}</strong>: {{ $property->description }}<a href="{{ asset('storage/' . $property->image_path) }}" target="_blank">
+                        <a href="{{ asset('storage/' . $property->image_path) }}" target="_blank">
                             <img 
                                 src="{{ asset('storage/' . $property->image_path) }}" 
                                 alt="Property Image" 
                                 style="width: 180px; height: 180px; object-fit: cover;">
                         </a>
+                        <strong>{{ $property->property_number }}
+                            
+                        </strong>{{ $property->description }}
                         
-
+                        
                         <!-- Button to trigger the modal with more detailed information -->
                         <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#orderdetailsModal-{{ $property->id }}">
                             View Details
@@ -132,8 +135,15 @@
             </ul>
         @endif
     </div>
+@endsection
 
+@section('scripts')
     <!-- Include Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+@section('script')
+<script src="{{ URL::asset('assets/libs/datatables.net/datatables.net.min.js') }}"></script>
+<script src="{{ URL::asset('assets/libs/datatables.net-bs4/datatables.net-bs4.min.js') }}"></script>
+<script src="{{ URL::asset('assets/libs/datatables.net-responsive/datatables.net-responsive.min.js') }}"></script>
+<script src="{{ URL::asset('/assets/js/app.min.js') }}"></script>
+<script src="{{ URL::asset('assets/js/pages/datatable-pages.init.js') }}"></script>
+@endsection

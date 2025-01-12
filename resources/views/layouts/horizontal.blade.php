@@ -305,7 +305,7 @@
                             
                             <a href="{{ route('asset.trash') }}" class="dropdown-item" data-key="t-chat">@lang('Trash')</a>
                             <a href="{{ route('asset.log')}}" class="dropdown-item" data-key="t-chat">@lang('Logs')</a>
-                            <a href="{{ route('asset.trash') }}" class="dropdown-item" data-key="t-chat">@lang('Generate Report')</a>
+                            <a href="{{ route('properties.index') }}" class="dropdown-item" data-key="t-chat">@lang('Generate Report')</a>
 
                         </div>
                     </li>
@@ -315,6 +315,9 @@
     </div>
 </div>
 <script>
+    window.onload = function() {
+        document.getElementById('searchInput').focus();
+    };
     function searchProperties() {
         let query = document.getElementById('searchInput').value;
         
