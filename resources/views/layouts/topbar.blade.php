@@ -8,7 +8,7 @@
                         <img src="{{ URL::asset('assets/images/logo-sm.svg') }}" alt="" height="35">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ URL::asset('assets/images/logo-sm.svg') }}" alt="" height="50"> <span class="logo-txt">AMS</span>
+                        <img src="{{ URL::asset('assets/images/logo-sm.svg') }}" alt="" height="50"> <span class="logo-txt">PSMD</span>
                     </span>
                 </a>
 
@@ -17,7 +17,7 @@
                         <img src="{{ URL::asset('assets/images/logo-sm.svg') }}" alt="" height="35">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ URL::asset('assets/images/logo-sm.svg') }}" alt="" height="50"> <span class="logo-txt">AMS</span>
+                        <img src="{{ URL::asset('assets/images/logo-sm.svg') }}" alt="" height="50"> <span class="logo-txt">PSMD</span>
                     </span>
                 </a>
             </div>

@@ -3,21 +3,21 @@
         <div class="d-flex">
             <!-- LOGO -->
             <div class="navbar-brand-box">
-                <a href="index " class="logo logo-dark">
+                <a  href="{{ route('dashboard') }}"class="logo logo-dark">
                     <span class="logo-sm">
-                        <img src="{{ URL::asset('assets/images/logo-sm.svg') }}" alt="" height="24">
+                        <img src="{{ URL::asset('assets/images/logo-sm.svg') }}" alt="" height="47">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ URL::asset('assets/images/logo-sm.svg') }}" alt="" height="24"> <span class="logo-txt">AMS</span>
+                        <img src="{{ URL::asset('assets/images/logo-sm.svg') }}" alt="" height="47"> <span class="logo-txt">PSMD</span>
                     </span>
                 </a>
 
-                <a href="index " class="logo logo-light">
+                <a  href="{{ route('dashboard') }}" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="{{ URL::asset('assets/images/logo-sm.svg') }}" alt="" height="24">
+                        <img src="{{ URL::asset('assets/images/logo-sm.svg') }}" alt="" height="47">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ URL::asset('assets/images/logo-sm.svg') }}" alt="" height="24"> <span class="logo-txt">AMS</span>
+                        <img src="{{ URL::asset('assets/images/logo-sm.svg') }}" alt="" height="47"> <span class="logo-txt">PSMD</span>
                     </span>
                 </a>
             </div>
@@ -60,53 +60,9 @@
                 </div>
             </div>
 
-            <div class="dropdown d-none d-sm-inline-block">
-                <button type="button" class="btn header-item"
-                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                @switch(Session::get('lang'))
-                    @case('ru')
-                        <img src="{{ URL::asset('/assets/images/flags/russia.jpg')}}" alt="Header Language" height="16">
-                    @break
-                    @case('it')
-                        <img src="{{ URL::asset('/assets/images/flags/italy.jpg')}}" alt="Header Language" height="16">
-                    @break
-                    @case('de')
-                        <img src="{{ URL::asset('/assets/images/flags/germany.jpg')}}" alt="Header Language" height="16">
-                    @break
-                    @case('es')
-                        <img src="{{ URL::asset('/assets/images/flags/spain.jpg')}}" alt="Header Language" height="16">
-                    @break
-                    @default
-                        <img src="{{ URL::asset('/assets/images/flags/us.jpg')}}" alt="Header Language" height="16">
-                @endswitch
-                </button>
-                <div class="dropdown-menu dropdown-menu-end">
 
-                    <!-- item-->
-                    <a href="{{ url('index/en') }}" class="dropdown-item notify-item language" data-lang="eng">
-                        <img src="{{ URL::asset ('/assets/images/flags/us.jpg') }}" alt="user-image" class="me-1" height="12"> <span class="align-middle">English</span>
-                    </a>
-                    <!-- item-->
-                    <a href="{{ url('index/es') }}" class="dropdown-item notify-item language" data-lang="sp">
-                        <img src="{{ URL::asset ('/assets/images/flags/spain.jpg') }}" alt="user-image" class="me-1" height="12"> <span class="align-middle">Spanish</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="{{ url('index/de') }}" class="dropdown-item notify-item language" data-lang="gr">
-                        <img src="{{ URL::asset ('/assets/images/flags/germany.jpg') }}" alt="user-image" class="me-1" height="12"> <span class="align-middle">German</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="{{ url('index/it') }}" class="dropdown-item notify-item language" data-lang="it">
-                        <img src="{{ URL::asset ('/assets/images/flags/italy.jpg') }}" alt="user-image" class="me-1" height="12"> <span class="align-middle">Italian</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="{{ url('index/ru') }}" class="dropdown-item notify-item language" data-lang="ru">
-                        <img src="{{ URL::asset ('/assets/images/flags/russia.jpg') }}" alt="user-image" class="me-1" height="12"> <span class="align-middle">Russian</span>
-                    </a>
-                </div>
-            </div>
+                
+                
 
             <div class="dropdown d-none d-sm-inline-block">
                 <button type="button" class="btn header-item" id="mode-setting-btn">
@@ -171,7 +127,7 @@
                 <button type="button" class="btn header-item noti-icon position-relative" id="page-header-notifications-dropdown"
                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i data-feather="bell" class="icon-lg"></i>
-                    <span class="badge bg-danger rounded-pill">5</span>
+                    {{-- <span class="badge bg-danger rounded-pill">5</span> --}}
                 </button>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                     aria-labelledby="page-header-notifications-dropdown">
@@ -185,7 +141,7 @@
                             </div>
                         </div>
                     </div>
-                    <div data-simplebar style="max-height: 230px;">
+                    {{-- <div data-simplebar style="max-height: 230px;">
                         <a href="#!" class="text-reset notification-item">
                             <div class="d-flex">
                                 <img src="{{ URL::asset('assets/images/users/avatar-3.jpg') }}"
@@ -245,7 +201,7 @@
                                 </div>
                             </div>
                         </a>
-                    </div>
+                    </div> --}}
                     <div class="p-2 border-top d-grid">
                         <a class="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">
                             <i class="mdi mdi-arrow-right-circle me-1"></i> <span>View More..</span>
@@ -263,15 +219,15 @@
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item bg-soft-light border-start border-end" id="page-header-user-dropdown"
                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="rounded-circle header-profile-user" src="@if (Auth::user()->avatar != ''){{ URL::asset('images/'. Auth::user()->avatar) }}@else{{ URL::asset('assets/images/users/avatar-1.png') }}@endif"
-                        alt="Header Avatar">
+                    {{-- <img class="rounded-circle header-profile-user" src="@if (Auth::user()->avatar != ''){{ URL::asset('images/'. Auth::user()->avatar) }}@else{{ URL::asset('assets/images/users/avatar-1.png') }}@endif"
+                        alt="Header Avatar"> --}}
                     <span class="d-none d-xl-inline-block ms-1 fw-medium">{{Auth::user()->name}}</span>
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
                     <!-- item-->
-                    <a class="dropdown-item" href="apps-contacts-profile "><i class="mdi mdi-face-profile font-size-16 align-middle me-1"></i> Profile</a>
-                    <a class="dropdown-item" href="auth-lock-screen "><i class="mdi mdi-lock font-size-16 align-middle me-1"></i> Lock screen</a>
+                    <a class="dropdown-item" href="apps-contacts-profile "><i class="mdi mdi-account font-size-16 align-middle me-1"></i> Profile</a>
+                    {{-- <a class="dropdown-item" href="auth-lock-screen "><i class="mdi mdi-lock font-size-16 align-middle me-1"></i> Lock screen</a> --}}
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-danger" href="javascript:void();" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">@lang('translation.Logout')</span></a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -292,157 +248,67 @@
                 <ul class="navbar-nav">
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle arrow-none" href="index " id="topnav-dashboard" role="button">
+                        <a href="{{ route('dashboard') }}" class="nav-link dropdown-toggle arrow-none" href="index " id="topnav-dashboard" role="button">
                             <i data-feather="home"></i><span data-key="t-dashboard">@lang('translation.Dashboards')</span>
                         </a>
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages" role="button">
-                            <i data-feather="grid"></i><span data-key="t-apps">@lang('translation.Apps')</span> <div class="arrow-down"></div>
+                        <a  href="{{ route('asset') }}"class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages" role="button">
+                            <i data-feather="box"></i><span data-key="t-apps">@lang('translation.Apps')</span> <div class="arrow-down"></div>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="topnav-pages">
                           
 
 
                             
-                            <a href="apps-chat " class="dropdown-item" data-key="t-chat">@lang('Assetlist')</a>
-                            <a href="apps-chat " class="dropdown-item" data-key="t-chat">@lang('Add Asset')</a>
+                            <a href="{{ route('asset') }}" class="dropdown-item" data-key="t-chat">@lang('Assetlist')</a>
+                            <a href="{{ route('assetlist.create') }}" class="dropdown-item" data-key="t-chat">@lang('Add Asset')</a>
 
                         </div>
                     </li>
 
                     <li class="nav-item dropdown">
+                        <a href="{{ route('category.index') }}" class="nav-link dropdown-toggle arrow-none" href="index " id="topnav-dashboard" role="button">
+                            <i data-feather="layers"></i><span data-key="t-dashboard">@lang('Category')</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="{{ route('office.index') }}" class="nav-link dropdown-toggle arrow-none" href="index " id="topnav-dashboard" role="button">
+                            <i data-feather="trello"></i><span data-key="t-dashboard">@lang('Office')</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="{{ route('users.index') }}" class="nav-link dropdown-toggle arrow-none" href="index " id="topnav-dashboard" role="button">
+                            <i data-feather="users"></i><span data-key="t-dashboard">@lang('Users')</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="{{ route('status.index') }}" class="nav-link dropdown-toggle arrow-none" href="index " id="topnav-dashboard" role="button">
+                            <i data-feather="activity"></i><span data-key="t-dashboard">@lang('Status')</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="{{ route('account.index') }}" class="nav-link dropdown-toggle arrow-none" href="index " id="topnav-dashboard" role="button">
+                            <i data-feather="book"></i><span data-key="t-dashboard">@lang('Account')</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages" role="button">
-                            <i data-feather="grid"></i><span data-key="t-apps">@lang('translation.Apps')</span> <div class="arrow-down"></div>
+                            <i data-feather="file-text"></i><span data-key="t-apps">@lang('Reports')</span> <div class="arrow-down"></div>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="topnav-pages">
                           
 
 
                             
-                            <a href="apps-chat " class="dropdown-item" data-key="t-chat">@lang('Assetlist')</a>
-                            <a href="apps-chat " class="dropdown-item" data-key="t-chat">@lang('Add Asset')</a>
+                            <a href="{{ route('asset.trash') }}" class="dropdown-item" data-key="t-chat">@lang('Trash')</a>
+                            <a href="{{ route('asset.log')}}" class="dropdown-item" data-key="t-chat">@lang('Logs')</a>
+                            <a href="{{ route('asset.trash') }}" class="dropdown-item" data-key="t-chat">@lang('Generate Report')</a>
 
                         </div>
                     </li>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-components" role="button">
-                            <i data-feather="box"></i><span data-key="t-components">@lang('translation.Components')</span> <div class="arrow-down"></div>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="topnav-components">
-                            <div class="dropdown">
-                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-form"
-                                    role="button">
-                                    <span data-key="t-forms">@lang('translation.Forms')</span> <div class="arrow-down"></div>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="topnav-form">
-                                    <a href="form-elements " class="dropdown-item" data-key="t-form-elements">@lang('translation.Basic_Elements')</a>
-                                    <a href="form-validation " class="dropdown-item" data-key="t-form-validation">@lang('translation.Validation')</a>
-                                    <a href="form-advanced " class="dropdown-item" data-key="t-form-advanced">@lang('translation.Advanced_Plugins')</a>
-                                    <a href="form-editors " class="dropdown-item" data-key="t-form-editors">@lang('translation.Editors')</a>
-                                    <a href="form-uploads " class="dropdown-item" data-key="t-form-upload">@lang('translation.File_Upload')</a>
-                                    <a href="form-wizard " class="dropdown-item" data-key="t-form-wizard">@lang('translation.Wizard')</a>
-                                    <a href="form-mask " class="dropdown-item" data-key="t-form-mask">@lang('translation.Mask')</a>
-                                </div>
-                            </div>
-                            <div class="dropdown">
-                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-table"
-                                    role="button">
-                                    <span data-key="t-tables">@lang('translation.Tables')</span> <div class="arrow-down"></div>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="topnav-table">
-                                    <a href="tables-basic " class="dropdown-item" data-key="t-basic-tables">@lang('translation.Bootstrap_Basic')</a>
-                                    <a href="tables-datatable " class="dropdown-item" data-key="t-data-tables">@lang('translation.Data_Tables')</a>
-                                    <a href="tables-responsive " class="dropdown-item" data-key="t-responsive-table">@lang('translation.Responsive')</a>
-                                    <a href="tables-editable " class="dropdown-item" data-key="t-editable-table">@lang('translation.Editable_Table')</a>
-                                </div>
-                            </div>
-                            <div class="dropdown">
-                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-charts"
-                                    role="button">
-                                    <span data-key="t-charts">@lang('translation.Charts')</span> <div class="arrow-down"></div>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="topnav-charts">
-                                    <a href="charts-apex " class="dropdown-item" data-key="t-apex-charts">@lang('translation.Apex_Charts')</a>
-                                    <a href="charts-echart " class="dropdown-item" data-key="t-e-charts">@lang('translation.E_Charts')</a>
-                                    <a href="charts-chartjs " class="dropdown-item" data-key="t-chartjs-charts">@lang('translation.Chartjs')</a>
-                                    <a href="charts-knob " class="dropdown-item" data-key="t-knob-charts">@lang('translation.Jquery_Knob')</a>
-                                    <a href="charts-sparkline " class="dropdown-item" data-key="t-sparkline-charts">@lang('translation.Sparkline')</a>
-                                </div>
-                            </div>
-                            <div class="dropdown">
-                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-icons"
-                                    role="button">
-                                    <span data-key="t-icons">@lang('translation.Icons')</span> <div class="arrow-down"></div>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="topnav-icons">
-                                    <a href="icons-feather " class="dropdown-item" data-key="t-feather">@lang('translation.Feather')</a>
-                                    <a href="icons-boxicons " class="dropdown-item" data-key="t-boxicons">@lang('translation.Boxicons')</a>
-                                    <a href="icons-materialdesign " class="dropdown-item" data-key="t-material-design">@lang('translation.Material_Design')</a>
-                                    <a href="icons-dripicons " class="dropdown-item" data-key="t-dripicons">@lang('translation.Dripicons')</a>
-                                    <a href="icons-fontawesome " class="dropdown-item" data-key="t-font-awesome">@lang('translation.Font_awesome') 5</a>
-                                </div>
-                            </div>
-                            <div class="dropdown">
-                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-map" role="button">
-                                    <span data-key="t-maps">@lang('translation.Maps')</span> <div class="arrow-down"></div>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="topnav-map">
-                                    <a href="maps-google " class="dropdown-item" data-key="t-g-maps">@lang('translation.Google')</a>
-                                    <a href="maps-vector " class="dropdown-item" data-key="t-v-maps">@lang('translation.Vector')</a>
-                                    <a href="maps-leaflet " class="dropdown-item" data-key="t-l-maps">@lang('translation.Leaflet')</a>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-more" role="button">
-                            <i data-feather="file-text"></i><span data-key="t-extra-pages">@lang('translation.Extra_Pages')</span> <div class="arrow-down"></div>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="topnav-more">
-
-                            <div class="dropdown">
-                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-auth" role="button">
-                                    <span data-key="t-authentication">@lang('translation.Authentication')</span> <div class="arrow-down"></div>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="topnav-auth">
-                                    <a href="auth-login " class="dropdown-item" data-key="t-login">@lang('translation.Login')</a>
-                                    <a href="auth-register " class="dropdown-item" data-key="t-register">@lang('translation.Register')</a>
-                                    <a href="auth-recoverpw " class="dropdown-item" data-key="t-recover-password">@lang('translation.Recover_Password')</a>
-                                    <a href="auth-lock-screen " class="dropdown-item" data-key="t-lock-screen">@lang('translation.Lock_Screen')</a>
-                                    <a href="auth-logout " class="dropdown-item" data-key="t-logout">@lang('translation.Logout')</a>
-                                    <a href="auth-confirm-mail " class="dropdown-item" data-key="t-confirm-mail">@lang('translation.Confirm_Mail')</a>
-                                    <a href="auth-email-verification " class="dropdown-item" data-key="t-email-verification">@lang('translation.Email_verification')</a>
-                                    <a href="auth-two-step-verification " class="dropdown-item" data-key="t-two-step-verification">@lang('translation.Two_step_verification')</a>
-                                </div>
-                            </div>
-                            <div class="dropdown">
-                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-utility" role="button">
-                                    <span data-key="t-utility">@lang('translation.Utility')</span> <div class="arrow-down"></div>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="topnav-utility">
-                                    <a href="pages-starter " class="dropdown-item" data-key="t-starter-page">@lang('translation.Starter_Page')</a>
-                                    <a href="pages-maintenance " class="dropdown-item" data-key="t-maintenance">@lang('translation.Maintenance')</a>
-                                    <a href="pages-comingsoon " class="dropdown-item" data-key="t-coming-soon">@lang('translation.Coming_Soon')</a>
-                                    <a href="pages-timeline " class="dropdown-item" data-key="t-timeline">@lang('translation.Timeline')</a>
-                                    <a href="pages-faqs " class="dropdown-item" data-key="t-faqs">@lang('translation.FAQs')</a>
-                                    <a href="pages-pricing " class="dropdown-item" data-key="t-pricing">@lang('translation.Pricing')</a>
-                                    <a href="pages-404 " class="dropdown-item" data-key="t-error-404">@lang('translation.Error_404')</a>
-                                    <a href="pages-500 " class="dropdown-item" data-key="t-error-500">@lang('translation.Error_500')</a>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle arrow-none" href="layouts-horizontal " role="button">
-                            <i data-feather="layout"></i><span data-key="t-horizontal">@lang('translation.Horizontal')</span>
-                        </a>
-                    </li>
-
                 </ul>
             </div>
         </nav>
@@ -476,5 +342,8 @@
         }
     }
 </script>
+
+
+
     
     
