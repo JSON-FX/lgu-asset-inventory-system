@@ -142,7 +142,7 @@ class PropertyController extends Controller
         $sheet->setCellValue('A48', $property->employee->employee_name); // User
         $sheet->setCellValue('E38', \Carbon\Carbon::parse($property->date_purchase)->format('F j, Y')); // Date Purchased
         $sheet->setCellValue('C14', number_format($property->acquisition_cost, 2));
-        $sheet->setCellValue('A14', $property->qty);   // Acquisition Cost
+        $sheet->setCellValue('A14', number_format($property->qty, 0));   // Acquisition Cost
         $sheet->setCellValue('E40', $property->inventory_remarks);  // Inventory Remarks
 
         // Save the modified Excel file

@@ -104,6 +104,8 @@
                             <p class="text-muted sm-4">{{ \Carbon\Carbon::parse($property->date_purchase)->format('F j, Y') }}</p>
                             <h5 class="mt-1 mb-3">Acquisition Cost</h5>
                             <p class="text-muted sm-4">₱{{ number_format($property->acquisition_cost, 2) }}</p>
+                            <h5 class="mt-1 mb-3">Quantity</h5>
+                            <p class="text-muted sm-4">{{ number_format($property->qty, 0) }}</p>
                             <h5 class="mt-1 mb-3">Inventory Remarks</h5>
                             <p class="text-muted sm-4">{{ $property->inventory_remarks }}</p>
                         </div>
@@ -279,7 +281,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="qty">QTY</label>
-                                        <input id="qty" name="qty" type="number" class="form-control" value="{{ old('qty', $property->qty) }}">
+                                        <input id="qty" name="qty" type="number" class="form-control" value="{{ old('qty', number_format($property->qty,0)) }}">
                                         @error('qty')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror

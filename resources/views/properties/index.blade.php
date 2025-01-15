@@ -50,6 +50,16 @@
           <th data-field="account" data-sortable="true" data-filter-control="select">Account</th>
           <th data-field="employee" data-sortable="true" data-filter-control="input">End User</th>
           <th data-field="employee2" data-sortable="true" data-filter-control="input">Accountable</th>
+          <th data-field="serial_number" data-sortable="true" data-filter-control="input">Serial Number</th>
+          <th data-field="elc_number" data-sortable="true" data-filter-control="input">ELC Number</th>
+          <th data-field="engine_number" data-sortable="true" data-filter-control="input">Engine Number</th>
+          <th data-field="chasis_number" data-sortable="true" data-filter-control="input">Chasis Number</th>
+          <th data-field="plate_number" data-sortable="true" data-filter-control="input">Plate Number</th>
+          <th data-field="qty" data-sortable="true" data-filter-control="input">Quantity</th>
+          <th data-field="acquisition_cost" data-sortable="true" data-filter-control="input">Acqusition Cost</th>
+          <th data-field="inventory_remakrs" data-sortable="true" data-filter-control="input">Inventory Remarks</th>
+          <th>Action</th>
+          
         </tr>
       </thead>
       <tbody>
@@ -65,6 +75,29 @@
             <td>{{ $property->account->account_name }}</td>
             <td>{{ $property->employee->employee_name }}</td>
             <td>{{ $property->employee2->employee_name }}</td>
+            <td>{{ $property->serial_number}}</td>
+            <td>{{ $property->elc_number}}</td>
+            <td>{{ $property->engine_number}}</td>
+            <td>{{ $property->chasis_number}}</td>
+            <td>{{ $property->plate_number}}</td>
+            <td>{{ number_format($property->qty, 0) }}</td>
+            <td>{{ number_format($property->acquisition_cost, 2) }}</td>
+            <td>{{ $property->inventory_remarks}}</td>
+            <td>
+              <div class="d-flex gap-3">
+                  <!-- Eye Icon to open the modal -->
+                  <a class="mdi mdi-eye font-size-18" data-bs-toggle="modal" data-bs-target="#orderdetailsModal-{{ $property->id }}"></a>
+                  <a href="{{ route('assetlist.editassetlist', $property->id) }}" class="text-success">
+                      <i class="mdi mdi-pencil font-size-18"></i>
+                  </a>
+                  <a href="javascript:void(0);" 
+                      class="text-danger" 
+                      data-bs-toggle="modal" 
+                      data-bs-target="#deleteModal-{{ $property->id }}">
+                      <i class="mdi mdi-delete font-size-18"></i>
+                  </a>
+                  
+             </td>
           </tr>
         @endforeach
       </tbody>

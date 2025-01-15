@@ -79,7 +79,7 @@
                         <tbody>
                             @foreach ($properties as $property)
                                 <tr>
-                                    <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->qty }}</td>
+                                    <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ number_format($property->qty,0) }}</td>
                                     <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->property_number }}</td>
                                     <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->description }}</td>
                                     <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->category->category_name }}</td>
@@ -251,7 +251,7 @@
                                                             <p class="text-muted sm-4">{{ $property->acquisition_cost ? number_format($property->acquisition_cost, 2) : 'N/A' }}</p>
                                                     
                                                             <h5 class="mt-1 mb-3">Qty</h5>
-                                                            <p class="text-muted sm-4">{{ number_format($property->qty) }}</p>
+                                                            <p class="text-muted sm-4">{{  number_format($property->qty,0) }}</p>
                                                     
                                                             <h5 class="mt-1 mb-3">Inventory Remarks</h5>
                                                             <p class="text-muted sm-4">{{ $property->inventory_remarks }}</p>
