@@ -390,17 +390,32 @@ class PropertyController extends Controller
     }
     public function index2(Request $request)
     {
-        $properties = Property::with(['office', 'category', 'status', 'account', 'employee', 'employee2']);
+        // Load related data for properties
+        $properties = Property::with(['office', 'category', 'status', 'account', 'employee', 'employee2'])->get();
 
-        // Apply search filter
-        if ($request->has('search')) {
-            $properties = $properties->search($request->input('search'));
+        // Load additional data for dropdowns or other purposes
+        $categories = Category::all();
+        $offices = Office::all();
+        $statuses = Status::all();
+        $employees = Employee::all();
+        $accounts = Account::all();
+        
+        $query = Property::with(['category', 'office', 'status', 'employee', 'accounts']);
+
+        if ($request->has('acquisition_cost_filter') && $request->acquisition_cost_filter != '') {
+            if ($request->acquisition_cost_filter == 'above_50k') {
+                $query->where('acquisition_cost', '>=', 50000);
+            } elseif ($request->acquisition_cost_filter == 'below_50k') {
+                $query->where('acquisition_cost', '<', 50000);
+            }
         }
 
-        $properties = $properties->get();
+        $properties = $query->get();
 
-        return view('properties.index', compact('properties'));
+        // Return the view with the required data
+        return view('properties.index', compact('properties', 'categories', 'statuses', 'accounts', 'employees', 'offices'));
     }
+
 
     public function export(Request $request)
     {

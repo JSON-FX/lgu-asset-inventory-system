@@ -6,11 +6,18 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-
+use Faker\Factory as Faker;
 class AllDataSeeder extends Seeder
 {
     public function run()
     {
+        DB::table('accounts')->insert([
+            ['id' => 1, 'account_name' => 'Account 1'],
+            ['id' => 2, 'account_name' => 'Account 2'],
+            ['id' => 3, 'account_name' => 'Account 3'],
+        ]);
+        
+    
         // Insert dummy data into categories table
         DB::table('categories')->insert([
             ['category_name' => 'Machinery & Equipments', 'created_at' => now(), 'updated_at' => now()],
@@ -119,5 +126,40 @@ class AllDataSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        // $faker = Faker::create();
+
+        // // Static IDs for office, category, status, account, and employee
+        // $officeIds = [1, 2, 3];
+        // $categoryIds = [1, 2, 3];
+        // $statusIds = [1, 2, 3];
+        // $accountIds = [1, 2, 3];
+        // $employeeIds = [1, 2, 3]; // Employee 2 can have the same set
+
+        // for ($i = 0; $i < 30; $i++) {
+        //     DB::table('properties')->insert([
+        //         'property_number' => 'P-' . $faker->unique()->numberBetween(1000, 9999),
+        //         'description' => $faker->sentence(),
+        //         'serial_number' => $faker->unique()->word(),
+        //         'engine_number' => $faker->unique()->word(),
+        //         'chasis_number' => $faker->unique()->word(),
+        //         'plate_number' => $faker->unique()->word(),
+        //         'elc_number' => $faker->unique()->word(),
+        //         'office_id' => $faker->randomElement($officeIds), // Using static IDs 1, 2, 3
+        //         'category_id' => $faker->randomElement($categoryIds), // Using static IDs 1, 2, 3
+        //         'status_id' => $faker->randomElement($statusIds), // Using static IDs 1, 2, 3
+        //         'account_id' => $faker->randomElement($accountIds), // Using static IDs 1, 2, 3
+        //         'employee_id' => $faker->randomElement($employeeIds), // Using static IDs 1, 2, 3
+        //         'employee_id2' => $faker->randomElement($employeeIds), // Using static IDs 1, 2, 3
+        //         'date_purchase' => $faker->date(),
+        //         'acquisition_cost' => $faker->randomFloat(2, 1000, 100000),
+        //         'qty' => $faker->randomFloat(2, 1, 10),
+        //         'inventory_remarks' => $faker->text(200),
+        //         'image_path' => $faker->imageUrl(),
+        //         'created_at' => now(),
+        //         'updated_at' => now(),
+        //     ]);
+        // }
+    
+        
     }
 }
