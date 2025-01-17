@@ -383,7 +383,7 @@ class PropertyController extends Controller
         $properties = Property::with(['status', 'category', 'office', 'employee', 'employee2', 'account'])
                             ->where('property_number', 'LIKE', '%' . $searchQuery . '%')
                             ->orWhere('description', 'LIKE', '%' . $searchQuery . '%')
-                            ->get(['property_number', 'description','acquisition_cost','image_path']);
+                            ->get(['property_number', 'description','acquisition_cost','image_path','serial_number','employee_id','employee_id2','office_id','account_id','elc_number','engine_number','chasis_number','plate_number','inventory_remarks','status_id',]);
         
         // Return the results to a new view for displaying the search results
         return view('search-results', compact('properties', 'searchQuery', 'categories', 'offices', 'statuses', 'employees', 'accounts'));

@@ -65,13 +65,13 @@
                                 <th>Description</th>
                                 <th>Category</th>
                                 <th>Office</th>
-                                <th>Serial No.</th>
+                                {{-- <th>Serial No.</th>
                                 <th>Purchase date</th>
-                                <th>Accountable</th>
-                                <th>User</th>
-                                <th>Acquisition cost</th>
+                                <th>Accountable</th>--}}
+                                <th>End User</th> 
+                                {{-- <th>Acquisition cost</th> --}}
                                 <th>Status</th>
-                                <th>Remarks</th>
+                                {{-- <th>Remarks</th> --}}
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -84,23 +84,23 @@
                                     <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->description }}</td>
                                     <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->category->category_name }}</td>
                                     <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->office->office_name }}</td>
-                                    <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->serial_number }}</td>
+                                    {{-- <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->serial_number }}</td>
                                     <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ \Carbon\Carbon::parse($property->date_purchase)->format('m-d-Y') }}</td>
-                                    <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->employee2->employee_name }}</td>
+                                    <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->employee2->employee_name }}</td> --}}
                                     <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->employee->employee_name }}</td>
-                                    <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">₱{{ number_format($property->acquisition_cost, 2) }}</td>
+                                    {{-- <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">₱{{ number_format($property->acquisition_cost, 2) }}</td> --}}
                                     <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">
                                         @if ($property->status->status_name === 'Maintenance')
-                                            <span class="badge badge-pill badge-soft-warning font-size-10">Maintenance</span>
+                                            <span class="badge badge-pill badge-soft-warning font-size-12">Maintenance</span>
                                         @elseif ($property->status->status_name === 'Serviceable')
-                                            <span class="badge badge-pill badge-soft-success font-size-10">Serviceable</span>
+                                            <span class="badge badge-pill badge-soft-success font-size-12">Serviceable</span>
                                         @elseif ($property->status->status_name === 'Unserviceable')
-                                            <span class="badge badge-pill badge-soft-danger font-size-10">Unserviceable</span>
+                                            <span class="badge badge-pill badge-soft-danger font-size-12">Unserviceable</span>
                                         @else
-                                            <span class="badge badge-pill badge-soft-secondary font-size-10">{{ $property->status->status_name }}</span>
+                                            <span class="badge badge-pill badge-soft-secondary font-size-12">{{ $property->status->status_name }}</span>
                                         @endif
                                     </td>
-                                    <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->inventory_remarks }}</td>
+                                    {{-- <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->inventory_remarks }}</td> --}}
                                     
                                     <td>
                                         <div class="d-flex gap-3">
