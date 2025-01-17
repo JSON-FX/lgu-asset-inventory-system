@@ -621,6 +621,27 @@
     };
 </script>
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const acquisitionCostInput = document.getElementById("acquisition_cost");
+        const elcNumberField = document.getElementById("elc_number_field");
+    
+        function toggleElcField() {
+            if (acquisitionCostInput.value > 50000) {
+                elcNumberField.style.display = "block";
+            } else {
+                elcNumberField.style.display = "none";
+            }
+        }
+    
+        // Run when the input value changes
+        acquisitionCostInput.addEventListener("input", toggleElcField);
+    
+        // Run on page load in case of pre-filled values
+        toggleElcField();
+    });
+    </script>
+    
+<script>
     function previewImage(event) {
         const imagePreviewContainer = document.getElementById('image-preview-container');
         const imagePreview = document.getElementById('image-preview');

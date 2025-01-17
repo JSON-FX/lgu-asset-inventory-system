@@ -198,6 +198,10 @@ class PropertyController extends Controller
             'date_purchase' => 'nullable|date',
             'acquisition_cost' => 'nullable|numeric',
             'qty' => 'required|integer',
+            'engine_number' => 'nullable|string',
+            'elc_number' => 'nullable|string',
+            'chasis_number' => 'nullable|string',
+            'plate_number' => 'nullable|string',
             'inventory_remarks' => 'nullable|string',
             'serial_number' => 'nullable|string|max:255',
         ]);
@@ -227,6 +231,10 @@ class PropertyController extends Controller
             'qty' => $request->qty,
             'inventory_remarks' => $request->inventory_remarks,
             'serial_number' => $request->serial_number,
+            'chasis_number' => $request->chasis_number,
+            'plate_number' => $request->plate_number,
+            'engine_number' => $request->engine_number,
+            'elc_number' => $request->elc_number,
             'image_path' => $imagePath,  // Store the image path in the database
         ]);
         session()->flash('success', 'Asset Added successfully!');
@@ -301,6 +309,10 @@ class PropertyController extends Controller
         'acquisition_cost' => 'nullable|numeric',
         'qty' => 'nullable|numeric|required',
         'inventory_remarks' => 'nullable|string',
+        'engine_number' => 'nullable|string',
+        'elc_number' => 'nullable|string',
+        'chasis_number' => 'nullable|string',
+        'plate_number' => 'nullable|string',
         'image' => 'nullable|image|mimes:jpg,jpeg,png,gif', // Image validation
     ]);
 

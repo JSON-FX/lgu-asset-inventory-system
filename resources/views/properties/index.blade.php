@@ -2,6 +2,19 @@
 @section('title') @lang('Generate Reports') @endsection
 
 @section('css')
+<style>
+  body {
+    font-size: 10px; /* Adjust the value as needed */
+  }
+
+  table {
+    font-size: 12px; /* Increase table font size */
+  }
+
+  .card-title, h5 {
+    font-size: 15px; /* Increase heading size */
+  }
+</style>
 
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/bootstrap-table.min.css">
@@ -18,7 +31,7 @@
 <div class="row">
   <div class="col-lg-12">
       <div class="card mb-0">
-          <div class="card-body">
+          <div class="card-body">        
               <div class="row align-items-center">
                   <div class="col-md-6">
                       <div class="mb-3">
@@ -35,6 +48,12 @@
 
                 <!-- Column Visibility Toggle Button -->
                 <button class="btn btn-secondary" id="column-toggle">Toggle Columns</button>
+            </div>
+            <div id="loading" class="text-center">
+              <div class="spinner-border text-primary" role="status">
+                  <span class="sr-only">Loading...</span>
+              </div>
+              <p>Please wait, loading data...</p>
             </div>
             
             <!-- Laravel Dynamic Table for Properties -->
@@ -142,23 +161,35 @@
   $(document).ready(function () {
     var $table = $('#propertiesTable');
 
-    // Hide specific columns on load
-    var hiddenColumns = [
-        'employee2',
-        'serial_number',
-        'elc_number',
-        'engine_number',
-        'chasis_number',
-        'plate_number',
-        'qty',
-        'acquisition_cost',
-        'inventory_remakrs'
-    ];
+    // Show the loading overlay
+    $("#loading").show();
+    $("#table-container").hide();
 
-    hiddenColumns.forEach(function (column) {
-        $table.bootstrapTable('hideColumn', column);
-    });
+    // Simulate loading delay
+    setTimeout(function () {
+        $("#loading").fadeOut();
+        $("#table-container").fadeIn();
+
+        // Hide specific columns on load
+        var hiddenColumns = [
+            'employee2',
+            'serial_number',
+            'elc_number',
+            'engine_number',
+            'chasis_number',
+            'plate_number',
+            'qty',
+            'acquisition_cost',
+            'inventory_remakrs'
+        ];
+
+        hiddenColumns.forEach(function (column) {
+            $table.bootstrapTable('hideColumn', column);
+        });
+
+    }, 1500); // Delay for 1.5 seconds
 });
+
 
 </script>
 
