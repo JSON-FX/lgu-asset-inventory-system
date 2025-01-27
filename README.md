@@ -60,6 +60,7 @@ This is a Laravel-based web application built to manage property assets, invento
    ```bash
    php artisan db:seed
    ```
+   --- and import the employee.sql  first before running php artisan serve located at the database/seeders/employee.sql it will serve as Users List
 
 10. Compile frontend assets:
     ```bash
