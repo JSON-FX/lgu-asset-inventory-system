@@ -1,5 +1,5 @@
 <?php use Carbon\Carbon; ?>
-@extends('layouts.master')
+@extends('layouts.master-layouts')
 
 @section('title') Day Details @endsection
 

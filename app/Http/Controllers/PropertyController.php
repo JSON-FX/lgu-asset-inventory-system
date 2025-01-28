@@ -17,6 +17,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Intervention\Image\Facades\Image;
 use Spatie\ImageOptimizer\OptimizerChainFactory;
+use Carbon\Carbon;
 class PropertyController extends Controller
 {
     /**
@@ -446,9 +447,11 @@ class PropertyController extends Controller
     }
     public function index2(Request $request)
     {
-        // Load related data for properties
-        $properties = Property::with(['office', 'category', 'status', 'account', 'employee', 'employee2'])->get();
+        $perPage = request()->get('per_page', 10); // Default to 10 if no 'per_page' query parameter is provided
 
+        // Load related data for properties with pagination
+        $properties = Property::with(['office', 'category', 'status', 'account', 'employee', 'employee2'])
+                       ->paginate($perPage); // Paginate the results
         // Load additional data for dropdowns or other purposes
         $categories = Category::all();
         $offices = Office::all();
@@ -486,10 +489,91 @@ class PropertyController extends Controller
         return $pdf->download('properties.pdf');
     }
     
-
-
+    public function exportSelectedPropertiesToExcel(Request $request)
+    {
+        try {
+            // Get the selected property IDs from the request
+            $selectedIds = $request->input('selected_ids');
+            
+            // Check if the selectedIds array is not empty
+            if (empty($selectedIds)) {
+                return response()->json(['error' => 'No properties selected.'], 400);
+            }
     
-
-
-
+            // Retrieve the selected properties from the database
+            $properties = Property::with(['category', 'office', 'status', 'employee', 'account'])
+                                  ->whereIn('id', $selectedIds)
+                                  ->get();
+    
+            // Check if properties were found
+            if ($properties->isEmpty()) {
+                return response()->json(['error' => 'No properties found for the selected IDs.'], 404);
+            }
+    
+            // Path to the template Excel file
+            $templatePath = public_path('assets/templates/ics_template.xlsx');
+            
+            // Check if the template exists
+            if (!file_exists($templatePath)) {
+                return response()->json(['error' => 'Template file not found.'], 500);
+            }
+    
+            // Load the template Excel file
+            $spreadsheet = IOFactory::load($templatePath);
+            $sheet = $spreadsheet->getActiveSheet();
+        
+            $rowIndex = 10; // Start from row 10 for the first property
+        
+            foreach ($properties as $property) {
+                // Set ICS Number
+                $icsNumber = \Carbon\Carbon::now()->format('Y-m') . '-' . $property->id;
+                $sheet->setCellValue('H' . $rowIndex, $icsNumber);
+                
+                // Set property data in the spreadsheet
+                $sheet->setCellValue('G' . $rowIndex, $property->id); 
+                $sheet->setCellValue('C' . $rowIndex, $property->account->account_name);
+                $sheet->setCellValue('E' . $rowIndex, $property->description);     // Description
+                $sheet->setCellValue('C' . ($rowIndex + 1), $property->category->category_name); // Category
+                $sheet->setCellValue('A' . $rowIndex, $property->serial_number);   // Serial No.
+                $sheet->setCellValue('F' . $rowIndex, $property->status->status_name);     // Status
+                $sheet->setCellValue('A' . ($rowIndex + 1), $property->employee->employee_name); // User
+                $sheet->setCellValue('E' . ($rowIndex + 2), \Carbon\Carbon::parse($property->date_purchase)->format('F j, Y')); // Date Purchased
+                $sheet->setCellValue('C' . ($rowIndex + 3), number_format($property->acquisition_cost, 2)); // Acquisition Cost
+                $sheet->setCellValue('F' . ($rowIndex + 3), number_format($property->qty, 0));   // Quantity
+                $sheet->setCellValue('E' . ($rowIndex + 4), $property->inventory_remarks);  // Inventory Remarks
+                
+                // Insert the image into the spreadsheet (if needed)
+                $imagePath = storage_path('app/public/' . $property->image_path);
+                if (file_exists($imagePath)) {
+                    $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+                    $drawing->setName('Property Image');
+                    $drawing->setDescription('Image of the Property');
+                    $drawing->setPath($imagePath); // Path to the image file
+                    $drawing->setHeight(100); // Set image height (optional)
+                    $drawing->setCoordinates('D' . ($rowIndex + 1)); // Cell where the image will be placed
+                    $drawing->setWorksheet($sheet);
+                }
+        
+                // Move to the next row for the next property
+                $rowIndex += 6; // Increase the row index for the next property (adjust as needed)
+            }
+        
+            // Save the modified Excel file and return it as a downloadable stream
+            $writer = new Xlsx($spreadsheet);
+        
+            return response()->stream(function() use ($writer) {
+                $writer->save('php://output');
+            }, 200, [
+                'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'Content-Disposition' => 'attachment; filename="properties_export.xlsx"',
+            ]);
+    
+        } catch (\Exception $e) {
+            // Log the error message
+            Log::error('Error exporting properties: ' . $e->getMessage());
+    
+            // Return a generic error response
+            return response()->json(['error' => 'Error exporting the selected properties.'], 500);
+        }
+    }
 }

@@ -11,7 +11,7 @@
     <div class="container min-vh-100 d-flex flex-column justify-content-center align-items-center">
         <!-- Logo Section -->
         <div class="text-center mb-4">
-            <img src="{{ asset('assets/images/logo-sm.svg') }}" alt="Logo" class="img-fluid" style="max-width: 150px;">
+            <img src="{{ asset('assets/images/municipal-logo.png') }}" alt="Logo" class="img-fluid" style="max-width: 150px;">
         </div>
 
         <!-- Login Form -->

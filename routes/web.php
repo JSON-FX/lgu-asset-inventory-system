@@ -23,6 +23,9 @@ Route::get('/', function () {
 }); 
 
 Route::middleware(['auth'])->group(function () {
+    //multiple selected properties 
+    Route::post('/export-selected', [PropertyController::class, 'exportSelectedPropertiesToExcel'])->name('ics.selected');
+
     Route::get('/properties', [PropertyController::class, 'index2'])->name('properties.index');
     Route::get('/properties/export', [PropertyController::class, 'export'])->name('properties.export');
 

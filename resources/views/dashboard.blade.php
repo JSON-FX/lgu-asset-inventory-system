@@ -432,10 +432,11 @@
                     <div class="property-image-container">
                         <img src="{{ $property->image_path ? asset('storage/' . $property->image_path) : asset('path/to/placeholder.jpg') }}" 
                              alt="{{ $property->description }}" 
-                             class="card-img-top property-image">
+                             class="card-img-top property-image" 
+                             style="object-fit: cover; height: 200px; width: 100%;">
                     </div>
 
-                    <div class="card-body">
+                    <div class="card-body d-flex flex-column">
                         <!-- Property Description -->
                         <h5 class="card-title">{{ $property->description }}</h5>
 
@@ -455,13 +456,14 @@
                         <p class="card-text text-muted">Office: {{ $property->office->office_name }}</p>
 
                         <!-- Optional: View Details Link -->
-                        <a href="{{ route('assetlist.editassetlist', $property->id) }}" class="btn btn-primary btn-sm">View Details</a>
+                        <a href="{{ route('assetlist.editassetlist', $property->id) }}" class="btn btn-primary btn-sm mt-auto">View Details</a>
                     </div>
                 </div>
             </div>
         @endforeach
     </div>
 </div>
+
 
 
 @endsection

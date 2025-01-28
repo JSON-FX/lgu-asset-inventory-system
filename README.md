@@ -29,7 +29,7 @@ This is a Laravel-based web application built to manage property assets, invento
 
 3. Install PHP dependencies:
    ```bash
-   composer install
+   composer install --optimize-autoloader --no-dev
    ```
 
 4. Install JavaScript dependencies:
@@ -60,7 +60,7 @@ This is a Laravel-based web application built to manage property assets, invento
    ```bash
    php artisan db:seed
    ```
-   --- and import the employee.sql  first before running php artisan serve located at the database/seeders/employee.sql it will serve as Users List
+   - import the employee.sql  first before running php artisan serve located at the database/seeders/employee.sql it will serve as Users List
 
 10. Compile frontend assets:
     ```bash
@@ -78,8 +78,9 @@ This is a Laravel-based web application built to manage property assets, invento
     ```
 
 ## Usage
- if you use  xampp  as a server then enable the  Imagick  follow the youtube video provided
+ if you use  xampp  as a server then enable the  Imagick to generate image for QRcode follow the youtube video provided for specific version
  https://www.youtube.com/watch?v=qZ9_rq6c9uY&ab_channel=MuruganS 
+ 
 ### Roles and Permissions
 - Admin (ID: 1) has full access to all features.
 - Other users may have restricted access based on roles.
