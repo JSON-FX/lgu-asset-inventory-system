@@ -81,20 +81,20 @@
                         <div class="row g-0">
                             <div class="col">
                                 <a class="dropdown-icon-item" href="#">
-                                    <img src="{{ URL::asset('assets/images/brands/github.png') }}" alt="Github">
-                                    <span>GitHub</span>
+                                    {{-- <img src="{{ URL::asset('assets/images/brands/github.png') }}" alt="Github"> --}}
+                                    <span>Add Asset</span>
                                 </a>
                             </div>
                             <div class="col">
                                 <a class="dropdown-icon-item" href="#">
-                                    <img src="{{ URL::asset('assets/images/brands/bitbucket.png') }}" alt="bitbucket">
-                                    <span>Bitbucket</span>
+                                    {{-- <img src="{{ URL::asset('assets/images/brands/bitbucket.png') }}" alt="bitbucket"> --}}
+                                    <span>Asset</span>
                                 </a>
                             </div>
                             <div class="col">
                                 <a class="dropdown-icon-item" href="#">
-                                    <img src="{{ URL::asset('assets/images/brands/dribbble.png') }}" alt="dribbble">
-                                    <span>Dribbble</span>
+                                    {{-- <img src="{{ URL::asset('assets/images/brands/dribbble.png') }}" alt="dribbble"> --}}
+                                    <span>Account</span>
                                 </a>
                             </div>
                         </div>
@@ -102,19 +102,19 @@
                         <div class="row g-0">
                             <div class="col">
                                 <a class="dropdown-icon-item" href="#">
-                                    <img src="{{ URL::asset('assets/images/brands/dropbox.png') }}" alt="dropbox">
-                                    <span>Dropbox</span>
+                                    {{-- <img src="{{ URL::asset('assets/images/brands/dropbox.png') }}" alt="dropbox"> --}}
+                                    <span></span>
                                 </a>
                             </div>
                             <div class="col">
                                 <a class="dropdown-icon-item" href="#">
-                                    <img src="{{ URL::asset('assets/images/brands/mail_chimp.png') }}" alt="mail_chimp">
+                                    {{-- <img src="{{ URL::asset('assets/images/brands/mail_chimp.png') }}" alt="mail_chimp"> --}}
                                     <span>Mail Chimp</span>
                                 </a>
                             </div>
                             <div class="col">
                                 <a class="dropdown-icon-item" href="#">
-                                    <img src="{{ URL::asset('assets/images/brands/slack.png') }}" alt="slack">
+                                    {{-- <img src="{{ URL::asset('assets/images/brands/slack.png') }}" alt="slack"> --}}
                                     <span>Slack</span>
                                 </a>
                             </div>
@@ -210,11 +210,11 @@
                 </div>
             </div>
 
-            <div class="dropdown d-inline-block">
+            {{-- <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item right-bar-toggle me-2">
                     <i data-feather="settings" class="icon-lg"></i>
                 </button>
-            </div>
+            </div> --}}
 
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item bg-soft-light border-start border-end" id="page-header-user-dropdown"
@@ -226,7 +226,7 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
                     <!-- item-->
-                    <a class="dropdown-item" href="apps-contacts-profile "><i class="mdi mdi-account font-size-16 align-middle me-1"></i> Profile</a>
+                    {{-- <a class="dropdown-item" href="apps-contacts-profile "><i class="mdi mdi-account font-size-16 align-middle me-1"></i> Profile</a> --}}
                     {{-- <a class="dropdown-item" href="auth-lock-screen "><i class="mdi mdi-lock font-size-16 align-middle me-1"></i> Lock screen</a> --}}
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-danger" href="javascript:void();" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">@lang('translation.Logout')</span></a>
@@ -255,7 +255,7 @@
 
                     <li class="nav-item dropdown">
                         <a  href="{{ route('asset') }}"class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages" role="button">
-                            <i data-feather="box"></i><span data-key="t-apps">@lang('translation.Apps')</span> <div class="arrow-down"></div>
+                            <i data-feather="box"></i><span data-key="t-apps">@lang('Asset')</span> <div class="arrow-down"></div>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="topnav-pages">
                           

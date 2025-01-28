@@ -545,6 +545,17 @@
             }
         });
     });
+    // When the modal is shown, load the image
+    $('#orderdetailsModal-{{ $property->id }}').on('show.bs.modal', function () {
+        var imageSrc = $('#property-image-{{ $property->id }}').data('src'); // Get the real image source from data-src
+        $('#property-image-{{ $property->id }}').attr('src', imageSrc); // Set the src attribute to the actual image URL
+    });
+
+    // Clear the image source when the modal is hidden (optional but helpful to stop the image from being cached unnecessarily)
+    $('#orderdetailsModal-{{ $property->id }}').on('hidden.bs.modal', function () {
+        $('#property-image-{{ $property->id }}').attr('src', ''); // Clear the image source when the modal is closed
+    });
+
 </script>
 
 

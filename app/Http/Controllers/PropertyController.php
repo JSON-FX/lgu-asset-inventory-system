@@ -15,6 +15,8 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Intervention\Image\Facades\Image;
+use Spatie\ImageOptimizer\OptimizerChainFactory;
 class PropertyController extends Controller
 {
     /**
@@ -183,65 +185,107 @@ class PropertyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
-    {
-        // Validate the other form fields
-        $validated = $request->validate([
-            'property_number' => 'required|string|max:255',
-            'description' => 'required|string',
-            'category_id' => 'required|exists:categories,id',
-            'office_id' => 'required|exists:offices,id',
-            'status_id' => 'required|exists:statuses,id',
-            'employee_id' => 'required|exists:employees,id',
-            'employee_id2' => 'required|exists:employees,id',
-            'account_id' => 'required|exists:accounts,id',
-            'date_purchase' => 'nullable|date',
-            'acquisition_cost' => 'nullable|numeric',
-            'qty' => 'required|integer',
-            'engine_number' => 'nullable|string',
-            'elc_number' => 'nullable|string',
-            'chasis_number' => 'nullable|string',
-            'plate_number' => 'nullable|string',
-            'inventory_remarks' => 'nullable|string',
-            'serial_number' => 'nullable|string|max:255',
-        ]);
+    
 
-        // Validate image upload
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $image = $request->file('image');
-            // Store the image in the 'public' disk (which maps to the public directory)
-            $imagePath = $image->store('images', 'public');
-        } else {
-            // Handle error: No image uploaded or invalid image
-            return back()->withErrors(['image' => 'Invalid image upload']);
-        }
+     public function store(Request $request)
+     {
+         // Validate the other form fields
+         $validated = $request->validate([
+             'property_number' => 'required|string|max:255',
+             'description' => 'required|string',
+             'category_id' => 'required|exists:categories,id',
+             'office_id' => 'required|exists:offices,id',
+             'status_id' => 'required|exists:statuses,id',
+             'employee_id' => 'required|exists:employees,id',
+             'employee_id2' => 'required|exists:employees,id',
+             'account_id' => 'required|exists:accounts,id',
+             'date_purchase' => 'nullable|date',
+             'acquisition_cost' => 'nullable|numeric',
+             'qty' => 'required|integer',
+             'engine_number' => 'nullable|string',
+             'elc_number' => 'nullable|string',
+             'chasis_number' => 'nullable|string',
+             'plate_number' => 'nullable|string',
+             'inventory_remarks' => 'nullable|string',
+             'serial_number' => 'nullable|string|max:255',
+         ]);
+     
+         // Validate image upload
+         if ($request->hasFile('image') && $request->file('image')->isValid()) {
+             $image = $request->file('image');
+     
+             // Store the image temporarily in the 'public' disk
+             $imagePath = $image->store('images', 'public');
+     
+             // Full path of the uploaded image for optimization
+             $imageFullPath = storage_path("app/public/{$imagePath}");
+     
+             // Resize the image (optional, set max width or height)
+             $this->resizeAndCompressImage($imageFullPath);
+         } else {
+             // Handle error: No image uploaded or invalid image
+             return back()->withErrors(['image' => 'Invalid image upload']);
+         }
+     
+         // Store the property details along with the image path
+         Property::create([
+             'property_number' => $request->property_number,
+             'description' => $request->description,
+             'category_id' => $request->category_id,
+             'office_id' => $request->office_id,
+             'status_id' => $request->status_id,
+             'account_id' => $request->account_id,
+             'employee_id' => $request->employee_id,
+             'employee_id2' => $request->employee_id2,
+             'date_purchase' => $request->date_purchase,
+             'acquisition_cost' => $request->acquisition_cost,
+             'qty' => $request->qty,
+             'inventory_remarks' => $request->inventory_remarks,
+             'serial_number' => $request->serial_number,
+             'chasis_number' => $request->chasis_number,
+             'plate_number' => $request->plate_number,
+             'engine_number' => $request->engine_number,
+             'elc_number' => $request->elc_number,
+             'image_path' => $imagePath,  // Store the image path in the database
+         ]);
+     
+         session()->flash('success', 'Asset Added successfully!');
+         // Redirect or return success message
+         return redirect()->route('assetlist.index')->with('success', 'Property added successfully!');
+     }
+     
+     /**
+      * Resize and compress the image.
+      */
+     protected function resizeAndCompressImage($imagePath)
 
-        // Store the property details along with the image path
-        Property::create([
-            'property_number' => $request->property_number,
-            'description' => $request->description,
-            'category_id' => $request->category_id,
-            'office_id' => $request->office_id,
-            'status_id' => $request->status_id,
-            'account_id' => $request->account_id,
-            'employee_id' => $request->employee_id,
-            'employee_id2' => $request->employee_id2,
-            'date_purchase' => $request->date_purchase,
-            'acquisition_cost' => $request->acquisition_cost,
-            'qty' => $request->qty,
-            'inventory_remarks' => $request->inventory_remarks,
-            'serial_number' => $request->serial_number,
-            'chasis_number' => $request->chasis_number,
-            'plate_number' => $request->plate_number,
-            'engine_number' => $request->engine_number,
-            'elc_number' => $request->elc_number,
-            'image_path' => $imagePath,  // Store the image path in the database
-        ]);
-        session()->flash('success', 'Asset Added successfully!');
-        // Redirect or return success message
-        return redirect()->route('assetlist.index')->with('success', 'Property added successfully!');
-    }
-
+     {
+        
+         $image = Image::make($imagePath);
+     
+         // Resize the image to a maximum width of 1200px while maintaining aspect ratio
+         $image->resize(1200, null, function ($constraint) {
+             $constraint->aspectRatio();
+             $constraint->upsize(); // Prevent enlarging smaller images
+         });
+     
+         // Save the resized image (overwrite the original)
+         $image->save($imagePath, 50);  // 70 represents the quality percentage (0-100)
+     
+         // Now apply Spatie Image Optimizer to compress the resized image
+         $this->compressImage($imagePath);
+     }
+     
+     /**
+      * Compress the image without resizing it.
+      */
+     protected function compressImage($imagePath)
+     {
+         $optimizerChain = OptimizerChainFactory::create();
+     
+         // Optimize (compress) the uploaded image (without resizing)
+         $optimizerChain->optimize($imagePath);
+     }
 
     /**
      * Show the form for editing the specified property.
