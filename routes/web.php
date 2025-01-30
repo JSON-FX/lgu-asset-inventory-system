@@ -114,6 +114,17 @@ Route::middleware(['auth'])->group(function () {
         return Pdf::loadView('properties.pdf', compact('property'))
                 ->stream('property-' . $property->id . '.pdf'); // Generate and download PDF
     })->name('asset.exportpdf');
+    
+    // Route::get('/properties/exportpdf/{ids}', function ($ids) {
+    //     $idsArray = explode(',', $ids); // Convert the comma-separated IDs into an array
+    //     $properties = App\Models\Property::with(['category', 'office', 'status', 'employee'])
+    //                                      ->whereIn('id', $idsArray)
+    //                                      ->get(); // Fetch properties based on the selected IDs
+    
+    //     // If you want to generate a single PDF for all properties
+    //     return Pdf::loadView('properties.pdf', compact('properties'))
+    //               ->stream('properties-report.pdf'); // Stream the PDF to the browser
+    // })->name('asset.exportpdf');
 });
 
 

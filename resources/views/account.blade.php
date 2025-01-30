@@ -44,7 +44,7 @@
                                 <form action="{{ route('account.store') }}" method="POST">
                                     @csrf
                                     <div class="mb-4">
-                                        <label for="account_name" class="form-label">account Name</label>
+                                        <label for="account_name" class="form-label">Account Name</label>
                                         <input type="text" id="account_name" name="account_name" class="form-control" required>
                                         @error('account_name')
                                             <div class="text-danger mt-2">{{ $message }}</div>
@@ -95,7 +95,7 @@
                         <thead class="table-light">
                             <tr>
                                 <th>ID</th>
-                                <th>account</th>
+                                <th>Account</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -104,19 +104,8 @@
                                 <tr>
                                     <td>{{ $item->id }}</td>
                                     <td>
-                                        <span class="badge badge-pill 
-                                            @if ($item->account_name == 'Maintenance')
-                                                badge-soft-warning
-                                            @elseif ($item->account_name == 'Serviceable')
-                                                badge-soft-success
-                                            @elseif ($item->account_name == 'Unserviceable')
-                                                badge-soft-danger
-                                            @else
-                                                badge-soft-secondary
-                                            @endif
-                                            font-size-12">
+                                        
                                             {{ $item->account_name }}
-                                        </span>
                                     </td>
                                     
                                     

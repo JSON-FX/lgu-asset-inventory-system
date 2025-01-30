@@ -17,8 +17,8 @@
         /* Card Size - 2.5 inches height and 3.8 inches width */
         .card-container {
             width: 3.8in; /* 3.8 inches for width */
-            height: 2.5in; /* 2.5 inches for height */
-            border: 0.1px solid black;
+            height: 1.3in; /* 2.5 inches for height */
+            border: 1px solid black; /* Optional: Add border for visual clarity */
             box-sizing: border-box;
             overflow: hidden; /* Prevent content from overflowing */
         }
@@ -31,7 +31,7 @@
         }
 
         table th, table td {
-            border: 2px solid black;
+            border: 1px solid black;
             text-align: left;
             font-size: 15px; /* Increased font size for better readability */
         }
@@ -56,8 +56,21 @@
             margin: 0;
         }
 
-       
+        /* Background color for the header row */
+        table tr th.logo,
+        table tr th.title,
+        table tr th.qr-code {
+            background-color: #FFF6DA; /* Background color for logo, title, and QR code sections */
+        }
 
+        /* Note Section - Smaller and Thinner Font */
+        .note {
+            font-size: 12px; /* Smaller font size */
+            font-weight: lighter; /* Thinner font weight */
+            text-align: center; /* Center the text */
+            padding: 5px; /* Add some padding for better spacing */
+            background-color: #FFCDB2; /* Background color for the note section */
+        }
     </style>
 </head>
 <body>
@@ -91,24 +104,11 @@
                 <td>{{ $property->property_number }}</td>
             </tr>
             <tr>
-                <th colspan="2">
+                <th colspan="2" class="note">
                     NOTE: DO NOT REMOVE (Unauthorized removal or tampering will be subject to disciplinary action.)
                 </th>
             </tr>
-            <tr>
-                <th>DESCRIPTION</th>
-                <td>{{ $property->description }}</td>
-            </tr>
-            <tr>
-                <th>SERIAL NO. IF ANY</th>
-                <td>{{ $property->serial_number }}</td>
-            </tr>
-            <tr>
-                <th>INVENTORY COMMITTEE REMARKS</th>
-                <td>{{ $property->inventory_remarks }}</td>
-            </tr>
         </table>
-
     </div>
 </body>
 </html>

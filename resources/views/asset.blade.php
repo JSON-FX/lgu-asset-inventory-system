@@ -60,7 +60,8 @@
                     <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
                         <thead class="table-light">
                             <tr>
-                                <th>Qty</th>
+                                <th>ID No.</th>
+                                {{-- <th>Qty</th> --}}
                                 <th>PR No.</th>
                                 <th>Description</th>
                                 <th>Category</th>
@@ -70,7 +71,7 @@
                                 <th>Accountable</th>--}}
                                 <th>End User</th> 
                                 {{-- <th>Acquisition cost</th> --}}
-                                <th>Status</th>
+                                {{-- <th>Status</th> --}}
                                 {{-- <th>Remarks</th> --}}
                                 <th>Action</th>
                             </tr>
@@ -79,7 +80,8 @@
                         <tbody>
                             @foreach ($properties as $property)
                                 <tr>
-                                    <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ number_format($property->qty,0) }}</td>
+                                    <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->id }}</td>
+                                    {{-- <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ number_format($property->qty,0) }}</td> --}}
                                     <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->property_number }}</td>
                                     <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->description }}</td>
                                     <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->category->category_name }}</td>
@@ -89,7 +91,7 @@
                                     <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->employee2->employee_name }}</td> --}}
                                     <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->employee->employee_name }}</td>
                                     {{-- <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">₱{{ number_format($property->acquisition_cost, 2) }}</td> --}}
-                                    <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">
+                                    {{-- <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">
                                         @if ($property->status->status_name === 'Maintenance')
                                             <span class="badge badge-pill badge-soft-warning font-size-12">Maintenance</span>
                                         @elseif ($property->status->status_name === 'Serviceable')
@@ -99,7 +101,7 @@
                                         @else
                                             <span class="badge badge-pill badge-soft-secondary font-size-12">{{ $property->status->status_name }}</span>
                                         @endif
-                                    </td>
+                                    </td> --}}
                                     {{-- <td class="px-4 py-2 border-b border-gray-300 dark:border-gray-600">{{ $property->inventory_remarks }}</td> --}}
                                     
                                     <td>

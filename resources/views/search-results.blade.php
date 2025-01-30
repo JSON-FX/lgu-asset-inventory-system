@@ -14,7 +14,8 @@
             <p>No results found.</p>
         @else
             <ul class="list-group">
-                @foreach($properties->take(1) as $property)
+                {{-- @foreach($properties as $property) --}}
+                @foreach($properties->take(3) as $property)
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <a href="{{ asset('storage/' . $property->image_path) }}" target="_blank">
                             <img 
@@ -28,9 +29,18 @@
                         
                         
                         <!-- Button to trigger the modal with more detailed information -->
-                        <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#orderdetailsModal-{{ $property->id }}">
-                            View Details
-                        </button>
+                        <div class="btn-group" role="group">
+                            <!-- View Details Button -->
+                            <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#orderdetailsModal-{{ $property->id }}">
+                                View 
+                            </button>
+            
+                            <!-- Edit Button (next to View Details) -->
+                            <button type="button" class="btn btn-success btn-sm" onclick="window.location.href='{{ route('assetlist.editassetlist', $property->id) }}'">
+                                Edit
+                            </button>
+                        </div>
+                        
                     </li>
 
                     <!-- Modal for each property -->

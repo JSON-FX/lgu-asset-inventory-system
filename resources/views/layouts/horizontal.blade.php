@@ -103,19 +103,19 @@
                             <div class="col">
                                 <a class="dropdown-icon-item" href="#">
                                     {{-- <img src="{{ URL::asset('assets/images/brands/dropbox.png') }}" alt="dropbox"> --}}
-                                    <span></span>
+                                    <span>Office</span>
                                 </a>
                             </div>
                             <div class="col">
                                 <a class="dropdown-icon-item" href="#">
                                     {{-- <img src="{{ URL::asset('assets/images/brands/mail_chimp.png') }}" alt="mail_chimp"> --}}
-                                    <span>Mail Chimp</span>
+                                    <span>Generate Report</span>
                                 </a>
                             </div>
                             <div class="col">
                                 <a class="dropdown-icon-item" href="#">
                                     {{-- <img src="{{ URL::asset('assets/images/brands/slack.png') }}" alt="slack"> --}}
-                                    <span>Slack</span>
+                                    <span>Trash</span>
                                 </a>
                             </div>
                         </div>

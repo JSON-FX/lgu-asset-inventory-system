@@ -1,5 +1,5 @@
 @extends('layouts.master-layouts')
-@section('title') @lang('Account') @endsection
+@section('title') @lang('Generate Report') @endsection
 
 @section('css')
 <!-- Bootstrap CDN -->
@@ -24,26 +24,31 @@
                 <div class="row align-items-center">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <h5 class="card-title">Report List <span class="text-muted fw-normal ms-2">({{ $properties->count() }})</span></h5>
+                            <h5 class="card-title">Asset List <span class="text-muted fw-normal ms-2">({{ $properties->count() }})</span></h5>
                         </div>
                     </div>
                 </div>
-                <div id="toolbar">
-                    <select class="form-control">
+                <div id="toolbar" class="d-flex align-items-center">
+                    <select class="form-control" style="width: 70px; height: 28px;">
                         <option value="">Export Basic</option>
                         <option value="all">Export All</option>
                         <option value="selected">Export Selected</option>
                     </select>
-    
+                
                     <!-- Column Visibility Toggle Button -->
-                    <button class="btn btn-secondary" id="export-selected-btn">ICS Export</button>
+                    <button class="btn btn-secondary" id="export-selected-btn" style="width: 65px; height: 28px; margin-left: 10px;">
+                        ICS Export
+                    </button>
+                    <button class="btn btn-secondary" id="export-selected-btn" style="width: 65px; height: 28px; margin-left: 10px;">
+                        PAR Export
+                    </button>
+                    <button class="btn btn-secondary" id="export-selected-btn" style="width: 65px; height: 28px; margin-left: 10px;">
+                        Sticker
+                    </button>
+                    
                 </div>
-                <div id="loading" class="text-center">
-                  <div class="spinner-border text-primary" role="status">
-                      <span class="sr-only">Loading...</span>
-                  </div>
-                  <p>Please wait, loading data...</p>
-                </div>
+              
+                
 
                 <!-- Laravel Dynamic Table for Properties -->
                 <table class="table table-striped" 
@@ -184,7 +189,9 @@
         setTimeout(function () {
             $("#loading").fadeOut();
             $("#table-container").fadeIn();
-        }, 1500); // Delay for 1.5 seconds
+        }, 1); // Delay for 1.5 seconds
     });
+    
+
 </script>
 @endsection
