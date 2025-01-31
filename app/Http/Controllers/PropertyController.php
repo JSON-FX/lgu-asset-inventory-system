@@ -215,11 +215,18 @@ class PropertyController extends Controller
          if ($request->hasFile('image') && $request->file('image')->isValid()) {
              $image = $request->file('image');
      
-             // Store the image temporarily in the 'public' disk
-             $imagePath = $image->store('images', 'public');
-     
-             // Full path of the uploaded image for optimization
-             $imageFullPath = storage_path("app/public/{$imagePath}");
+            
+            // Get the file extension
+            $extension = $image->getClientOriginalExtension();
+
+            // Create a new filename based on the property number
+            $imageName = $request->property_number . '.' . $extension;
+
+            // Store the image using the new name
+            $imagePath = $image->storeAs('images', $imageName, 'public');
+
+            // Full path of the uploaded image for optimization
+            $imageFullPath = storage_path("app/public/{$imagePath}");
      
              // Resize the image (optional, set max width or height)
              $this->resizeAndCompressImage($imageFullPath);
@@ -360,22 +367,31 @@ class PropertyController extends Controller
         'plate_number' => 'nullable|string',
         'image' => 'nullable|image|mimes:jpg,jpeg,png,gif', // Image validation
     ]);
-
-        // Check if an image is uploaded
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             // Delete the old image if it exists
             if ($property->image_path && file_exists(storage_path('app/public/' . $property->image_path))) {
                 unlink(storage_path('app/public/' . $property->image_path));
             }
 
-            // Store the new image
+            // Handle the new image upload
             $image = $request->file('image');
-            $imagePath = $image->store('images', 'public'); // Store in 'public' disk
-            $request->merge(['image_path' => $imagePath]); // Add the image path to the request data
+            
+            // Get the file extension
+            $extension = $image->getClientOriginalExtension();
+            
+            // Create a new filename based on the property number
+            $imageName = $request->property_number . '.' . $extension;
+
+            // Store the new image using the new name
+            $imagePath = $image->storeAs('images', $imageName, 'public'); 
+
+            // Set the image path for the request
+            $request->merge(['image_path' => $imagePath]);
         }
 
         // Update the property details
-        $property->update($request->except('image')); // We exclude 'image' since it's already handled separately
+        $property->update($request->except('image')); // Exclude 'image' from mass assignment as it's handled above
+
         session()->flash('success', 'Asset updated successfully!');
         // Redirect with success message
         return redirect()->route('asset')->with('success', 'Asset updated successfully!');

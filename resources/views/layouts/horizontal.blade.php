@@ -263,7 +263,7 @@
 
                             
                             <a href="{{ route('asset') }}" class="dropdown-item" data-key="t-chat">@lang('Assetlist')</a>
-                            <a href="{{ route('assetlist.create') }}" class="dropdown-item" data-key="t-chat">@lang('Add Asset')</a>
+                            {{-- <a href="{{ route('assetlist.create') }}" class="dropdown-item" data-key="t-chat">@lang('Add Asset')</a> --}}
 
                         </div>
                     </li>
