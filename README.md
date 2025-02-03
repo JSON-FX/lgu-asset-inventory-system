@@ -9,11 +9,13 @@ This is a Laravel-based web application built to manage property assets, invento
 - Admin Dashboard
 - Add Edit Update Delete Asset
 
-## Requirements
-- PHP >= 8.0 up
-- Composer
-- MySQL or other supported database
-- Node.js and npm (for frontend assets)
+## Prerequisites
+Before starting, ensure you have:
+- Git installed
+- PHP installed
+- Node.js/NPM installed
+- MySQL database server running
+- For Windows Imagick installed and ;extension=gd in php.ini enabled
 
 ## Installation
 
@@ -29,7 +31,7 @@ This is a Laravel-based web application built to manage property assets, invento
 
 3. Install PHP dependencies:
    ```bash
-   composer install --optimize-autoloader --no-dev
+   composer install 
    ```
 
 4. Install JavaScript dependencies:
@@ -112,11 +114,7 @@ This is a Laravel-based web application built to manage property assets, invento
    chmod -R 775 storage bootstrap/cache
    ```
 
-## Contributing
-Contributions are welcome! Please submit a pull request or open an issue to discuss any changes.
 
-## License
-This project is open-source and available under the [LICENSE](/LICENSE) file.
 
 ## Contact
 For any inquiries, please contact LGU-MIS-QUEZON at lgu.quezon.bukidnon@gmail.com.
