@@ -15,7 +15,7 @@ Before starting, ensure you have:
 - PHP installed
 - Node.js/NPM installed
 - MySQL database server running
-- For Windows Imagick installed and ;extension=gd in php.ini enabled
+- For Windows Imagick installed and ;extension=gd in php.ini enabled https://www.youtube.com/watch?v=qZ9_rq6c9uY&ab_channel=MuruganS
 
 ## Installation
 
