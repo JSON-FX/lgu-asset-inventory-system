@@ -64,9 +64,9 @@ Before starting, ensure you have:
    ```
    - import the employee.sql  first before running php artisan serve located at the database/seeders/employee.sql it will serve as Users List
 
-10. Compile frontend assets:
+10. Storage Link:
     ```bash
-    npm run dev
+    php artisan storage:link
     ```
 
 11. Start the development server:
